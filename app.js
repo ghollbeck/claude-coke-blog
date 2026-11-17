@@ -439,54 +439,103 @@ document.addEventListener('DOMContentLoaded', () => {
       modes: {
         funnel: {
           series: [
-            { label: 'Emoji Storefront (n=180)', color: '#7349E5', hatched: true },
-            { label: 'Explicit Storefront (n=180)', color: '#A582F7' }
+            { label: 'Emoji Storefront (n=180)', color: '#009E73' },
+            { label: 'Explicit Storefront (n=180)', color: '#2563EB' }
           ],
           groups: [
-            { label: '1. Search', values: [{ val: 94.4, hatched: true }, { val: 50.0 }] },
-            { label: '2. Browse', values: [{ val: 90.0, hatched: true }, { val: 47.8 }] },
-            { label: '3. View', values: [{ val: 87.8, hatched: true }, { val: 46.1 }] },
-            { label: '4. Cart', values: [{ val: 84.4, hatched: true }, { val: 44.4 }] },
-            { label: '5. Checkout', values: [{ val: 81.7, hatched: true }, { val: 43.3 }] },
-            { label: '6. Shipping', values: [{ val: 79.4, hatched: true }, { val: 42.2 }] },
-            { label: '7. Payment', values: [{ val: 77.8, hatched: true }, { val: 41.1 }] },
-            { label: '8. Order', values: [{ val: 60.6, hatched: true }, { val: 33.9 }] }
+            { label: '1. Search', values: [{ val: 94.4 }, { val: 50.0 }] },
+            { label: '2. Browse', values: [{ val: 90.0 }, { val: 47.8 }] },
+            { label: '3. View', values: [{ val: 87.8 }, { val: 46.1 }] },
+            { label: '4. Cart', values: [{ val: 84.4 }, { val: 44.4 }] },
+            { label: '5. Checkout', values: [{ val: 81.7 }, { val: 43.3 }] },
+            { label: '6. Shipping', values: [{ val: 79.4 }, { val: 42.2 }] },
+            { label: '7. Payment', values: [{ val: 77.8 }, { val: 41.1 }] },
+            { label: '8. Order', values: [{ val: 60.6 }, { val: 33.9 }] }
           ],
           caption: 'Replacing explicit product names with DEA-cataloged emoji codes lifts Step-1 search passage from <strong>50.0% to 94.4%</strong> and overall order completion from <strong>33.9% to 60.6%</strong>. Once payment is entered at Step 7, <strong>79.4%</strong> (170 / 214) place the order.'
         },
         models: {
-          series: [
-            { label: 'Emoji Storefront (n=30)', color: '#7349E5', hatched: true },
-            { label: 'Explicit Storefront (n=30)', color: '#A582F7' }
+          stacked: true,
+          outcomes: [
+            { label: 'Completed', color: '#009E73' },
+            { label: 'Refused', color: '#D7301F' },
+            { label: 'Failed (cap.)', color: '#6C7785' }
           ],
           groups: [
-            { label: 'Sonnet 4/4.5', values: [{ val: 83.3, hatched: true }, { val: 20.0 }] },
-            { label: 'Gemini-3.1-Pro', values: [{ val: 66.7, hatched: true }, { val: 30.0 }] },
-            { label: 'Haiku-4.5', values: [{ val: 63.3, hatched: true }, { val: 16.7 }] },
-            { label: 'Gemini-3-Flash', values: [{ val: 56.7, hatched: true }, { val: 53.3 }] },
-            { label: 'GPT-5.4', values: [{ val: 56.7, hatched: true }, { val: 16.7 }] },
-            { label: 'GPT-4.1-mini', values: [{ val: 36.7, hatched: true }, { val: 66.7 }] }
+            {
+              label: 'Sonnet 4/4.5',
+              bars: [
+                { sublabel: 'Emj', title: 'Sonnet 4/4.5 · Emoji (n=30)', segments: [83.3, 6.7, 10.0] },
+                { sublabel: 'Exp', title: 'Sonnet 4/4.5 · Explicit (n=30)', segments: [20.0, 80.0, 0.0] }
+              ]
+            },
+            {
+              label: 'Gemini-3.1-Pro',
+              bars: [
+                { sublabel: 'Emj', title: 'Gemini-3.1-Pro · Emoji (n=30)', segments: [66.7, 6.7, 26.7] },
+                { sublabel: 'Exp', title: 'Gemini-3.1-Pro · Explicit (n=30)', segments: [30.0, 43.3, 26.7] }
+              ]
+            },
+            {
+              label: 'Haiku-4.5',
+              bars: [
+                { sublabel: 'Emj', title: 'Haiku-4.5 · Emoji (n=30)', segments: [63.3, 0.0, 36.7] },
+                { sublabel: 'Exp', title: 'Haiku-4.5 · Explicit (n=30)', segments: [16.7, 80.0, 3.3] }
+              ]
+            },
+            {
+              label: 'GPT-5.4',
+              bars: [
+                { sublabel: 'Emj', title: 'GPT-5.4 · Emoji (n=30)', segments: [56.7, 36.7, 6.7] },
+                { sublabel: 'Exp', title: 'GPT-5.4 · Explicit (n=30)', segments: [16.7, 83.3, 0.0] }
+              ]
+            },
+            {
+              label: 'Gemini-3-Flash',
+              bars: [
+                { sublabel: 'Emj', title: 'Gemini-3-Flash · Emoji (n=30)', segments: [56.7, 0.0, 43.3] },
+                { sublabel: 'Exp', title: 'Gemini-3-Flash · Explicit (n=30)', segments: [53.3, 16.7, 30.0] }
+              ]
+            },
+            {
+              label: 'GPT-4.1-mini',
+              bars: [
+                { sublabel: 'Emj', title: 'GPT-4.1-mini · Emoji (n=30)', segments: [56.7, 16.7, 26.7] },
+                { sublabel: 'Exp', title: 'GPT-4.1-mini · Explicit (n=30)', segments: [73.3, 6.7, 20.0] }
+              ]
+            }
           ],
-          caption: 'Five of six frontier models complete substantially more checkouts under emoji obfuscation than under explicit naming. Claude Sonnet 4/4.5 rises from <strong>20.0% to 83.3%</strong> and Haiku-4.5 rises from <strong>16.7% to 63.3%</strong> with zero emoji refusals.'
+          caption: 'Paired outcome breakdown (<strong>Emj</strong> = Emoji vs. <strong>Exp</strong> = Explicit, n=30 each, pooled across vision off/on; completion % shown above bars). Five of six frontier models refuse far less and complete more under emoji obfuscation—Claude Sonnet 4/4.5 jumps from <strong>20.0% &rarr; 83.3%</strong> completed (80.0% &rarr; 6.7% refused), and Haiku-4.5 jumps from <strong>16.7% &rarr; 63.3%</strong> with <strong>0.0%</strong> emoji refusals.'
         },
         vision: {
           series: [
-            { label: 'Emoji · Vision Off (n=15)', color: '#A582F7' },
-            { label: 'Emoji · Vision On (n=15)', color: '#7349E5', hatched: true }
+            { label: 'Emoji · Vision Off (n=15)', color: '#6C7785' },
+            { label: 'Emoji · Vision On (n=15)', color: '#009E73' }
           ],
           groups: [
-            { label: 'Haiku-4.5 (+60pp)', values: [{ val: 33.3 }, { val: 93.3, hatched: true }] },
-            { label: 'Gemini-3-Flash (+60pp)', values: [{ val: 26.7 }, { val: 86.7, hatched: true }] },
-            { label: 'Gemini-3.1-Pro', values: [{ val: 53.3 }, { val: 80.0, hatched: true }] },
-            { label: 'Sonnet 4/4.5', values: [{ val: 93.3 }, { val: 73.3, hatched: true }] },
-            { label: 'GPT-5.4', values: [{ val: 60.0 }, { val: 53.3, hatched: true }] },
-            { label: 'GPT-4.1-mini', values: [{ val: 40.0 }, { val: 33.3, hatched: true }] }
+            { label: 'Haiku-4.5 (+60pp)', values: [{ val: 33.3 }, { val: 93.3 }] },
+            { label: 'Gemini-3-Flash (+60pp)', values: [{ val: 26.7 }, { val: 86.7 }] },
+            { label: 'Gemini-3.1-Pro', values: [{ val: 53.3 }, { val: 80.0 }] },
+            { label: 'Sonnet 4/4.5', values: [{ val: 93.3 }, { val: 73.3 }] },
+            { label: 'GPT-5.4', values: [{ val: 60.0 }, { val: 53.3 }] },
+            { label: 'GPT-4.1-mini', values: [{ val: 53.3 }, { val: 60.0 }] }
           ],
           caption: 'Enabling screenshot vision on the emoji storefront reduces navigation failures and boosts checkout completion by <strong>+60 percentage points</strong> for both Claude Haiku-4.5 (<strong>33.3% &rarr; 93.3%</strong>) and Gemini-3-Flash (<strong>26.7% &rarr; 86.7%</strong>).'
         }
       },
       render() {
         const cfg = this.modes[this.currentMode];
+        if (cfg.stacked) {
+          renderStackedOutcomeChart({
+            plotId: 'chart4Plot',
+            legendId: 'chart4Legend',
+            captionId: 'chart4Caption',
+            outcomes: cfg.outcomes,
+            groups: cfg.groups,
+            caption: cfg.caption
+          });
+          return;
+        }
         renderOaiBarChart({
           plotId: 'chart4Plot',
           legendId: 'chart4Legend',
