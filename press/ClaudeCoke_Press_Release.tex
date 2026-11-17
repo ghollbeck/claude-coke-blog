@@ -2,7 +2,8 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage[scaled=0.95]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage[a4paper, top=2.8cm, bottom=2.0cm, left=2.2cm, right=2.2cm, headheight=42pt, headsep=14pt]{geometry}
@@ -102,7 +103,7 @@
 % Body Paragraphs
 \textbf{ZURICH, Switzerland.} As autonomous AI agents move from conversational assistants to software operators that manage inventories, negotiate with suppliers, and execute browser transactions, a structural safety gap emerges. To understand whether ordinary, individually benign agentic capabilities can compose into automated criminal execution, researchers from ETH Zurich, Stanford University, and Harvard University evaluated the full operational chain in a new position paper accepted to the \textbf{NeurIPS 2026 Position Paper Track}, titled \textit{Claude Coke: Prevent Automated Crime by Agents}.
 
-The study was authored by Gabor Hollbeck, Baran Peters, Alexander von Recum, Yuri Simantob, Jay Grant, Alec McGail, and Kevin Riehl, under the supervision of Kevin O'Sullivan and Dr.\ Robert Jakob at the ETH Zurich Agentic Systems Lab. Rather than testing isolated chat prompts, we evaluate the composed operational chain $P(A, B, C) = P(A) \cdot P(B \mid A) \cdot P(C \mid A, B)$ across three empirical phases, namely multi-agent economic distress ($A$), harmful tool selection under pressure ($B \mid A$), and autonomous browser-based procurement ($C \mid A, B$).
+The study was authored by Gabor Hollbeck, Baran Peters, Alexander von Recum, Yuri Simantob, Jay Grant, Alec McGail, and Kevin Riehl, under the supervision of Kevin O'Sullivan and Dr.\ Robert Jakob at the ETH Zurich Agentic Systems Lab. Rather than testing isolated chat prompts, we evaluate the composed three-stage sequence of multi-agent economic distress, harmful tool selection under pressure, and autonomous browser-based procurement.
 
 \textbf{Phase 1. Ordinary Coordination Failures Drive Agents into Insolvency.}
 To measure whether standard multi-agent business dynamics generate financial distress without adversarial interference, we ran 58 stochastic Beer Game supply-chain simulations involving four coupled agents (retailer, wholesaler, distributor, and factory). In this setting, \textbf{84.5\% of runs (49 of 58)} ended in bankruptcy due to demand-amplification cascades. Introducing an advisory Orchestrator agent delayed insolvency from a mean of \textbf{63.4 rounds} to \textbf{80.8 rounds}, while failing to prevent systemic collapse. This means that ordinary coordination failures routinely place autonomous agents under severe financial distress before any explicit attack occurs.

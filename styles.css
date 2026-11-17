@@ -199,6 +199,23 @@ body {
   border-bottom: 1px solid var(--rule-hairline);
 }
 
+.meta-neurips-badge {
+  display: inline-block;
+  margin-bottom: 0.9rem;
+  opacity: 0.92;
+  transition: opacity 0.15s ease;
+}
+
+.meta-neurips-badge:hover {
+  opacity: 1;
+}
+
+.meta-neurips-logo {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
 .meta-key {
   font-weight: 600;
   color: var(--ink-primary);
