@@ -1,0 +1,1170 @@
+/* ============================================================================
+   SIMULATIONS.CSS — Live Interactive Simulation Modules (Phase 1 & Phase 3)
+   Styled after OpenAI's "Simulating Git Server Implementations" interactive card
+   ============================================================================ */
+
+.oai-sim-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 6px;
+  padding: 26px 28px 24px;
+  margin: 28px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  color: #111111;
+  box-sizing: border-box;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.oai-sim-card *,
+.oai-sim-card *::before,
+.oai-sim-card *::after {
+  box-sizing: border-box;
+}
+
+/* --- Header Row --- */
+.oai-sim-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+}
+
+.oai-sim-title-block {
+  max-width: 680px;
+}
+
+.oai-sim-title {
+  margin: 0 0 6px 0;
+  font-size: 18.5px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: #111111;
+}
+
+.oai-sim-subtitle {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.48;
+  color: #555555;
+  font-weight: 400;
+}
+
+.oai-sim-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.oai-sim-btn {
+  appearance: none;
+  background: #FFFFFF;
+  border: 1px solid #111111;
+  border-radius: 3px;
+  color: #111111;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  line-height: 1;
+  user-select: none;
+}
+
+.oai-sim-btn:hover {
+  background: #111111;
+  color: #FFFFFF;
+}
+
+.oai-sim-btn.is-active {
+  background: #111111;
+  color: #FFFFFF;
+}
+
+.oai-sim-btn.is-secondary {
+  border-color: #CCCCCC;
+  color: #333333;
+}
+
+.oai-sim-btn.is-secondary:hover {
+  border-color: #111111;
+  background: #F5F5F5;
+  color: #111111;
+}
+
+/* --- Filter / Configuration Bar --- */
+.oai-sim-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 22px;
+  padding: 13px 0;
+  border-top: 1px solid #EFEFEF;
+  border-bottom: 1px solid #EFEFEF;
+  margin-bottom: 18px;
+}
+
+.oai-sim-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.oai-sim-control label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #444444;
+  white-space: nowrap;
+}
+
+.oai-sim-select {
+  appearance: none;
+  background-color: #FFFFFF;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23333333' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+  border: 1px solid #DCDCDC;
+  border-radius: 4px;
+  padding: 5px 26px 5px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #111111;
+  font-family: inherit;
+  cursor: pointer;
+  line-height: 1.3;
+  transition: border-color 0.12s ease;
+}
+
+.oai-sim-select:hover,
+.oai-sim-select:focus {
+  border-color: #888888;
+  outline: none;
+}
+
+.oai-sim-status-pill {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: #444444;
+  background: #FAFAFA;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  padding: 4px 10px;
+}
+
+.oai-sim-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  display: inline-block;
+}
+
+.oai-sim-status-dot.is-paused {
+  background: #9CA3AF;
+}
+
+.oai-sim-status-dot.is-bankrupt,
+.oai-sim-status-dot.is-refused {
+  background: #D92D20;
+}
+
+/* ============================================================================
+   MODULE 1: PHASE 1 BEER GAME MULTI-AGENT SVG & REAL-TIME CHART
+   ============================================================================ */
+
+.p1-stage-box {
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  background: #FCFCFC;
+  padding: 14px 16px 12px;
+  margin-bottom: 14px;
+}
+
+.p1-stage-toprow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.p1-stage-caption {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #222222;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.p1-stage-sub {
+  font-size: 11px;
+  color: #666666;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.p1-svg-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.p1-svg-wrap svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@keyframes p1OrderGlide {
+  0% { transform: translateX(-18px) translateY(6px); opacity: 0.55; }
+  50% { transform: translateX(0px) translateY(-4px); opacity: 1; }
+  100% { transform: translateX(18px) translateY(6px); opacity: 0.75; }
+}
+
+@keyframes p1ShipGlide {
+  0% { transform: translateX(18px) translateY(-4px); opacity: 0.55; }
+  50% { transform: translateX(0px) translateY(3px); opacity: 1; }
+  100% { transform: translateX(-18px) translateY(-4px); opacity: 0.75; }
+}
+
+.p1-packet-order {
+  animation: p1OrderGlide 1.1s ease-in-out infinite;
+}
+
+.p1-packet-ship {
+  animation: p1ShipGlide 1.1s ease-in-out infinite;
+}
+
+/* Live Agent Comms & Orchestrator Log Strip */
+.p1-comms-strip {
+  margin-top: 10px;
+  padding: 9px 12px;
+  background: #FFFFFF;
+  border: 1px solid #E6E6E6;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.p1-comms-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  flex: 1;
+}
+
+.p1-comms-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #F3F4F6;
+  color: #374151;
+  border: 1px solid #E5E7EB;
+  white-space: nowrap;
+}
+
+.p1-comms-badge.is-orch {
+  background: #EEF2FF;
+  color: #4338CA;
+  border-color: #C7D2FE;
+}
+
+.p1-comms-badge.is-comm {
+  background: #ECFDF5;
+  color: #047857;
+  border-color: #A7F3D0;
+}
+
+.p1-comms-badge.is-alert {
+  background: #FEF2F2;
+  color: #B91C1C;
+  border-color: #FECACA;
+}
+
+.p1-comms-text {
+  color: #1F2937;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.p1-comms-metrics {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  color: #555555;
+  font-size: 11px;
+}
+
+.p1-comms-metrics strong {
+  color: #111111;
+  font-weight: 600;
+}
+
+/* Bottom Chart Section (OpenAI style) */
+.p1-chart-section {
+  padding-top: 14px;
+  border-top: 1px solid #EFEFEF;
+}
+
+.p1-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.p1-chart-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.p1-chart-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 11.5px;
+  color: #555555;
+}
+
+.p1-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.p1-legend-swatch {
+  width: 12px;
+  height: 2.5px;
+  border-radius: 1px;
+  display: inline-block;
+}
+
+.p1-legend-swatch.is-dashed {
+  background: repeating-linear-gradient(
+    to right,
+    #888888 0,
+    #888888 4px,
+    transparent 4px,
+    transparent 7px
+  );
+}
+
+.p1-chart-svg-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.p1-chart-svg-wrap svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Scrubber Row */
+.oai-scrubber-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+  padding-top: 6px;
+}
+
+.oai-scrubber-label {
+  font-size: 11.5px;
+  color: #666666;
+  white-space: nowrap;
+  min-width: 96px;
+}
+
+.oai-scrubber-slider {
+  flex: 1;
+  appearance: none;
+  height: 4px;
+  background: #E5E5E5;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.oai-scrubber-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #111111;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px #111111;
+  cursor: grab;
+  transition: transform 0.1s ease;
+}
+
+.oai-scrubber-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.oai-scrubber-readout {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #111111;
+  min-width: 82px;
+  text-align: right;
+}
+
+/* ============================================================================
+   MODULE 2: PHASE 3 TOR BROWSER FOR AGENTS & 8-STEP CHECKOUT SIMULATION
+   ============================================================================ */
+
+/* 8-Step Commitment Depth Funnel Strip */
+.p3-funnel-strip {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.p3-step-pill {
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  background: #FAFAFA;
+  padding: 7px 6px;
+  text-align: center;
+  transition: all 0.18s ease;
+  position: relative;
+}
+
+.p3-step-num {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #888888;
+  margin-bottom: 2px;
+}
+
+.p3-step-name {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #444444;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p3-step-pill.is-reached {
+  background: #F0FDF4;
+  border-color: #86EFAC;
+}
+
+.p3-step-pill.is-reached .p3-step-num {
+  color: #15803D;
+}
+
+.p3-step-pill.is-reached .p3-step-name {
+  color: #14532D;
+}
+
+.p3-step-pill.is-current {
+  background: #EEF2FF;
+  border-color: #6366F1;
+  box-shadow: 0 0 0 1px #6366F1;
+}
+
+.p3-step-pill.is-current .p3-step-num,
+.p3-step-pill.is-current .p3-step-name {
+  color: #312E81;
+}
+
+.p3-step-pill.is-refused {
+  background: #FEF2F2;
+  border-color: #FCA5A5;
+  box-shadow: 0 0 0 1px #EF4444;
+}
+
+.p3-step-pill.is-refused .p3-step-num,
+.p3-step-pill.is-refused .p3-step-name {
+  color: #991B1B;
+}
+
+.p3-step-pill.is-failed {
+  background: #F3F4F6;
+  border-color: #9CA3AF;
+}
+
+/* Main Split Grid: Tor Browser (Left 64%) + MCP Telemetry (Right 36%) */
+.p3-workspace-grid {
+  display: grid;
+  grid-template-columns: 1.75fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .p3-workspace-grid {
+    grid-template-columns: 1fr;
+  }
+  .p3-funnel-strip {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tor Browser Window */
+.tor-browser-window {
+  border: 1px solid #D4D4D8;
+  border-radius: 6px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 410px;
+  position: relative;
+}
+
+.tor-chrome-top {
+  background: #1E1B2E;
+  color: #E5E7EB;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid #2E2A44;
+}
+
+.tor-window-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tor-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.tor-dot.is-red { background: #EF4444; }
+.tor-dot.is-amber { background: #F59E0B; }
+.tor-dot.is-green { background: #10B981; }
+
+.tor-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #E9D5FF;
+  background: #2D264B;
+  border: 1px solid #4C3D7A;
+  padding: 3px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.tor-circuit-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  color: #A7F3D0;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.tor-url-bar-row {
+  background: #28243D;
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #373252;
+}
+
+.tor-nav-arrows {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  color: #9CA3AF;
+  letter-spacing: 2px;
+  user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tor-url-input {
+  flex: 1;
+  min-width: 0;
+  background: #161324;
+  border: 1px solid #3F3861;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: #F3E8FF;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tor-onion-lock {
+  color: #C084FC;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: rgba(168, 85, 247, 0.18);
+  padding: 1px 5px;
+  border-radius: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tor-vision-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 3px;
+  background: #373056;
+  color: #DDD6FE;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Storefront Viewport inside Tor Browser */
+.tor-viewport {
+  flex: 1;
+  background: #F9FAFB;
+  position: relative;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  user-select: none;
+}
+
+.tor-store-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #E5E7EB;
+  margin-bottom: 12px;
+}
+
+.tor-store-brand {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.tor-store-tag {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #6B7280;
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.tor-store-cart {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #111827;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+  padding: 3px 9px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tor-store-cart.has-item {
+  background: #EEF2FF;
+  border-color: #6366F1;
+  color: #312E81;
+}
+
+/* Search Bar inside Storefront */
+.tor-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+  border-radius: 4px;
+  padding: 6px 11px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #111827;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tor-search-bar.is-focused {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.12);
+}
+
+.tor-search-btn {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: #111827;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+/* Dynamic Viewport Stage Container */
+.tor-stage-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Catalog Grid */
+.tor-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.tor-item-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.tor-item-card.is-target {
+  border-color: #6366F1;
+  background: #FAFAF9;
+}
+
+.tor-item-card.is-selected {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+  background: #EEF2FF;
+}
+
+.tor-item-thumb {
+  height: 54px;
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tor-item-thumb .tor-blur-glyph {
+  filter: blur(1.5px);
+}
+
+.tor-redacted-stamp {
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+  background: rgba(17, 24, 39, 0.78);
+  color: #F9FAFB;
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+.tor-item-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tor-item-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  color: #4B5563;
+}
+
+.tor-item-price {
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Product Detail / Checkout Form Drawer inside Tor Viewport */
+.tor-detail-panel {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 5px;
+  padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tor-detail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.tor-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tor-detail-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.tor-detail-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.tor-detail-sku {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10.5px;
+  color: #6B7280;
+}
+
+.tor-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.tor-form-field {
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  padding: 5px 8px;
+}
+
+.tor-form-field.is-active {
+  border-color: #4F46E5;
+  background: #EEF2FF;
+}
+
+.tor-field-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6B7280;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.tor-field-val {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: #111827;
+  min-height: 15px;
+}
+
+.tor-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+
+.tor-action-btn {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 13px;
+  border-radius: 4px;
+  background: #111827;
+  color: #FFFFFF;
+  border: 1px solid #111827;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tor-action-btn.is-clicked {
+  background: #4F46E5;
+  border-color: #4F46E5;
+}
+
+/* Status Banner Overlays (Completed / Refused / Failed) */
+.tor-outcome-banner {
+  margin-top: 10px;
+  padding: 9px 12px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tor-outcome-banner.is-completed {
+  background: #ECFDF5;
+  border: 1px solid #6EE7B7;
+  color: #065F46;
+}
+
+.tor-outcome-banner.is-refused {
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  color: #991B1B;
+}
+
+.tor-outcome-banner.is-failed {
+  background: #F3F4F6;
+  border: 1px solid #D1D5DB;
+  color: #374151;
+}
+
+/* Autonomous Agent Floating Cursor inside Tor Browser */
+.tor-agent-cursor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 30;
+  pointer-events: none;
+  transition: top 0.42s cubic-bezier(0.22, 1, 0.36, 1), left 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.tor-cursor-arrow {
+  width: 16px;
+  height: 16px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+}
+
+.tor-cursor-tag {
+  background: #111827;
+  color: #FFFFFF;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  border: 1px solid #374151;
+  margin-top: 10px;
+}
+
+.tor-cursor-ring {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #4F46E5;
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.tor-agent-cursor.is-clicking .tor-cursor-ring {
+  animation: torClickPulse 0.45s ease-out forwards;
+}
+
+@keyframes torClickPulse {
+  0% { opacity: 0.95; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(1.75); }
+}
+
+/* Right Column: Playwright MCP Agent Trace & Empirical Cell Telemetry */
+.p3-telemetry-panel {
+  border: 1px solid #E5E5E5;
+  border-radius: 6px;
+  background: #FCFCFC;
+  padding: 13px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.p3-tel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.p3-tel-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #111111;
+  white-space: nowrap;
+}
+
+.p3-tel-sub {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10px;
+  color: #666666;
+  white-space: nowrap;
+}
+
+.p3-mcp-log {
+  background: #FFFFFF;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10.2px;
+  line-height: 1.38;
+  color: #1F2937;
+  min-height: 238px;
+  max-height: 265px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.p3-log-entry {
+  padding-bottom: 4px;
+  border-bottom: 1px dashed #F0F0F0;
+}
+
+.p3-log-entry:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.p3-log-step {
+  color: #6366F1;
+  font-weight: 700;
+}
+
+.p3-log-tool {
+  color: #0F766E;
+  font-weight: 600;
+}
+
+.p3-log-refusal {
+  color: #B91C1C;
+  font-weight: 600;
+}
+
+/* Empirical Cell Breakdown Box (n = 15 trials from Table C.3) */
+.p3-empirical-box {
+  background: #FFFFFF;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  padding: 9px 11px;
+}
+
+.p3-emp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #222222;
+  white-space: nowrap;
+}
+
+.p3-emp-bar {
+  height: 9px;
+  border-radius: 3px;
+  background: #F3F4F6;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.p3-emp-seg-c { background: #009E73; }
+.p3-emp-seg-r { background: #D7301F; }
+.p3-emp-seg-f { background: #9CA3AF; }
+
+.p3-emp-counts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 9.8px;
+  color: #4B5563;
+  white-space: nowrap;
+}
+
+.p3-emp-counts span strong {
+  color: #111111;
+}
