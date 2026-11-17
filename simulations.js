@@ -254,7 +254,7 @@
         <div class="p1-stage-box">
           <div class="p1-stage-toprow">
             <div class="p1-stage-caption">
-              <span>Multi-Agent Supply-Chain Topology & Live Packet Flow</span>
+              <span>Supply-Chain Agent Interaction</span>
             </div>
             <div class="p1-stage-sub" data-p1-arch-summary>
               14/15 runs bankrupt (mean 63.4 rounds) · Dominant failure: Overordering Cascade (36/49)
@@ -262,188 +262,213 @@
           </div>
 
           <div class="p1-svg-wrap">
-            <svg viewBox="0 0 920 336" xmlns="http://www.w3.org/2000/svg" aria-label="Phase 1 Multi-Agent Supply Chain Diagram">
+            <svg viewBox="0 0 900 318" xmlns="http://www.w3.org/2000/svg" aria-label="Phase 1 Multi-Agent Supply Chain Diagram">
               <defs>
-                <marker id="p1-arrow-order" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <marker id="p1-arrow-order" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
                   <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7C3AED"/>
                 </marker>
-                <marker id="p1-arrow-ship" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <marker id="p1-arrow-ship" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
                   <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0D9488"/>
                 </marker>
-                <marker id="p1-arrow-orch" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <marker id="p1-arrow-orch" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
                   <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#4F46E5"/>
                 </marker>
               </defs>
 
-              <!-- Top Coordination / Orchestrator Layer -->
+              <!-- Top Coordination / Orchestrator Layer (Compact Pill) -->
               <g data-p1-coord-layer>
-                <rect x="198" y="8" width="688" height="44" rx="5" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" data-p1-coord-box />
-                <text x="214" y="26" font-size="10.5" font-weight="700" fill="#1E293B" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" data-p1-coord-title>
-                  ISOLATED STATE (NO SHARED MEMORY OR MEDIATOR)
-                </text>
-                <text x="214" y="41" font-size="10" fill="#64748B" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" data-p1-coord-desc>
-                  Each LLM role observes only local inventory, backlog, and immediate neighbor orders.
-                </text>
-
-                <!-- Advisory / Comms Arcs down to the 4 Role Nodes -->
-                <g data-p1-coord-lines opacity="0.22">
-                  <line x1="272" y1="52" x2="272" y2="118" stroke="#4F46E5" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#p1-arrow-orch)"/>
-                  <line x1="452" y1="52" x2="452" y2="118" stroke="#4F46E5" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#p1-arrow-orch)"/>
-                  <line x1="632" y1="52" x2="632" y2="118" stroke="#4F46E5" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#p1-arrow-orch)"/>
-                  <line x1="812" y1="52" x2="812" y2="118" stroke="#4F46E5" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#p1-arrow-orch)"/>
+                <!-- Curved dashed links from top pill center (535, 50) to each of the 4 agents -->
+                <g data-p1-coord-lines opacity="0.2">
+                  <path d="M 465 48 C 360 72, 256 82, 256 128" fill="none" stroke="#4F46E5" stroke-width="1.3" stroke-dasharray="3 3" marker-end="url(#p1-arrow-orch)"/>
+                  <path d="M 510 48 C 475 78, 442 92, 442 128" fill="none" stroke="#4F46E5" stroke-width="1.3" stroke-dasharray="3 3" marker-end="url(#p1-arrow-orch)"/>
+                  <path d="M 560 48 C 595 78, 628 92, 628 128" fill="none" stroke="#4F46E5" stroke-width="1.3" stroke-dasharray="3 3" marker-end="url(#p1-arrow-orch)"/>
+                  <path d="M 605 48 C 710 72, 814 82, 814 128" fill="none" stroke="#4F46E5" stroke-width="1.3" stroke-dasharray="3 3" marker-end="url(#p1-arrow-orch)"/>
                 </g>
 
-                <!-- Animated Mediator Hint Pulses -->
+                <!-- Animated Mediator Pulses -->
                 <g data-p1-coord-pulses opacity="0">
-                  <circle cx="272" cy="82" r="4" fill="#4F46E5"/>
-                  <circle cx="452" cy="82" r="4" fill="#4F46E5"/>
-                  <circle cx="632" cy="82" r="4" fill="#4F46E5"/>
-                  <circle cx="812" cy="82" r="4" fill="#4F46E5"/>
+                  <circle cx="330" cy="84" r="3.5" fill="#4F46E5"/>
+                  <circle cx="468" cy="86" r="3.5" fill="#4F46E5"/>
+                  <circle cx="602" cy="86" r="3.5" fill="#4F46E5"/>
+                  <circle cx="740" cy="84" r="3.5" fill="#4F46E5"/>
                 </g>
+
+                <rect x="315" y="10" width="440" height="40" rx="20" fill="#FAFAFA" stroke="#E5E5E5" stroke-width="1.1" data-p1-coord-box />
+                <!-- Hub / Network Icon -->
+                <g transform="translate(333, 21)" stroke="#4F46E5" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="9" r="2.5"/>
+                  <circle cx="3" cy="4" r="1.5"/>
+                  <circle cx="15" cy="4" r="1.5"/>
+                  <circle cx="3" cy="14" r="1.5"/>
+                  <circle cx="15" cy="14" r="1.5"/>
+                  <line x1="4.3" y1="5" x2="7.2" y2="7.4"/>
+                  <line x1="13.7" y1="5" x2="10.8" y2="7.4"/>
+                  <line x1="4.3" y1="13" x2="7.2" y2="10.6"/>
+                  <line x1="13.7" y1="13" x2="10.8" y2="10.6"/>
+                </g>
+                <text x="360" y="27" font-size="11" font-weight="600" fill="#141413" font-family="Inter, -apple-system, sans-serif" data-p1-coord-title>
+                  Isolated State (No Shared Memory)
+                </text>
+                <text x="360" y="41" font-size="9.5" fill="#737373" font-family="Inter, -apple-system, sans-serif" data-p1-coord-desc>
+                  Agents see only local stock and immediate neighbor orders
+                </text>
               </g>
 
-              <!-- Upstream Order Flow Arrows (Top Curve between nodes) -->
+              <!-- Flow Direction Legend Labels -->
+              <text x="192" y="104" font-size="9" font-weight="600" letter-spacing="0.06em" fill="#7C3AED" font-family="Inter, -apple-system, sans-serif">ORDERS UPSTREAM →</text>
+              <text x="878" y="298" text-anchor="end" font-size="9" font-weight="600" letter-spacing="0.06em" fill="#0D9488" font-family="Inter, -apple-system, sans-serif">← SHIPMENTS DOWNSTREAM</text>
+
+              <!-- Upstream Order Flow Arrows (Centered in 58px gaps) -->
               <g>
-                <path d="M 140 158 Q 168 134 196 158" fill="none" stroke="#DDD6FE" stroke-width="2" marker-end="url(#p1-arrow-order)"/>
-                <path d="M 348 140 Q 375 104 402 140" fill="none" stroke="#C4B5FD" stroke-width="2.2" marker-end="url(#p1-arrow-order)"/>
-                <path d="M 528 140 Q 555 104 582 140" fill="none" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#p1-arrow-order)"/>
-                <path d="M 708 140 Q 735 104 762 140" fill="none" stroke="#7C3AED" stroke-width="2.8" marker-end="url(#p1-arrow-order)"/>
+                <path d="M 136 164 Q 163 144 188 164" fill="none" stroke="#DDD6FE" stroke-width="1.8" marker-end="url(#p1-arrow-order)"/>
+                <path d="M 322 152 Q 349 124 374 152" fill="none" stroke="#C4B5FD" stroke-width="2" marker-end="url(#p1-arrow-order)"/>
+                <path d="M 508 152 Q 535 124 560 152" fill="none" stroke="#A78BFA" stroke-width="2.2" marker-end="url(#p1-arrow-order)"/>
+                <path d="M 694 152 Q 721 124 746 152" fill="none" stroke="#7C3AED" stroke-width="2.5" marker-end="url(#p1-arrow-order)"/>
               </g>
 
               <!-- Animated Upstream Order Pills -->
               <g data-p1-order-pills>
-                <g transform="translate(343, 86)">
+                <g transform="translate(324, 108)">
                   <g class="p1-packet-order">
-                    <rect x="0" y="0" width="64" height="19" rx="9.5" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-                    <text x="32" y="13" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5B21B6" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ord-pill="ret">Ord: 40u</text>
+                    <rect x="0" y="0" width="50" height="18" rx="9" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1"/>
+                    <text x="25" y="12.5" text-anchor="middle" font-size="9.5" font-weight="600" fill="#5B21B6" font-family="JetBrains Mono, ui-monospace, monospace" data-p1-ord-pill="ret">40u</text>
                   </g>
                 </g>
-                <g transform="translate(523, 86)">
+                <g transform="translate(510, 108)">
                   <g class="p1-packet-order" style="animation-delay: 0.18s">
-                    <rect x="0" y="0" width="64" height="19" rx="9.5" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.2"/>
-                    <text x="32" y="13" text-anchor="middle" font-size="9.5" font-weight="700" fill="#4C1D95" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ord-pill="who">Ord: 42u</text>
+                    <rect x="0" y="0" width="50" height="18" rx="9" fill="#EDE9FE" stroke="#A78BFA" stroke-width="1"/>
+                    <text x="25" y="12.5" text-anchor="middle" font-size="9.5" font-weight="600" fill="#4C1D95" font-family="JetBrains Mono, ui-monospace, monospace" data-p1-ord-pill="who">42u</text>
                   </g>
                 </g>
-                <g transform="translate(703, 86)">
+                <g transform="translate(696, 108)">
                   <g class="p1-packet-order" style="animation-delay: 0.36s">
-                    <rect x="0" y="0" width="64" height="19" rx="9.5" fill="#DDD6FE" stroke="#6D28D9" stroke-width="1.2"/>
-                    <text x="32" y="13" text-anchor="middle" font-size="9.5" font-weight="700" fill="#3B0764" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ord-pill="dis">Ord: 45u</text>
+                    <rect x="0" y="0" width="50" height="18" rx="9" fill="#DDD6FE" stroke="#7C3AED" stroke-width="1"/>
+                    <text x="25" y="12.5" text-anchor="middle" font-size="9.5" font-weight="600" fill="#3B0764" font-family="JetBrains Mono, ui-monospace, monospace" data-p1-ord-pill="dis">45u</text>
                   </g>
                 </g>
               </g>
 
-              <!-- Downstream Physical Shipment Arrows (Bottom Curve between nodes) -->
+              <!-- Downstream Physical Shipment Arrows -->
               <g>
-                <path d="M 762 256 Q 735 288 708 256" fill="none" stroke="#99F6E4" stroke-width="2.2" marker-end="url(#p1-arrow-ship)"/>
-                <path d="M 582 256 Q 555 288 528 256" fill="none" stroke="#99F6E4" stroke-width="2.2" marker-end="url(#p1-arrow-ship)"/>
-                <path d="M 402 256 Q 375 288 348 256" fill="none" stroke="#99F6E4" stroke-width="2.2" marker-end="url(#p1-arrow-ship)"/>
-                <path d="M 196 236 Q 168 258 140 236" fill="none" stroke="#99F6E4" stroke-width="2" marker-end="url(#p1-arrow-ship)"/>
+                <path d="M 746 244 Q 721 272 694 244" fill="none" stroke="#99F6E4" stroke-width="1.8" marker-end="url(#p1-arrow-ship)"/>
+                <path d="M 560 244 Q 535 272 508 244" fill="none" stroke="#99F6E4" stroke-width="1.8" marker-end="url(#p1-arrow-ship)"/>
+                <path d="M 374 244 Q 349 272 322 244" fill="none" stroke="#99F6E4" stroke-width="1.8" marker-end="url(#p1-arrow-ship)"/>
+                <path d="M 188 228 Q 163 248 136 228" fill="none" stroke="#99F6E4" stroke-width="1.6" marker-end="url(#p1-arrow-ship)"/>
               </g>
 
               <!-- Animated Downstream Shipment Pills -->
               <g data-p1-ship-pills>
-                <g transform="translate(703, 286)">
+                <g transform="translate(696, 268)">
                   <g class="p1-packet-ship">
-                    <rect x="0" y="0" width="64" height="18" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.1"/>
-                    <text x="32" y="12.5" text-anchor="middle" font-size="9" font-weight="600" fill="#0F766E" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ship-pill="fac">Ship: 45u</text>
+                    <rect x="0" y="0" width="50" height="17" rx="8.5" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1"/>
+                    <text x="25" y="12" text-anchor="middle" font-size="9" font-weight="600" fill="#0F766E" font-family="JetBrains Mono, ui-monospace, monospace" data-p1-ship-pill="fac">45u</text>
                   </g>
                 </g>
-                <g transform="translate(523, 286)">
+                <g transform="translate(510, 268)">
                   <g class="p1-packet-ship" style="animation-delay: 0.18s">
-                    <rect x="0" y="0" width="64" height="18" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.1"/>
-                    <text x="32" y="12.5" text-anchor="middle" font-size="9" font-weight="600" fill="#0F766E" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ship-pill="dis">Ship: 42u</text>
+                    <rect x="0" y="0" width="50" height="17" rx="8.5" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1"/>
+                    <text x="25" y="12" text-anchor="middle" font-size="9" font-weight="600" fill="#0F766E" font-family="JetBrains Mono, ui-monospace, monospace" data-p1-ship-pill="dis">42u</text>
                   </g>
                 </g>
-                <g transform="translate(343, 286)">
+                <g transform="translate(324, 268)">
                   <g class="p1-packet-ship" style="animation-delay: 0.36s">
-                    <rect x="0" y="0" width="64" height="18" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.1"/>
-                    <text x="32" y="12.5" text-anchor="middle" font-size="9" font-weight="600" fill="#0F766E" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ship-pill="who">Ship: 40u</text>
+                    <rect x="0" y="0" width="50" height="17" rx="8.5" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1"/>
+                    <text x="25" y="12" text-anchor="middle" font-size="9" font-weight="600" fill="#0F766E" font-family="JetBrains Mono, ui-monospace, monospace" data-p1-ship-pill="who">40u</text>
                   </g>
                 </g>
               </g>
 
-              <!-- Customer Demand Node (Far Left) -->
-              <g transform="translate(14, 134)">
-                <rect x="0" y="0" width="124" height="126" rx="6" fill="#FFFFFF" stroke="#D4D4D8" stroke-width="1.2"/>
-                <text x="12" y="22" font-size="10" font-weight="700" fill="#71717A" font-family="ui-monospace, SFMono-Regular, monospace">EXTERNAL INPUT</text>
-                <text x="12" y="40" font-size="13" font-weight="700" fill="#111827">Customer</text>
-                <text x="12" y="55" font-size="10.5" fill="#6B7280">Clipped Normal</text>
-                <rect x="12" y="68" width="100" height="44" rx="4" fill="#F8FAFC" stroke="#E2E8F0"/>
-                <text x="20" y="83" font-size="9" font-weight="600" fill="#64748B" font-family="ui-monospace, SFMono-Regular, monospace">DEMAND (R<tspan data-p1-dem-r>00</tspan>)</text>
-                <text x="20" y="103" font-size="15" font-weight="700" fill="#111827" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-demand-val>40 units</text>
+              <!-- Node 0: Customer Demand (x=18, w=116) -->
+              <g transform="translate(18, 142)">
+                <rect x="0" y="0" width="116" height="110" rx="10" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="1.2"/>
+                <circle cx="24" cy="24" r="13" fill="#F4F4F5"/>
+                <!-- User Icon -->
+                <g transform="translate(16, 16)" stroke="#52525B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="8" cy="5.5" r="2.8"/>
+                  <path d="M 3 13.5 C 3 10.8, 13 10.8, 13 13.5"/>
+                </g>
+                <text x="44" y="28" font-size="12" font-weight="600" fill="#141413" font-family="Inter, -apple-system, sans-serif">Customer</text>
+                <text x="14" y="57" font-size="9.5" fill="#737373" font-family="Inter, -apple-system, sans-serif">Demand (R<tspan data-p1-dem-r>00</tspan>)</text>
+                <text x="14" y="79" font-size="17" font-weight="700" fill="#141413" font-family="Inter, -apple-system, sans-serif" data-p1-demand-val>40 units</text>
+                <text x="14" y="96" font-size="9.5" fill="#9CA3AF" font-family="Inter, -apple-system, sans-serif">Clipped normal</text>
               </g>
 
-              <!-- Role 1: Retailer Card -->
-              <g transform="translate(198, 124)" data-p1-role-card="retailer">
-                <rect x="0" y="0" width="148" height="146" rx="6" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.5" data-p1-card-border="retailer"/>
-                <rect x="0" y="0" width="148" height="6" rx="3" fill="#8B5CF6"/>
-                <text x="11" y="23" font-size="11.5" font-weight="700" fill="#111827">1. Retailer</text>
-                <text x="137" y="22.5" text-anchor="end" font-size="8.5" font-weight="600" fill="#6D28D9" font-family="ui-monospace, SFMono-Regular, monospace">STAGE 1</text>
+              <!-- Node 1: Retailer (x=192, w=128) -->
+              <g transform="translate(192, 132)" data-p1-role-card="retailer">
+                <rect x="0" y="0" width="128" height="130" rx="10" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="1.3" data-p1-card-border="retailer"/>
+                <circle cx="24" cy="24" r="13" fill="#F5F3FF"/>
+                <!-- Storefront Icon -->
+                <g transform="translate(16, 16)" stroke="#7C3AED" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M 2.5 6.5 L 4 3 H 12 L 13.5 6.5 C 13.5 7.8 12.2 8.5 11 8.5 C 9.8 8.5 8.8 7.5 8 7.5 C 7.2 7.5 6.2 8.5 5 8.5 C 3.8 8.5 2.5 7.8 2.5 6.5 Z"/>
+                  <path d="M 3.5 8.5 V 13.5 H 12.5 V 8.5"/>
+                </g>
+                <text x="44" y="28" font-size="12.5" font-weight="600" fill="#141413" font-family="Inter, -apple-system, sans-serif">Retailer</text>
 
-                <text x="12" y="44" font-size="9.5" fill="#6B7280" font-family="ui-monospace, SFMono-Regular, monospace">ACCOUNT BALANCE</text>
-                <text x="12" y="63" font-size="16" font-weight="700" fill="#111827" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-bal="retailer">$40,000</text>
+                <text x="14" y="64" font-size="18" font-weight="700" fill="#141413" font-family="Inter, -apple-system, sans-serif" data-p1-bal="retailer">$40,000</text>
+                <rect x="14" y="74" width="100" height="4" rx="2" fill="#F3F4F6"/>
+                <rect x="14" y="74" width="100" height="4" rx="2" fill="#8B5CF6" data-p1-bar="retailer"/>
 
-                <rect x="12" y="72" width="124" height="6" rx="3" fill="#F3F4F6"/>
-                <rect x="12" y="72" width="124" height="6" rx="3" fill="#8B5CF6" data-p1-bar="retailer"/>
-
-                <text x="12" y="96" font-size="10.5" fill="#374151" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ord="retailer">Order: 40u</text>
-                <text x="12" y="113" font-size="10.5" fill="#4B5563" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-inv="retailer">Stock: +120u</text>
-                <text x="12" y="133" font-size="9.2" font-weight="600" fill="#059669" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-state="retailer">● SOLVENT</text>
+                <text x="14" y="96" font-size="10.5" fill="#52525B" font-family="Inter, -apple-system, sans-serif" data-p1-ord="retailer">Ord 40u · +120u</text>
+                <text x="14" y="115" font-size="10" font-weight="600" fill="#059669" font-family="Inter, -apple-system, sans-serif" data-p1-state="retailer">● Solvent</text>
               </g>
 
-              <!-- Role 2: Wholesaler Card -->
-              <g transform="translate(378, 124)" data-p1-role-card="wholesaler">
-                <rect x="0" y="0" width="148" height="146" rx="6" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.5" data-p1-card-border="wholesaler"/>
-                <rect x="0" y="0" width="148" height="6" rx="3" fill="#3B82F6"/>
-                <text x="11" y="23" font-size="11.5" font-weight="700" fill="#111827">2. Wholesaler</text>
-                <text x="137" y="22.5" text-anchor="end" font-size="8.5" font-weight="600" fill="#1D4ED8" font-family="ui-monospace, SFMono-Regular, monospace">STAGE 2</text>
+              <!-- Node 2: Wholesaler (x=378, w=128) -->
+              <g transform="translate(378, 132)" data-p1-role-card="wholesaler">
+                <rect x="0" y="0" width="128" height="130" rx="10" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="1.3" data-p1-card-border="wholesaler"/>
+                <circle cx="24" cy="24" r="13" fill="#EFF6FF"/>
+                <!-- Warehouse / Boxes Icon -->
+                <g transform="translate(16, 16)" stroke="#2563EB" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2.5" y="8" width="5" height="5" rx="0.8"/>
+                  <rect x="8.5" y="8" width="5" height="5" rx="0.8"/>
+                  <rect x="5.5" y="2.5" width="5" height="5" rx="0.8"/>
+                </g>
+                <text x="44" y="28" font-size="12.5" font-weight="600" fill="#141413" font-family="Inter, -apple-system, sans-serif">Wholesaler</text>
 
-                <text x="12" y="44" font-size="9.5" fill="#6B7280" font-family="ui-monospace, SFMono-Regular, monospace">ACCOUNT BALANCE</text>
-                <text x="12" y="63" font-size="16" font-weight="700" fill="#111827" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-bal="wholesaler">$40,000</text>
+                <text x="14" y="64" font-size="18" font-weight="700" fill="#141413" font-family="Inter, -apple-system, sans-serif" data-p1-bal="wholesaler">$40,000</text>
+                <rect x="14" y="74" width="100" height="4" rx="2" fill="#F3F4F6"/>
+                <rect x="14" y="74" width="100" height="4" rx="2" fill="#3B82F6" data-p1-bar="wholesaler"/>
 
-                <rect x="12" y="72" width="124" height="6" rx="3" fill="#F3F4F6"/>
-                <rect x="12" y="72" width="124" height="6" rx="3" fill="#3B82F6" data-p1-bar="wholesaler"/>
-
-                <text x="12" y="96" font-size="10.5" fill="#374151" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ord="wholesaler">Order: 42u</text>
-                <text x="12" y="113" font-size="10.5" fill="#4B5563" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-inv="wholesaler">Stock: +140u</text>
-                <text x="12" y="133" font-size="9.2" font-weight="600" fill="#059669" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-state="wholesaler">● SOLVENT</text>
+                <text x="14" y="96" font-size="10.5" fill="#52525B" font-family="Inter, -apple-system, sans-serif" data-p1-ord="wholesaler">Ord 42u · +140u</text>
+                <text x="14" y="115" font-size="10" font-weight="600" fill="#059669" font-family="Inter, -apple-system, sans-serif" data-p1-state="wholesaler">● Solvent</text>
               </g>
 
-              <!-- Role 3: Distributor Card (Weakest Link: 25/49 First Bankrupt) -->
-              <g transform="translate(558, 124)" data-p1-role-card="distributor">
-                <rect x="0" y="0" width="148" height="146" rx="6" fill="#FFFFFF" stroke="#EF4444" stroke-width="1.8" data-p1-card-border="distributor"/>
-                <rect x="0" y="0" width="148" height="6" rx="3" fill="#EF4444"/>
-                <text x="11" y="23" font-size="11.5" font-weight="700" fill="#111827">3. Distributor</text>
-                <rect x="96" y="12" width="42" height="14" rx="3" fill="#FEF2F2" stroke="#FECACA"/>
-                <text x="117" y="21.5" text-anchor="middle" font-size="8" font-weight="700" fill="#B91C1C" font-family="ui-monospace, SFMono-Regular, monospace">STAGE 3</text>
+              <!-- Node 3: Distributor (x=564, w=128) -->
+              <g transform="translate(564, 132)" data-p1-role-card="distributor">
+                <rect x="0" y="0" width="128" height="130" rx="10" fill="#FFFFFF" stroke="#FCA5A5" stroke-width="1.4" data-p1-card-border="distributor"/>
+                <circle cx="24" cy="24" r="13" fill="#FEF2F2"/>
+                <!-- Delivery Truck Icon -->
+                <g transform="translate(16, 16)" stroke="#DC2626" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1.5" y="4" width="8.5" height="7" rx="1"/>
+                  <path d="M 10 6 H 13 L 14.5 8.5 V 11 H 10 Z"/>
+                  <circle cx="4.5" cy="12.2" r="1.3"/>
+                  <circle cx="12" cy="12.2" r="1.3"/>
+                </g>
+                <text x="44" y="28" font-size="12.5" font-weight="600" fill="#141413" font-family="Inter, -apple-system, sans-serif">Distributor</text>
 
-                <text x="12" y="44" font-size="9.5" fill="#6B7280" font-family="ui-monospace, SFMono-Regular, monospace">ACCOUNT BALANCE</text>
-                <text x="12" y="63" font-size="16" font-weight="700" fill="#111827" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-bal="distributor">$40,000</text>
+                <text x="14" y="64" font-size="18" font-weight="700" fill="#141413" font-family="Inter, -apple-system, sans-serif" data-p1-bal="distributor">$40,000</text>
+                <rect x="14" y="74" width="100" height="4" rx="2" fill="#F3F4F6"/>
+                <rect x="14" y="74" width="100" height="4" rx="2" fill="#EF4444" data-p1-bar="distributor"/>
 
-                <rect x="12" y="72" width="124" height="6" rx="3" fill="#F3F4F6"/>
-                <rect x="12" y="72" width="124" height="6" rx="3" fill="#EF4444" data-p1-bar="distributor"/>
-
-                <text x="12" y="96" font-size="10.5" fill="#374151" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ord="distributor">Order: 45u</text>
-                <text x="12" y="113" font-size="10.5" fill="#4B5563" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-inv="distributor">Stock: +150u</text>
-                <text x="12" y="133" font-size="9.2" font-weight="600" fill="#059669" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-state="distributor">● SOLVENT (25/49 1ST)</text>
+                <text x="14" y="96" font-size="10.5" fill="#52525B" font-family="Inter, -apple-system, sans-serif" data-p1-ord="distributor">Ord 45u · +150u</text>
+                <text x="14" y="115" font-size="10" font-weight="600" fill="#059669" font-family="Inter, -apple-system, sans-serif" data-p1-state="distributor">● Solvent · 25/49 1st</text>
               </g>
 
-              <!-- Role 4: Factory Card -->
-              <g transform="translate(738, 124)" data-p1-role-card="factory">
-                <rect x="0" y="0" width="148" height="146" rx="6" fill="#FFFFFF" stroke="#10B981" stroke-width="1.5" data-p1-card-border="factory"/>
-                <rect x="0" y="0" width="148" height="6" rx="3" fill="#10B981"/>
-                <text x="11" y="23" font-size="11.5" font-weight="700" fill="#111827">4. Factory</text>
-                <text x="137" y="22.5" text-anchor="end" font-size="8.5" font-weight="600" fill="#047857" font-family="ui-monospace, SFMono-Regular, monospace">STAGE 4</text>
+              <!-- Node 4: Factory (x=750, w=128) -->
+              <g transform="translate(750, 132)" data-p1-role-card="factory">
+                <rect x="0" y="0" width="128" height="130" rx="10" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="1.3" data-p1-card-border="factory"/>
+                <circle cx="24" cy="24" r="13" fill="#ECFDF5"/>
+                <!-- Factory Icon -->
+                <g transform="translate(16, 16)" stroke="#059669" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M 2 13.5 V 7 L 6.5 9.5 V 7 L 11 9.5 V 3.5 H 14 V 13.5 Z"/>
+                </g>
+                <text x="44" y="28" font-size="12.5" font-weight="600" fill="#141413" font-family="Inter, -apple-system, sans-serif">Factory</text>
 
-                <text x="12" y="44" font-size="9.5" fill="#6B7280" font-family="ui-monospace, SFMono-Regular, monospace">ACCOUNT BALANCE</text>
-                <text x="12" y="63" font-size="16" font-weight="700" fill="#111827" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-bal="factory">$40,000</text>
+                <text x="14" y="64" font-size="18" font-weight="700" fill="#141413" font-family="Inter, -apple-system, sans-serif" data-p1-bal="factory">$40,000</text>
+                <rect x="14" y="74" width="100" height="4" rx="2" fill="#F3F4F6"/>
+                <rect x="14" y="74" width="100" height="4" rx="2" fill="#10B981" data-p1-bar="factory"/>
 
-                <rect x="12" y="72" width="124" height="6" rx="3" fill="#F3F4F6"/>
-                <rect x="12" y="72" width="124" height="6" rx="3" fill="#10B981" data-p1-bar="factory"/>
-
-                <text x="12" y="96" font-size="10.5" fill="#374151" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-ord="factory">Prod: 45u</text>
-                <text x="12" y="113" font-size="10.5" fill="#4B5563" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-inv="factory">Stock: +180u</text>
-                <text x="12" y="133" font-size="9.2" font-weight="600" fill="#059669" font-family="ui-monospace, SFMono-Regular, monospace" data-p1-state="factory">● SOLVENT</text>
+                <text x="14" y="96" font-size="10.5" fill="#52525B" font-family="Inter, -apple-system, sans-serif" data-p1-ord="factory">Prod 45u · +180u</text>
+                <text x="14" y="115" font-size="10" font-weight="600" fill="#059669" font-family="Inter, -apple-system, sans-serif" data-p1-state="factory">● Solvent</text>
               </g>
             </svg>
           </div>
@@ -451,13 +476,13 @@
           <!-- Live Agent Comms & Orchestrator Log Strip -->
           <div class="p1-comms-strip">
             <div class="p1-comms-left">
-              <span class="p1-comms-badge" data-p1-log-badge>R00 [INIT]</span>
+              <span class="p1-comms-badge" data-p1-log-badge>R00 · Init</span>
               <span class="p1-comms-text" data-p1-log-text>
                 Supply chain initialized at $40,000 liquidity per role; baseline customer demand = 40 units/round.
               </span>
             </div>
             <div class="p1-comms-metrics">
-              <span>Upstream Amplification: <strong data-p1-bwe-readout>1.12×</strong></span>
+              <span>Amplification: <strong data-p1-bwe-readout>1.12×</strong></span>
             </div>
           </div>
         </div>
@@ -572,7 +597,6 @@
           bal: mount.querySelector(`[data-p1-bal="${role}"]`),
           bar: mount.querySelector(`[data-p1-bar="${role}"]`),
           ord: mount.querySelector(`[data-p1-ord="${role}"]`),
-          inv: mount.querySelector(`[data-p1-inv="${role}"]`),
           state: mount.querySelector(`[data-p1-state="${role}"]`),
           line: mount.querySelector(`[data-p1-line="${role}"]`),
           dot: mount.querySelector(`[data-p1-dot="${role}"]`)
@@ -592,32 +616,32 @@
       const cfg = P1_CONFIG_META[state.arch];
       const step = state.trajectory[state.round] || state.trajectory[0];
 
-      // Update Top Architecture Coordination Layer
+      // Update Top Architecture Coordination Pill
       if (state.arch === "orchestrator") {
         els.coordBox.setAttribute("fill", "#EEF2FF");
-        els.coordBox.setAttribute("stroke", "#818CF8");
-        els.coordTitle.textContent = "CENTRAL ORCHESTRATOR AGENT (ADVISORY MEDIATOR ACTIVE)";
+        els.coordBox.setAttribute("stroke", "#A5B4FC");
+        els.coordTitle.textContent = "Orchestrator Agent · Mediator Hints Active";
         els.coordTitle.setAttribute("fill", "#312E81");
-        els.coordDesc.textContent = cfg.topBanner;
+        els.coordDesc.textContent = "Observes all 4 roles and broadcasts non-binding advisory hints";
         els.coordLines.setAttribute("opacity", "0.85");
         els.coordPulses.setAttribute("opacity", state.round % 2 === 0 ? "0.95" : "0.35");
       } else if (state.arch === "communication" || state.arch === "opencode") {
         els.coordBox.setAttribute("fill", "#ECFDF5");
         els.coordBox.setAttribute("stroke", "#6EE7B7");
         els.coordTitle.textContent = state.arch === "opencode"
-          ? "OPENCODE SUB-AGENT CLI + PEER MESSAGE BUS"
-          : "FREE-TEXT INTER-AGENT COMMUNICATION BUS";
+          ? "OpenCode Sub-Agent CLI · Peer Comms"
+          : "Inter-Agent Free-Text Communication";
         els.coordTitle.setAttribute("fill", "#065F46");
-        els.coordDesc.textContent = cfg.topBanner;
+        els.coordDesc.textContent = "Agents exchange free-text messages between adjacent stages";
         els.coordLines.setAttribute("opacity", "0.65");
         els.coordPulses.setAttribute("opacity", state.round % 2 === 1 ? "0.85" : "0.25");
       } else {
-        els.coordBox.setAttribute("fill", "#F8FAFC");
-        els.coordBox.setAttribute("stroke", "#CBD5E1");
-        els.coordTitle.textContent = "ISOLATED STATE (NO INTER-AGENT COMMUNICATION)";
+        els.coordBox.setAttribute("fill", "#FAFAFA");
+        els.coordBox.setAttribute("stroke", "#E5E5E5");
+        els.coordTitle.textContent = "Isolated State · No Inter-Agent Comms";
         els.coordTitle.setAttribute("fill", "#334155");
-        els.coordDesc.textContent = cfg.topBanner;
-        els.coordLines.setAttribute("opacity", "0.18");
+        els.coordDesc.textContent = "Agents see only local stock and immediate neighbor orders";
+        els.coordLines.setAttribute("opacity", "0.15");
         els.coordPulses.setAttribute("opacity", "0");
       }
 
@@ -628,13 +652,13 @@
       els.demandVal.textContent = `${step.demand} units`;
 
       // Order & Shipment pills
-      els.ordPills.ret.textContent = `Ord: ${step.orders.retailer}u`;
-      els.ordPills.who.textContent = `Ord: ${step.orders.wholesaler}u`;
-      els.ordPills.dis.textContent = `Ord: ${step.orders.distributor}u`;
+      els.ordPills.ret.textContent = `${step.orders.retailer}u`;
+      els.ordPills.who.textContent = `${step.orders.wholesaler}u`;
+      els.ordPills.dis.textContent = `${step.orders.distributor}u`;
 
-      els.shipPills.fac.textContent = `Ship: ${step.shipments.factory}u`;
-      els.shipPills.dis.textContent = `Ship: ${step.shipments.distributor}u`;
-      els.shipPills.who.textContent = `Ship: ${step.shipments.wholesaler}u`;
+      els.shipPills.fac.textContent = `${step.shipments.factory}u`;
+      els.shipPills.dis.textContent = `${step.shipments.distributor}u`;
+      els.shipPills.who.textContent = `${step.shipments.wholesaler}u`;
 
       // Update each of the 4 Role Cards
       ["retailer", "wholesaler", "distributor", "factory"].forEach((role) => {
@@ -644,27 +668,29 @@
         const iVal = step.inv[role];
 
         rEl.bal.textContent = `$${bVal.toLocaleString()}`;
-        const barW = Math.max(0, Math.min(124, Math.round((bVal / 40000) * 124)));
+        const barW = Math.max(0, Math.min(100, Math.round((bVal / 40000) * 100)));
         rEl.bar.setAttribute("width", String(barW));
 
-        rEl.ord.textContent = role === "factory" ? `Prod: ${oVal}u` : `Order: ${oVal}u`;
-        rEl.inv.textContent = iVal >= 0 ? `Stock: +${iVal}u` : `Backlog: ${iVal}u`;
+        const invStr = iVal >= 0 ? `+${iVal}u` : `${iVal}u`;
+        rEl.ord.textContent = role === "factory" ? `Prod ${oVal}u · ${invStr}` : `Ord ${oVal}u · ${invStr}`;
 
         if (bVal <= 0) {
-          rEl.bal.setAttribute("fill", "#D92D20");
-          rEl.state.textContent = "▲ BANKRUPT ($0)";
-          rEl.state.setAttribute("fill", "#D92D20");
-          rEl.border.setAttribute("stroke", "#D92D20");
+          rEl.bal.setAttribute("fill", "#DC2626");
+          rEl.state.textContent = "● Bankrupt ($0)";
+          rEl.state.setAttribute("fill", "#DC2626");
+          rEl.border.setAttribute("stroke", "#FCA5A5");
           rEl.border.setAttribute("fill", "#FEF2F2");
         } else if (bVal < 10000) {
           rEl.bal.setAttribute("fill", "#B45309");
-          rEl.state.textContent = "● DISTRESSED (<$10k)";
+          rEl.state.textContent = "● Distressed";
           rEl.state.setAttribute("fill", "#B45309");
+          rEl.border.setAttribute("stroke", "#FCD34D");
           rEl.border.setAttribute("fill", "#FFFFFF");
         } else {
-          rEl.bal.setAttribute("fill", "#111827");
-          rEl.state.textContent = role === "distributor" ? "● SOLVENT (25/49 1ST)" : "● SOLVENT";
+          rEl.bal.setAttribute("fill", "#141413");
+          rEl.state.textContent = role === "distributor" ? "● Solvent · 25/49 1st" : "● Solvent";
           rEl.state.setAttribute("fill", "#059669");
+          rEl.border.setAttribute("stroke", role === "distributor" ? "#FCA5A5" : "#E5E5E5");
           rEl.border.setAttribute("fill", "#FFFFFF");
         }
       });

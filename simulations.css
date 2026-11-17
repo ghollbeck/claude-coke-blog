@@ -251,64 +251,57 @@
 
 /* Live Agent Comms & Orchestrator Log Strip */
 .p1-comms-strip {
-  margin-top: 10px;
-  padding: 9px 12px;
+  margin-top: 12px;
+  padding: 10px 14px;
   background: #FFFFFF;
-  border: 1px solid #E6E6E6;
-  border-radius: 4px;
+  border: 1px solid #EAEAEA;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 11.5px;
-  line-height: 1.4;
+  gap: 14px;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.45;
 }
 
 .p1-comms-left {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   min-width: 0;
   flex: 1;
 }
 
 .p1-comms-badge {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 2px 6px;
-  border-radius: 3px;
-  background: #F3F4F6;
-  color: #374151;
-  border: 1px solid #E5E7EB;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #F4F4F5;
+  color: #3F3F46;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .p1-comms-badge.is-orch {
   background: #EEF2FF;
   color: #4338CA;
-  border-color: #C7D2FE;
 }
 
 .p1-comms-badge.is-comm {
   background: #ECFDF5;
   color: #047857;
-  border-color: #A7F3D0;
 }
 
 .p1-comms-badge.is-alert {
   background: #FEF2F2;
   color: #B91C1C;
-  border-color: #FECACA;
 }
 
 .p1-comms-text {
-  color: #1F2937;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #3F3F46;
 }
 
 .p1-comms-metrics {
@@ -316,8 +309,8 @@
   align-items: center;
   gap: 14px;
   flex-shrink: 0;
-  color: #555555;
-  font-size: 11px;
+  color: #71717A;
+  font-size: 12px;
 }
 
 .p1-comms-metrics strong {
