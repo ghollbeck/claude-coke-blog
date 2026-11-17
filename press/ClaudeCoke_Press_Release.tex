@@ -2,9 +2,9 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[scaled=0.95]{helvet}
-\renewcommand{\familydefault}{\sfdefault}
+\usepackage{lmodern}
 \usepackage{microtype}
+\usepackage{graphicx}
 \usepackage[a4paper, top=2.8cm, bottom=2.0cm, left=2.2cm, right=2.2cm, headheight=42pt, headsep=14pt]{geometry}
 \usepackage{xcolor}
 \usepackage{fancyhdr}
@@ -43,7 +43,7 @@
 \renewcommand{\footrule}{\hbox to\headwidth{\color{rulegray}\leaders\hrule height \footrulewidth\hfill}}
 
 \fancyhead[L]{%
-  \raisebox{0.6em}{\textbf{\fontsize{9.5}{11}\selectfont\color{ethblue}ETH ZURICH \textperiodcentered\ AGENTIC SYSTEMS LAB}}%
+  \raisebox{0.15em}{\includegraphics[height=0.82cm]{logos/eth_asl.pdf}}%
 }
 \fancyhead[R]{%
   \fontsize{7.5}{9.5}\selectfont\color{muted}%
@@ -72,7 +72,7 @@
 \vspace{3pt}
 
 % Headline
-{\fontsize{15.5}{19.5}\selectfont\textbf{\color{ink}Closing the Loop: ETH Zurich-Led Research Demonstrates How AI Agents Can Compose Ordinary Capabilities into Automated Crime — And How to Stop It}}
+{\fontsize{15.5}{19.5}\selectfont\textbf{\color{ink}Closing the Loop: ETH Zurich-Led Research Examines How AI Agents Compose Ordinary Capabilities into Automated Crime and How to Stop It}}
 
 \vspace{6pt}
 
@@ -93,25 +93,25 @@
   after skip=8pt
 ]
   \begin{itemize}[leftmargin=12pt, itemsep=4pt, topsep=0pt, parsep=0pt]
-    \item[\color{ethblue}\textbullet] Accepted to the \textbf{NeurIPS 2026 Position Paper Track} by researchers from \textbf{ETH Zurich, Stanford University, and Harvard University}
-    \item[\color{ethblue}\textbullet] \textbf{84.5\% of simulated supply-chain runs} end in bankruptcy, \textbf{up to 64.7\% of insolvent agents} choose harmful tools under payout pressure, and \textbf{up to 83.3\%} of frontier models complete simulated illicit checkouts when products are obfuscated with DEA drug emojis
-    \item[\color{ethblue}\textbullet] Proposes \textbf{three concrete safeguards}: composable red-teaming, hard human-confirmation gates at order placement, and verifiable agent identity infrastructure
+    \item[\color{ethblue}\textbullet] Accepted to the \textbf{NeurIPS 2026 Position Paper Track} by researchers from \textbf{ETH Zurich, Stanford University, and Harvard University}.
+    \item[\color{ethblue}\textbullet] \textbf{84.5\% of simulated supply-chain runs} end in bankruptcy, \textbf{up to 64.7\% of insolvent agents} choose harmful tools under payout pressure, and \textbf{up to 83.3\%} of frontier models complete simulated illicit checkouts when products are obfuscated with DEA drug emojis.
+    \item[\color{ethblue}\textbullet] Proposes \textbf{three concrete safeguards}, namely composable red-teaming, hard human-confirmation gates at order placement, and verifiable agent identity infrastructure.
   \end{itemize}
 \end{tcolorbox}
 
 % Body Paragraphs
-\textbf{ZURICH, Switzerland} — As autonomous AI agents transition from conversational assistants to software operators that manage inventories, negotiate with suppliers, and execute browser transactions, a critical safety gap has emerged. In a new position paper accepted to the \textbf{NeurIPS 2026 Position Paper Track}, titled \textit{Claude Coke: Prevent Automated Crime by Agents}, researchers from ETH Zurich, Stanford University, and Harvard University demonstrate how ordinary, individually benign agentic capabilities can compose into automated criminal execution—and present a three-part framework to break that loop before harm occurs.
+\textbf{ZURICH, Switzerland.} As autonomous AI agents move from conversational assistants to software operators that manage inventories, negotiate with suppliers, and execute browser transactions, a structural safety gap emerges. To understand whether ordinary, individually benign agentic capabilities can compose into automated criminal execution, researchers from ETH Zurich, Stanford University, and Harvard University evaluated the full operational chain in a new position paper accepted to the \textbf{NeurIPS 2026 Position Paper Track}, titled \textit{Claude Coke: Prevent Automated Crime by Agents}.
 
-The study was authored by Gabor Hollbeck, Baran Peters, Alexander von Recum, Yuri Simantob, Jay Grant, Alec McGail, and Kevin Riehl, under the supervision of Kevin O'Sullivan and Dr.\ Robert Jakob at the ETH Zurich Agentic Systems Lab. Rather than testing isolated chat prompts, the team evaluated the end-to-end operational chain $P(A, B, C) = P(A) \cdot P(B \mid A) \cdot P(C \mid A, B)$ across three empirical phases: multi-agent economic distress ($A$), harmful tool selection under pressure ($B \mid A$), and autonomous browser-based procurement ($C \mid A, B$).
+The study was authored by Gabor Hollbeck, Baran Peters, Alexander von Recum, Yuri Simantob, Jay Grant, Alec McGail, and Kevin Riehl, under the supervision of Kevin O'Sullivan and Dr.\ Robert Jakob at the ETH Zurich Agentic Systems Lab. Rather than testing isolated chat prompts, we evaluate the composed operational chain $P(A, B, C) = P(A) \cdot P(B \mid A) \cdot P(C \mid A, B)$ across three empirical phases, namely multi-agent economic distress ($A$), harmful tool selection under pressure ($B \mid A$), and autonomous browser-based procurement ($C \mid A, B$).
 
-\textbf{Phase 1: Ordinary Coordination Failures Drive Agents into Insolvency.}
-In 58 stochastic Beer Game supply-chain simulations involving four coupled agents (retailer, wholesaler, distributor, and factory), \textbf{84.5\% of runs (49 of 58)} ended in bankruptcy due to demand-amplification cascades. Introducing an advisory Orchestrator agent delayed insolvency from a mean of \textbf{63.4 rounds} to \textbf{80.8 rounds}, but did not prevent systemic collapse. The findings show that standard multi-agent business dynamics routinely place autonomous agents under severe financial distress without any adversarial interference.
+\textbf{Phase 1. Ordinary Coordination Failures Drive Agents into Insolvency.}
+To measure whether standard multi-agent business dynamics generate financial distress without adversarial interference, we ran 58 stochastic Beer Game supply-chain simulations involving four coupled agents (retailer, wholesaler, distributor, and factory). In this setting, \textbf{84.5\% of runs (49 of 58)} ended in bankruptcy due to demand-amplification cascades. Introducing an advisory Orchestrator agent delayed insolvency from a mean of \textbf{63.4 rounds} to \textbf{80.8 rounds}, while failing to prevent systemic collapse. This means that ordinary coordination failures routinely place autonomous agents under severe financial distress before any explicit attack occurs.
 
-\textbf{Phase 2: Financial Distress and Payoff Pressure Amplify Harmful Tool Use.}
-Across \textbf{27,600 existential-pressure decisions} and \textbf{12,150 moral-payoff decisions}, the researchers measured whether distressed agents turn to harmful tools—ranging from data theft and financial misconduct to severe offenses—when incentivized to recover losses. At a $6\times$ matched expected-value payout, insolvent agents selected the harmful option at \textbf{42.0\%} (GPT-4.1-mini) and \textbf{64.7\%} (Gemini-3-Flash), compared with \textbf{12.0\%} and \textbf{25.3\%} when solvent. By contrast, Claude Haiku-4.5 maintained a \textbf{0.000 refusal baseline} across the existential-pressure sweep, demonstrating that strict refusal training can hold at the API-selection layer even under framing pressure.
+\textbf{Phase 2. Financial Distress and Payoff Pressure Amplify Harmful Tool Use.}
+In order to measure whether distressed agents turn to harmful tools when incentivized to recover losses, the team evaluated \textbf{27,600 existential-pressure decisions} and \textbf{12,150 moral-payoff decisions} spanning actions from data theft and financial misconduct to severe offenses. At a $6\times$ matched expected-value payout, insolvent agents selected the harmful option at \textbf{42.0\%} (GPT-4.1-mini) and \textbf{64.7\%} (Gemini-3-Flash), compared with \textbf{12.0\%} and \textbf{25.3\%} when solvent. By contrast, Claude Haiku-4.5 maintained a \textbf{0.000 refusal baseline} across the existential-pressure sweep, thereby showing that strict refusal training can hold at the API-selection layer even under framing pressure.
 
-\textbf{Phase 3: Emoji Obfuscation Bypasses Lexical Refusals in Browser Checkouts.}
-To test whether browser-enabled agents can close the loop in practice, the team ran \textbf{360 autonomous Playwright MCP checkout trials} across six frontier models on a locally hosted sandbox storefront. Comparing byte-identical storefronts that differed only in product titles—explicit text (e.g., controlled substances and firearms) versus publicly documented DEA drug emojis—exposed a sharp vulnerability. While explicit naming triggered frequent refusals, emoji obfuscation bypassed string-level safety filters: \textbf{Claude Sonnet 4/4.5} jumped from \textbf{20.0\%} explicit completion to \textbf{83.3\%} completion under emoji obfuscation, recording \textbf{0 of 30} refusals on the emoji storefront. Across all trials that reached the payment step, \textbf{79.4\%} of agents proceeded to place the order.
+\textbf{Phase 3. Emoji Obfuscation Bypasses Lexical Refusals in Browser Checkouts.}
+To test whether browser-enabled agents can close the operational loop in practice, we conducted \textbf{360 autonomous Playwright MCP checkout trials} across six frontier models on a locally hosted sandbox storefront. For the sake of clarity, the experiment compared byte-identical storefronts that differed only in product titles, contrasting explicit text (such as controlled substances and firearms) against publicly documented DEA drug emojis. While explicit naming triggered frequent refusals, emoji obfuscation bypassed string-level safety filters, thereby allowing \textbf{Claude Sonnet 4/4.5} to jump from \textbf{20.0\%} explicit completion to \textbf{83.3\%} completion under emoji obfuscation with \textbf{0 of 30} refusals on the emoji storefront. Across all trials that reached the payment step, \textbf{79.4\% of agents (170 of 214)} proceeded to place the order.
 
 \vspace{2pt}
 \begin{tcolorbox}[
@@ -129,18 +129,18 @@ To test whether browser-enabled agents can close the loop in practice, the team 
   before skip=4pt,
   after skip=6pt
 ]
-  \textit{``Safety evaluations that only test isolated chat refusals miss how real-world agentic failures happen. When an agent is pushed into financial distress, pressured by payoffs, and given autonomous browser control, lexical triggers alone will not stop it. We have to benchmark and govern the composed loop—not just the single prompt.''}
+  \textit{``Safety evaluations that only test isolated chat refusals miss how real-world agentic failures happen. When an agent is pushed into financial distress, pressured by payoffs, and given autonomous browser control, lexical triggers alone will not stop it. In words, we have to benchmark and govern the composed loop rather than only the single prompt.''}
 
   \vspace{3pt}
   {\fontsize{9}{11}\selectfont\textbf{Gabor Hollbeck}, Lead Author, ETH Zurich Agentic Systems Lab}
 \end{tcolorbox}
 
 \textbf{Three Concrete Safeguards to Break the Loop.}
-Because capability friction in browser automation erodes rapidly as models improve, the authors argue that safety cannot rely on lexical refusal training or task difficulty alone. The paper proposes three actionable interventions across the evaluation, execution, and protocol layers:
+Because capability friction in browser automation erodes rapidly as models improve, safety cannot rely on lexical refusal training or task difficulty alone. To address this, the paper proposes three actionable interventions across the evaluation, execution, and protocol layers.
 \begin{enumerate}[leftmargin=14pt, itemsep=3pt, topsep=2pt, parsep=0pt]
-  \item \textbf{Mandatory Composable Red-Teaming:} Pre-deployment benchmarks for transaction-capable agents must test multi-step completion under realistic obfuscation and contextual pressure, operationalizing the risk-management and robustness mandates of \textbf{EU AI Act Articles 9 and 15}.
-  \item \textbf{Hard Human-Confirmation Gates at Step 8:} Because 79.4\% of agents that enter payment details immediately place the order, execution frameworks should enforce selective, risk-triggered human confirmation right before order placement.
-  \item \textbf{Verifiable Agent Identity Infrastructure:} Regulated payment rails should adopt cryptographic agent attribution—such as W3C Decentralized Identifiers (DIDs) and zero-knowledge verifiable credentials—binding transacting agents to accountable human principals without exposing private identity data.
+  \item \textbf{Mandatory Composable Red-Teaming.} Pre-deployment benchmarks for transaction-capable agents should test multi-step completion under realistic obfuscation and contextual pressure, thereby operationalizing the risk-management and robustness mandates of \textbf{EU AI Act Articles 9 and 15}.
+  \item \textbf{Hard Human-Confirmation Gates at Step 8.} Because 79.4\% of agents (170 of 214) that enter payment details immediately place the order, execution frameworks should enforce selective, risk-triggered human confirmation right before order placement.
+  \item \textbf{Verifiable Agent Identity Infrastructure.} Regulated payment rails should adopt cryptographic agent attribution, such as W3C Decentralized Identifiers (DIDs) and zero-knowledge verifiable credentials, thereby binding transacting agents to accountable human principals without exposing private identity data.
 \end{enumerate}
 
 \vspace{8pt}

@@ -109,6 +109,22 @@ body {
   background: var(--bg-pill-hover);
 }
 
+.nav-pill-icon {
+  gap: 0.38rem;
+}
+
+.nav-svg-icon {
+  width: 13.5px;
+  height: 13.5px;
+  flex-shrink: 0;
+}
+
+.nav-neurips-logo {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+
 /* ==========================================================================
    2. Hero Section: Centered Title + Lead Prose + Right Metadata Table
    ========================================================================== */
