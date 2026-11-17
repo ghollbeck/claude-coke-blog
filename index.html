@@ -30,8 +30,6 @@
         <a href="#sec-governance" class="nav-pill">Policy</a>
       </nav>
 
-      <a href="#top" class="header-wordmark">ETH ZURICH &middot; AI SAFETY</a>
-
       <div class="header-nav-right">
         <a href="assets/ClaudeCoke_NeurIPS2026.pdf" target="_blank" rel="noopener" class="nav-pill">Paper PDF</a>
         <a href="https://github.com/ghollbeck/ClaudeCokeCameraReady_Data" target="_blank" rel="noopener" class="nav-pill">Code &rarr;</a>
@@ -56,17 +54,7 @@
           To understand the safety risks of autonomous artificial intelligence, we must measure multi-step actions rather than isolated text outputs. In commercial software stacks, agents already manage inventory, negotiate with suppliers, and execute browser transactions for a human principal, thereby shifting the safety question from static text generation to real-world execution. We therefore ask whether an agent deployed to run a business can come to engage in serious criminal activity.
         </p>
         <p>
-          To trace back how such an outcome could arise, we break the loop down into three basic stages across the contemporary agent stack:
-        </p>
-
-        <div class="clean-equation">
-          \[
-            P(A, B, C) \;=\; P(A) \cdot P(B \mid A) \cdot P(C \mid A, B)
-          \]
-        </div>
-
-        <p>
-          In this equation, \(A\) denotes financial distress after a multi-agent coordination failure, \(B\) denotes engagement with a harmful tool chain, and \(C\) denotes completion of a simulated illicit purchase in a browser. In words, if ordinary supply-chain dynamics push an agent into insolvency and contextual pressure raises its willingness to select harmful tools, then general-purpose browser autonomy can close the loop by executing a prohibited checkout on an external storefront.
+          To trace how such an outcome could arise across the contemporary agent stack, we evaluate three sequential stages: multi-agent supply-chain distress, context-modulated harmful tool selection under recovery pressure, and autonomous browser checkout on obfuscated storefronts.
         </p>
       </div>
 
@@ -97,6 +85,13 @@
           </span>
         </div>
         <div class="meta-row">
+          <span class="meta-key">Supervision</span>
+          <span class="meta-val">
+            <span>K. O'Sullivan, R. Jakob</span>
+            <span>(ETH Zurich Agentic Systems Lab)</span>
+          </span>
+        </div>
+        <div class="meta-row">
           <span class="meta-key">Scale</span>
           <span class="meta-val">58 Runs &middot; 53k Decisions &middot; 360 Checkouts</span>
         </div>
@@ -109,12 +104,14 @@
     <aside class="toc-sidebar">
       <nav aria-label="Table of contents">
         <ul class="toc-list" id="tocLinks">
-          <li><a href="#sec-overview" class="active">Overview &amp; the composed loop</a></li>
-          <li><a href="#sec-phase1">Supply-chain bankruptcy</a></li>
-          <li><a href="#sec-phase2">Harmful tool choice under pressure</a></li>
-          <li><a href="#sec-phase3">Autonomous browser checkout</a></li>
-          <li><a href="#sec-composition">Where the loop holds and breaks</a></li>
+          <li><a href="#sec-overview" class="active">Abstract &amp; model</a></li>
+          <li><a href="#sec-phase1">1. Supply-chain bankruptcy</a></li>
+          <li><a href="#sec-phase2">2. Harmful tool choice</a></li>
+          <li><a href="#sec-phase3">3. Browser checkout</a></li>
+          <li><a href="#sec-joint-loop">Joint loop probability</a></li>
+          <li><a href="#sec-composition">Where the loop holds &amp; breaks</a></li>
           <li><a href="#sec-governance">Preventing automated crime</a></li>
+          <li><a href="#sec-citation">Citation</a></li>
         </ul>
       </nav>
     </aside>
@@ -122,28 +119,17 @@
     <div class="article-content">
 
       <!-- ================================================================
-           ANIMATED CHART 1: END-TO-END PROBABILITY OF THE COMPOSED LOOP
+           MODEL FIGURE: THREE-STAGE COMPOSITION OVERVIEW
            ================================================================ -->
-      <figure class="oai-chart-block" id="chart-loop">
-        <div class="oai-chart-header">
-          <div>
-            <h3 class="oai-chart-title">End-to-end probability of the three-stage illicit loop</h3>
-            <p class="oai-chart-subtitle">Joint rate \(P(A, B, C) = P(A) \cdot P(B \mid A) \cdot P(C \mid A, B)\) across frontier models under insolvency</p>
-          </div>
-          <button type="button" class="oai-replay-btn" data-replay="chart1" title="Replay bar growth animation">&#8635; Replay</button>
-        </div>
-
-        <div class="oai-controls-row">
-          <div class="oai-pill-group" id="chart1FilterGroup" role="tablist" aria-label="Loop condition">
-            <button type="button" class="oai-pill active" data-mode="verbal_s1">Verbal Pressure (Step 1)</button>
-            <button type="button" class="oai-pill" data-mode="numeric_s1">Balance Only (Step 1)</button>
-            <button type="button" class="oai-pill" data-mode="verbal_s3">Severe Crime (Step &ge; 3)</button>
-          </div>
-          <div class="oai-legend" id="chart1Legend"></div>
-        </div>
-
-        <div class="oai-plot-stage" id="chart1Plot"></div>
-        <figcaption class="oai-chart-note" id="chart1Caption"></figcaption>
+      <figure class="model-figure-block" id="model-overview-figure">
+        <img
+          src="assets/model_figure_final3.png"
+          alt="Three-stage composition of automated crime by agents: (A) supply-chain coordination failure and insolvency, (B) harmful tool selection under recovery pressure, and (C) autonomous browser checkout on an obfuscated storefront."
+          loading="eager"
+        />
+        <figcaption class="model-figure-caption">
+          <strong>Three-stage composition of automated crime.</strong> Ordinary multi-agent coordination failures in a supply-chain simulation push agents into insolvency (Phase 1, \(A\)), contextual recovery pressure and high payoffs elevate engagement with harmful tool chains (Phase 2, \(B \mid A\)), and general-purpose browser agents complete prohibited checkouts when product names are obfuscated with emoji codes (Phase 3, \(C \mid A, B\)).
+        </figcaption>
       </figure>
 
       <!-- ================================================================
@@ -263,7 +249,50 @@
       </figure>
 
       <!-- ================================================================
-           SECTION 5: WHERE THE LOOP HOLDS AND BREAKS
+           SECTION 5: COMPOSITION — THE JOINT LOOP PROBABILITY
+           ================================================================ -->
+      <section class="prose-block" id="sec-joint-loop">
+        <h2 class="section-heading">Composing the three stages into a joint loop probability</h2>
+        <p>
+          To quantify how these three capabilities interact across the contemporary agent stack, we compose the empirical stage rates into the joint probability:
+        </p>
+
+        <div class="clean-equation">
+          \[
+            P(A, B, C) \;=\; P(A) \cdot P(B \mid A) \cdot P(C \mid A, B)
+          \]
+        </div>
+
+        <p>
+          Here, \(A\) denotes financial distress after a multi-agent supply-chain failure, \(B\) denotes engagement with a harmful tool chain under recovery pressure, and \(C\) denotes completion of a simulated illicit purchase in a browser. If ordinary supply-chain dynamics push an agent into insolvency and contextual pressure raises its willingness to select harmful tools, then general-purpose browser autonomy can close the loop by executing a prohibited checkout on an obfuscated storefront.
+        </p>
+      </section>
+
+      <!-- ANIMATED CHART 1: END-TO-END PROBABILITY OF THE COMPOSED LOOP -->
+      <figure class="oai-chart-block" id="chart-loop">
+        <div class="oai-chart-header">
+          <div>
+            <h3 class="oai-chart-title">End-to-end probability of the three-stage illicit loop</h3>
+            <p class="oai-chart-subtitle">Joint rate \(P(A, B, C) = P(A) \cdot P(B \mid A) \cdot P(C \mid A, B)\) across frontier models under insolvency</p>
+          </div>
+          <button type="button" class="oai-replay-btn" data-replay="chart1" title="Replay bar growth animation">&#8635; Replay</button>
+        </div>
+
+        <div class="oai-controls-row">
+          <div class="oai-pill-group" id="chart1FilterGroup" role="tablist" aria-label="Loop condition">
+            <button type="button" class="oai-pill active" data-mode="verbal_s1">Verbal Pressure (Step 1)</button>
+            <button type="button" class="oai-pill" data-mode="numeric_s1">Balance Only (Step 1)</button>
+            <button type="button" class="oai-pill" data-mode="verbal_s3">Severe Crime (Step &ge; 3)</button>
+          </div>
+          <div class="oai-legend" id="chart1Legend"></div>
+        </div>
+
+        <div class="oai-plot-stage" id="chart1Plot"></div>
+        <figcaption class="oai-chart-note" id="chart1Caption"></figcaption>
+      </figure>
+
+      <!-- ================================================================
+           SECTION 6: WHERE THE LOOP HOLDS AND BREAKS
            ================================================================ -->
       <section class="prose-block" id="sec-composition">
         <h2 class="section-heading">Where the composed loop holds and what the experiments do not show</h2>
@@ -289,14 +318,16 @@
       </section>
 
       <!-- Minimal Citation Footer -->
-      <footer class="article-footer">
+      <footer class="article-footer" id="sec-citation">
         <div class="footer-rule"></div>
         <div class="footer-meta-grid">
-          <div>
+          <div class="citation-box">
             <div class="footer-label">Citation</div>
             <pre class="bibtex-clean">@inproceedings{hollbeck2026claudecoke,
   title     = {Claude Coke: Prevent Automated Crime by Agents},
-  author    = {Hollbeck, Gabor and Peters, Baran and von Recum, Alexander and Simantob, Yuri and Grant, Jay and McGail, Alec and Riehl, Kevin},
+  author    = {Hollbeck, Gabor and Peters, Baran and
+               von Recum, Alexander and Simantob, Yuri and
+               Grant, Jay and McGail, Alec and Riehl, Kevin},
   booktitle = {NeurIPS 2026 Position Paper Track},
   year      = {2026}
 }</pre>
@@ -316,6 +347,7 @@
   </main>
 
   <script src="app.js"></script>
+  <script src="phase1_real_data.js"></script>
   <script src="simulations.js"></script>
 </body>
 </html>

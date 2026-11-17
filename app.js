@@ -148,6 +148,123 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  const renderStackedOutcomeChart = ({
+    plotId,
+    legendId,
+    captionId,
+    outcomes = [],
+    groups = [],
+    caption = ''
+  }) => {
+    const plotEl = document.getElementById(plotId);
+    const legendEl = document.getElementById(legendId);
+    const captionEl = document.getElementById(captionId);
+    if (!plotEl) return;
+
+    if (legendEl) {
+      legendEl.innerHTML = outcomes.map(o => `
+        <span class="oai-legend-item">
+          <span class="oai-legend-dot" style="background: ${o.color};"></span>
+          <span>${o.label}</span>
+        </span>
+      `).join('');
+    }
+
+    if (captionEl) {
+      captionEl.innerHTML = caption;
+    }
+
+    const yTicks = [0, 25, 50, 75, 100];
+    const ticksHtml = yTicks.map(val => {
+      return `<div class="oai-y-tick" style="bottom: ${val}%;">${val}%</div>`;
+    }).join('');
+
+    const groupsHtml = groups.map(g => {
+      const barsHtml = g.bars.map(bar => {
+        // Order segments bottom-to-top: Completed, Refused, Failed
+        // Using flex-direction: column-reverse so first item sits at bottom
+        const nonZeroIndices = bar.segments
+          .map((seg, i) => (seg > 0 ? i : -1))
+          .filter(i => i >= 0);
+        const topIdx = nonZeroIndices.length ? nonZeroIndices[nonZeroIndices.length - 1] : -1;
+
+        const segsHtml = bar.segments.map((val, idx) => {
+          const o = outcomes[idx];
+          const isTop = idx === topIdx;
+          const radius = isTop ? '4px 4px 0 0' : '0';
+          const border = val > 0 ? '1px solid rgba(20, 20, 19, 0.25)' : 'none';
+          const innerLabel = val >= 16
+            ? `<span style="font-family:var(--font-mono);font-size:9.5px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.35);line-height:1;pointer-events:none;">${Math.round(val)}%</span>`
+            : '';
+          return `
+            <div
+              class="oai-stack-seg"
+              data-height="${val.toFixed(1)}"
+              title="${bar.title || bar.sublabel}: ${o.label} ${val.toFixed(1)}%"
+              style="
+                width: 100%;
+                height: 0%;
+                background-color: ${o.color};
+                border: ${border};
+                border-bottom: none;
+                border-radius: ${radius};
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                transition: height 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+                box-sizing: border-box;
+              "
+            >${innerLabel}</div>
+          `;
+        }).join('');
+
+        const completedVal = bar.segments[0] || 0;
+        return `
+          <div class="oai-bar-col" style="max-width: 44px; position: relative;">
+            <span class="oai-bar-val" data-target="${completedVal}" data-suffix="%" data-decimals="1" style="position: absolute; top: -17px; left: 50%; transform: translateX(-50%); color: ${outcomes[0].color}; font-weight: 600; margin: 0;">0.0%</span>
+            <div style="width: 100%; height: 100%; display: flex; flex-direction: column-reverse; justify-content: flex-start;">
+              ${segsHtml}
+            </div>
+            <span style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-secondary); line-height: 1; white-space: nowrap;">${bar.sublabel}</span>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="oai-group">
+          <div class="oai-bars-wrap" style="gap: 6px;">
+            ${barsHtml}
+          </div>
+          <div class="oai-x-label" style="top: calc(100% + 22px);">${g.label}</div>
+        </div>
+      `;
+    }).join('');
+
+    plotEl.innerHTML = `
+      <div class="oai-l-frame">
+        <div class="oai-y-axis">${ticksHtml}</div>
+        <div class="oai-canvas">${groupsHtml}</div>
+      </div>
+    `;
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        plotEl.querySelectorAll('.oai-stack-seg').forEach((segEl, idx) => {
+          const targetH = segEl.getAttribute('data-height') || '0';
+          segEl.style.transitionDelay = `${Math.floor(idx / 3) * 28}ms`;
+          segEl.style.height = `${targetH}%`;
+        });
+        plotEl.querySelectorAll('.oai-bar-val').forEach((valEl, idx) => {
+          const targetVal = parseFloat(valEl.getAttribute('data-target') || '0');
+          setTimeout(() => {
+            animateValue(valEl, targetVal, '%', 1, 760);
+          }, idx * 28);
+        });
+      });
+    });
+  };
+
   /* ------------------------------------------------------------------------
      4. Definitions for All 4 Animated Charts
      ------------------------------------------------------------------------ */

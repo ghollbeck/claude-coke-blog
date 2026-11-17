@@ -437,102 +437,157 @@
    MODULE 2: PHASE 3 TOR BROWSER FOR AGENTS & 8-STEP CHECKOUT SIMULATION
    ============================================================================ */
 
-/* 8-Step Commitment Depth Funnel Strip */
+/* 8-Step Commitment Depth Progress Line (Minimalist, No Cards) */
 .p3-funnel-strip {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 6px;
-  margin-bottom: 16px;
+  align-items: start;
+  gap: 4px;
+  margin: 4px 0 18px;
+  padding: 0 4px;
+}
+
+.p3-progress-track {
+  position: absolute;
+  top: 10px;
+  left: 6.25%;
+  right: 6.25%;
+  height: 2px;
+  background: #E5E7EB;
+  border-radius: 1px;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.p3-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #4F46E5;
+  transition: width 0.25s ease, background-color 0.2s ease;
+}
+
+.p3-progress-fill.is-completed {
+  background: #10B981;
+}
+
+.p3-progress-fill.is-refused {
+  background: #EF4444;
+}
+
+.p3-progress-fill.is-failed {
+  background: #6B7280;
 }
 
 .p3-step-pill {
-  border: 1px solid #E5E5E5;
-  border-radius: 4px;
-  background: #FAFAFA;
-  padding: 7px 6px;
-  text-align: center;
-  transition: all 0.18s ease;
   position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
-.p3-step-num {
-  display: block;
+.p3-step-dot {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid #D1D5DB;
+  color: #6B7280;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 9.5px;
-  font-weight: 600;
-  color: #888888;
-  margin-bottom: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
 }
 
 .p3-step-name {
   display: block;
   font-size: 11px;
-  font-weight: 600;
-  color: #444444;
+  font-weight: 500;
+  color: #6B7280;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
+  transition: color 0.18s ease;
 }
 
-.p3-step-pill.is-reached {
-  background: #F0FDF4;
-  border-color: #86EFAC;
-}
-
-.p3-step-pill.is-reached .p3-step-num {
-  color: #15803D;
+.p3-step-pill.is-reached .p3-step-dot {
+  background: #10B981;
+  border-color: #10B981;
+  color: #FFFFFF;
 }
 
 .p3-step-pill.is-reached .p3-step-name {
-  color: #14532D;
+  color: #111827;
+  font-weight: 600;
 }
 
-.p3-step-pill.is-current {
-  background: #EEF2FF;
-  border-color: #6366F1;
-  box-shadow: 0 0 0 1px #6366F1;
+.p3-step-pill.is-current .p3-step-dot {
+  background: #4F46E5;
+  border-color: #4F46E5;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.16);
 }
 
-.p3-step-pill.is-current .p3-step-num,
 .p3-step-pill.is-current .p3-step-name {
-  color: #312E81;
+  color: #111827;
+  font-weight: 700;
 }
 
-.p3-step-pill.is-refused {
-  background: #FEF2F2;
-  border-color: #FCA5A5;
-  box-shadow: 0 0 0 1px #EF4444;
+.p3-step-pill.is-refused .p3-step-dot {
+  background: #EF4444;
+  border-color: #EF4444;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.16);
 }
 
-.p3-step-pill.is-refused .p3-step-num,
 .p3-step-pill.is-refused .p3-step-name {
   color: #991B1B;
+  font-weight: 700;
 }
 
-.p3-step-pill.is-failed {
-  background: #F3F4F6;
-  border-color: #9CA3AF;
+.p3-step-pill.is-failed .p3-step-dot {
+  background: #6B7280;
+  border-color: #6B7280;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.16);
 }
 
-/* Main Split Grid: Tor Browser (Left 64%) + MCP Telemetry (Right 36%) */
+.p3-step-pill.is-failed .p3-step-name {
+  color: #374151;
+  font-weight: 600;
+}
+
+/* Main Vertical Stack: Full-Width Tor Browser (Top) + Auto-Scrolling MCP Trace (Bottom) */
 .p3-workspace-grid {
-  display: grid;
-  grid-template-columns: 1.75fr 1fr;
-  gap: 16px;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
 }
 
-@media (max-width: 900px) {
-  .p3-workspace-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 720px) {
   .p3-funnel-strip {
     grid-template-columns: repeat(4, 1fr);
+    row-gap: 10px;
+  }
+  .p3-progress-track {
+    display: none;
   }
 }
 
 /* Tor Browser Window */
 .tor-browser-window {
+  width: 100%;
   border: 1px solid #D4D4D8;
   border-radius: 6px;
   background: #FFFFFF;
@@ -1037,15 +1092,15 @@
   100% { opacity: 0; transform: scale(1.75); }
 }
 
-/* Right Column: Playwright MCP Agent Trace & Empirical Cell Telemetry */
+/* Bottom Panel: Auto-Scrolling Playwright MCP Trace & Empirical 15-Trial Summary */
 .p3-telemetry-panel {
+  width: 100%;
   border: 1px solid #E5E5E5;
   border-radius: 6px;
   background: #FCFCFC;
-  padding: 13px 14px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 10px;
 }
 
@@ -1053,9 +1108,32 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 8px;
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   border-bottom: 1px solid #EAEAEA;
+}
+
+.p3-tel-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.p3-tel-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #222222;
+}
+
+.p3-emp-ver {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: #666666;
 }
 
 .p3-tel-title {
@@ -1078,19 +1156,19 @@
   border-radius: 4px;
   padding: 8px 10px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 10.2px;
-  line-height: 1.38;
+  font-size: 10.5px;
+  line-height: 1.42;
   color: #1F2937;
-  min-height: 238px;
-  max-height: 265px;
+  height: 128px;
   overflow-y: auto;
+  scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .p3-log-entry {
-  padding-bottom: 4px;
+  padding-bottom: 5px;
   border-bottom: 1px dashed #F0F0F0;
 }
 
@@ -1114,33 +1192,27 @@
   font-weight: 600;
 }
 
-/* Empirical Cell Breakdown Box (n = 15 trials from Table C.3) */
+/* Empirical Cell Summary Footer Strip (n = 15 trials from Table C.3) */
 .p3-empirical-box {
   background: #FFFFFF;
   border: 1px solid #EAEAEA;
   border-radius: 4px;
-  padding: 9px 11px;
-}
-
-.p3-emp-top {
+  padding: 7px 11px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
-  margin-bottom: 6px;
-  font-size: 10.5px;
-  font-weight: 600;
-  color: #222222;
-  white-space: nowrap;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .p3-emp-bar {
-  height: 9px;
+  flex: 1;
+  min-width: 160px;
+  height: 8px;
   border-radius: 3px;
   background: #F3F4F6;
   overflow: hidden;
   display: flex;
-  margin-bottom: 6px;
 }
 
 .p3-emp-seg-c { background: #009E73; }
@@ -1150,10 +1222,9 @@
 .p3-emp-counts {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 4px;
+  gap: 14px;
   font-family: ui-monospace, SFMono-Regular, monospace;
-  font-size: 9.8px;
+  font-size: 10px;
   color: #4B5563;
   white-space: nowrap;
 }

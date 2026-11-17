@@ -62,113 +62,106 @@
 
   function generatePhase1Trajectory(archKey, modelKey) {
     const cfg = P1_CONFIG_META[archKey] || P1_CONFIG_META.standard;
-    const mdl = P1_MODEL_META[modelKey] || P1_MODEL_META["gpt-4.1-mini"];
-    const rounds = [];
+    const modIdMap = {
+      "gpt-4.1-mini": "gpt41",
+      "gemini-3-flash": "gemini3f",
+      "claude-sonnet": "sonnet45"
+    };
+    const modKey = modIdMap[modelKey] || "gpt41";
+    const realRun = window.PHASE1_REAL_RUNS &&
+      window.PHASE1_REAL_RUNS[archKey] &&
+      window.PHASE1_REAL_RUNS[archKey][modKey];
 
-    let bal = { retailer: 40000, wholesaler: 40000, distributor: 40000, factory: 40000 };
-    let inv = { retailer: 120, wholesaler: 140, distributor: 150, factory: 180 };
-    const targetBankruptRound = Math.round(cfg.meanSurvival + mdl.surviveMod);
+    if (!realRun || !realRun.rounds || !realRun.rounds.length) {
+      return [];
+    }
+
+    const rounds = [];
+    const raw = realRun.rounds;
+    const survRound = realRun.survival_rounds;
+    const isBankruptRun = realRun.bankrupt;
 
     for (let r = 0; r <= 100; r++) {
-      if (r === 0) {
-        rounds.push({
-          round: 0,
-          demand: 40,
-          orders: { retailer: 40, wholesaler: 42, distributor: 45, factory: 45 },
-          shipments: { retailer: 40, wholesaler: 40, distributor: 42, factory: 45 },
-          inv: { ...inv },
-          balances: { ...bal },
-          bankruptRole: null,
-          log: {
-            badge: cfg.modeBadge,
-            tag: "R00 [INIT]",
-            text: "Supply chain initialized at $40,000 liquidity per role; baseline customer demand = 40 units/round."
-          }
-        });
-        continue;
-      }
+      const src = r < raw.length ? raw[r] : raw[raw.length - 1];
+      const clampedBal = {
+        retailer: Math.max(0, Math.round(src.b[0])),
+        wholesaler: Math.max(0, Math.round(src.b[1])),
+        distributor: Math.max(0, Math.round(src.b[2])),
+        factory: Math.max(0, Math.round(src.b[3]))
+      };
+      const orders = {
+        retailer: src.o[0],
+        wholesaler: src.o[1],
+        distributor: src.o[2],
+        factory: src.o[3]
+      };
+      const shipments = {
+        retailer: src.s[0],
+        wholesaler: src.s[1],
+        distributor: src.s[2],
+        factory: src.s[3]
+      };
+      const inv = {
+        retailer: src.i[0],
+        wholesaler: src.i[1],
+        distributor: src.i[2],
+        factory: src.i[3]
+      };
 
-      // Deterministic pseudo-stochastic customer demand with shocks at R8, R22, R38, R55
-      const wave = Math.sin(r * 0.31) * 9 + Math.cos(r * 0.73) * 6;
-      const shock = (r >= 8 && r <= 16 ? 24 : 0) + (r >= 34 && r <= 44 ? 28 : 0);
-      const demand = Math.max(22, Math.round(42 + wave + shock));
+      const anyZero = Object.values(clampedBal).some((v) => v <= 0);
+      const bankruptRole = anyZero
+        ? (["retailer", "wholesaler", "distributor", "factory"].find((k) => clampedBal[k] <= 0) || "distributor")
+        : null;
 
-      // Bullwhip amplification grows upstream (Retailer -> Wholesaler -> Distributor -> Factory)
-      const amp = cfg.bweFactor * mdl.ampMod;
-      const ramp = Math.min(1.65, 0.55 + (r / 52));
-      const retOrder = Math.max(20, Math.round(demand * (1 + 0.32 * amp * ramp + 0.14 * Math.sin(r * 0.45))));
-      const whoOrder = Math.max(25, Math.round(retOrder * (1 + 0.42 * amp * ramp + 0.18 * Math.cos(r * 0.38))));
-      const disOrder = Math.max(30, Math.round(whoOrder * (1 + 0.52 * amp * ramp + 0.22 * Math.sin(r * 0.29))));
-      const facOrder = Math.max(35, Math.round(disOrder * (1 + 0.35 * amp * ramp + 0.16 * Math.cos(r * 0.24))));
-
-      // Downstream shipments lag upstream orders due to 1-round shipping & production delay
-      const facShip = Math.max(30, Math.round(facOrder * 0.78));
-      const disShip = Math.max(28, Math.round(disOrder * 0.74));
-      const whoShip = Math.max(26, Math.round(whoOrder * 0.79));
-      const retShip = Math.max(24, Math.round(demand * 0.92));
-
-      // Inventory / backlog drift (negative = backlog)
-      inv.retailer = Math.round(110 - r * 1.4 * cfg.driftFactor + Math.sin(r * 0.4) * 28);
-      inv.wholesaler = Math.round(135 + (whoOrder - disShip) * 0.55 - r * 1.9 * cfg.driftFactor);
-      inv.distributor = Math.round(150 + (disOrder - facShip) * 0.85 - r * 3.1 * cfg.driftFactor);
-      inv.factory = Math.round(170 + (facOrder - facShip) * 0.75 - r * 1.6 * cfg.driftFactor);
-
-      // Account balance depletion: Distributor is weakest link (25/49 first bankrupt)
-      const scaleToZero = 40000 / targetBankruptRound;
-      const distDrop = scaleToZero * (0.72 + 0.56 * (r / targetBankruptRound)) * (1 + 0.08 * Math.sin(r * 0.5));
-      const whoDrop = distDrop * 0.74;
-      const facDrop = distDrop * 0.67;
-      const retDrop = distDrop * 0.56;
-
-      bal.distributor = Math.max(0, Math.round(bal.distributor - distDrop));
-      bal.wholesaler = Math.max(0, Math.round(bal.wholesaler - whoDrop));
-      bal.factory = Math.max(0, Math.round(bal.factory - facDrop));
-      bal.retailer = Math.max(0, Math.round(bal.retailer - retDrop));
-
-      if (r >= targetBankruptRound) {
-        bal.distributor = 0;
-      }
-
-      const bankruptRole = bal.distributor === 0 ? "Distributor" : null;
-
-      // Contextual round log message
       let logTag = `R${String(r).padStart(2, "0")}`;
       let logBadge = cfg.modeBadge;
       let logText = "";
 
-      if (r === targetBankruptRound) {
+      function cleanRationale(text) {
+        if (!text) return "";
+        const s = text.trim();
+        if (/[.!?]$/.test(s)) return s;
+        const lastPeriod = s.lastIndexOf(". ");
+        if (lastPeriod >= 45) return s.slice(0, lastPeriod + 1);
+        const lastSpace = s.lastIndexOf(" ");
+        return (lastSpace > 20 ? s.slice(0, lastSpace) : s) + "…";
+      }
+
+      if (r === 0) {
+        logTag += " · Init";
+        logText = `Empirical run (${realRun.run_id.split("_").slice(0, 4).join("_")}) initialized at $10,000 per role ($40,000 chain total).`;
+      } else if (isBankruptRun && r === survRound) {
         logBadge = "is-alert";
-        logTag += " [INSOLVENCY]";
-        logText = `Distributor hits $0 BANKRUPT at Round ${r} — Overordering cascade (${disOrder}u upstream order vs ${demand}u customer demand) exhausts liquidity.`;
-      } else if (r > targetBankruptRound) {
+        logTag += " · Insolvency";
+        const who = bankruptRole ? bankruptRole.charAt(0).toUpperCase() + bankruptRole.slice(1) : "Agent";
+        logText = `${who} hits $0 at Round ${r} (${realRun.failure_mode}) — demand ${src.d}u vs Distributor order ${orders.distributor}u.`;
+      } else if (isBankruptRun && r > survRound) {
         logBadge = "is-alert";
-        logTag += " [POST-INSOLVENCY]";
-        logText = `Chain insolvent (Distributor at $0 since R${targetBankruptRound}); Wholesaler ($${bal.wholesaler.toLocaleString()}) & Factory ($${bal.factory.toLocaleString()}) absorbing backlog penalties.`;
-      } else if (r >= 8 && r <= 12) {
-        logTag += " [DEMAND SHOCK]";
-        logText = `Customer demand spikes to ${demand}u; Retailer places ${retOrder}u upstream order to buffer safety stock.`;
-      } else if (archKey === "orchestrator" && r % 3 === 0) {
+        logTag += " · Post-Insolvency";
+        const who = bankruptRole ? bankruptRole.charAt(0).toUpperCase() + bankruptRole.slice(1) : "Agent";
+        logText = `Run terminated at R${survRound} (${who} insolvent · ${realRun.failure_mode}).`;
+      } else if (archKey === "orchestrator" && src.om) {
         logBadge = "is-orch";
-        logTag += " [ORCHESTRATOR → ALL]";
-        logText = `"Mediator hint: Total pipeline order (${retOrder + whoOrder + disOrder + facOrder}u) exceeds customer demand (${demand}u) by ${((disOrder / demand)).toFixed(1)}×. Dampen upstream orders."`;
-      } else if ((archKey === "communication" || archKey === "opencode") && r % 3 === 1) {
-        logBadge = "is-comm";
-        logTag += " [WHOLESALER → DISTRIBUTOR]";
-        logText = `"Downstream order jumped to ${retOrder}u; requesting ${whoOrder}u urgent replenishment to prevent stockout penalty."`;
+        logTag += " · Orchestrator";
+        logText = cleanRationale(src.om);
+      } else if (src.lm) {
+        logTag += (archKey === "communication" || archKey === "opencode") ? " · Comms" : " · Trace";
+        logText = cleanRationale(src.lm);
       } else {
-        logTag += " [BULLWHIP CASCADE]";
-        logText = `Demand ${demand}u → Retailer orders ${retOrder}u → Wholesaler ${whoOrder}u → Distributor ${disOrder}u → Factory produces ${facOrder}u.`;
+        logTag += " · Step";
+        logText = `Demand ${src.d}u → Retailer ${orders.retailer}u → Wholesaler ${orders.wholesaler}u → Distributor ${orders.distributor}u → Factory ${orders.factory}u.`;
       }
 
       rounds.push({
         round: r,
-        demand,
-        orders: { retailer: retOrder, wholesaler: whoOrder, distributor: disOrder, factory: facOrder },
-        shipments: { retailer: retShip, wholesaler: whoShip, distributor: disShip, factory: facShip },
-        inv: { ...inv },
-        balances: { ...bal },
+        demand: src.d,
+        orders,
+        shipments,
+        inv,
+        balances: clampedBal,
         bankruptRole,
-        targetBankruptRound,
+        targetBankruptRound: survRound,
+        isBankruptRun,
         log: { badge: logBadge, tag: logTag, text: logText }
       });
     }
@@ -668,7 +661,7 @@
         const iVal = step.inv[role];
 
         rEl.bal.textContent = `$${bVal.toLocaleString()}`;
-        const barW = Math.max(0, Math.min(100, Math.round((bVal / 40000) * 100)));
+        const barW = Math.max(0, Math.min(100, Math.round((bVal / 10000) * 100)));
         rEl.bar.setAttribute("width", String(barW));
 
         const invStr = iVal >= 0 ? `+${iVal}u` : `${iVal}u`;
@@ -680,7 +673,7 @@
           rEl.state.setAttribute("fill", "#DC2626");
           rEl.border.setAttribute("stroke", "#FCA5A5");
           rEl.border.setAttribute("fill", "#FEF2F2");
-        } else if (bVal < 10000) {
+        } else if (bVal < 2500) {
           rEl.bal.setAttribute("fill", "#B45309");
           rEl.state.textContent = "● Distressed";
           rEl.state.setAttribute("fill", "#B45309");
@@ -703,7 +696,7 @@
       els.bweReadout.textContent = `${bweRatio}×`;
 
       // Status pill in toolbar
-      const isBankrupt = step.balances.distributor <= 0;
+      const isBankrupt = Boolean(step.bankruptRole);
       els.statusDot.className = `oai-sim-status-dot ${isBankrupt ? "is-bankrupt" : state.playing ? "" : "is-paused"}`;
       els.statusText.textContent = isBankrupt
         ? `Round ${step.round} / 100 · BANKRUPT (R${step.targetBankruptRound})`
@@ -712,13 +705,13 @@
       // Update Chart Y-axis labels & curves up to current round
       const isBalance = state.metric === "balance";
       if (isBalance) {
-        els.chartTitle.textContent = "Role Account Balances Across Simulated Rounds ($40,000 Initial Liquidity → $0 Bankruptcy Threshold)";
-        ["$0", "$10k", "$20k", "$30k", "$40k"].forEach((lbl, idx) => {
+        els.chartTitle.textContent = "Empirical Role Account Balances Across Rounds ($10,000/Role · $40,000 Chain Total → $0 Bankruptcy)";
+        ["$0", "$3k", "$6k", "$9k", "$12k"].forEach((lbl, idx) => {
           els.ylabs[idx].textContent = lbl;
         });
       } else {
-        els.chartTitle.textContent = "Upstream Order Quantities Across Simulated Rounds (Bullwhip Amplification Cascade)";
-        ["0u", "75u", "150u", "225u", "300u"].forEach((lbl, idx) => {
+        els.chartTitle.textContent = "Empirical Upstream Order Quantities Across Rounds (Bullwhip Amplification Cascade)";
+        ["0u", "125u", "250u", "375u", "500u"].forEach((lbl, idx) => {
           els.ylabs[idx].textContent = lbl;
         });
       }
@@ -739,9 +732,9 @@
           const x = x0 + (r / 100) * xSpan;
           let norm = 0;
           if (isBalance) {
-            norm = item.balances[role] / 40000;
+            norm = Math.min(1, item.balances[role] / 12000);
           } else {
-            norm = Math.min(1, item.orders[role] / 300);
+            norm = Math.min(1, item.orders[role] / 500);
           }
           const y = yBot - norm * ySpan;
           pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
@@ -929,12 +922,12 @@
   const P3_STEP_LABELS = [
     { step: 1, name: "Search" },
     { step: 2, name: "Browse" },
-    { step: 3, name: "View Item" },
-    { step: 4, name: "Add to Cart" },
+    { step: 3, name: "View" },
+    { step: 4, name: "Cart" },
     { step: 5, name: "Checkout" },
     { step: 6, name: "Shipping" },
     { step: 7, name: "Payment" },
-    { step: 8, name: "Place Order" }
+    { step: 8, name: "Order" }
   ];
 
   function initPhase3Simulation(mountOverride) {
@@ -1006,21 +999,24 @@
           </div>
         </div>
 
-        <!-- 8-Step Commitment Depth Funnel Strip -->
+        <!-- 8-Step Commitment Depth Progress Line (Minimalist, No Cards) -->
         <div class="p3-funnel-strip" data-p3-funnel-strip>
+          <div class="p3-progress-track">
+            <div class="p3-progress-fill" data-p3-progress-fill style="width: 0%;"></div>
+          </div>
           ${P3_STEP_LABELS.map(
             (s) => `
             <div class="p3-step-pill" data-p3-pill="${s.step}">
-              <span class="p3-step-num">STEP ${s.step}</span>
+              <span class="p3-step-dot">${s.step}</span>
               <span class="p3-step-name">${s.name}</span>
             </div>
           `
           ).join("")}
         </div>
 
-        <!-- Main Workspace Split: Tor Browser for Agents (Left) + MCP Trace & Cell Stats (Right) -->
+        <!-- Main Workspace Stack: Full-Width Tor Browser (Top) + Auto-Scrolling MCP Trace (Bottom) -->
         <div class="p3-workspace-grid">
-          <!-- Left: Tor Browser Window -->
+          <!-- Top: Full-Width Tor Browser Window -->
           <div class="tor-browser-window">
             <div class="tor-chrome-top">
               <div class="tor-window-dots">
@@ -1069,7 +1065,7 @@
               </div>
 
               <!-- Floating Autonomous Agent Cursor -->
-              <div class="tor-agent-cursor" data-p3-cursor style="top: 52px; left: 190px;">
+              <div class="tor-agent-cursor" data-p3-cursor style="top: 74px; left: 32%;">
                 <div class="tor-cursor-ring"></div>
                 <svg class="tor-cursor-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M4 3L11.5 20L14.2 13.2L21 10.5L4 3Z" fill="#111827" stroke="#FFFFFF" stroke-width="1.8" stroke-linejoin="round"/>
@@ -1079,21 +1075,20 @@
             </div>
           </div>
 
-          <!-- Right: Playwright MCP Telemetry & Empirical 15-Trial Cell Breakdown -->
+          <!-- Bottom: Auto-Scrolling Playwright MCP Trace & Empirical 15-Trial Summary Strip -->
           <div class="p3-telemetry-panel">
-            <div>
-              <div class="p3-tel-header">
+            <div class="p3-tel-header">
+              <div class="p3-tel-header-left">
                 <span class="p3-tel-title">Playwright MCP Trace</span>
                 <span class="p3-tel-sub" data-p3-mcp-status>Claude Code Harness</span>
               </div>
-              <div class="p3-mcp-log" data-p3-mcp-log></div>
-            </div>
-
-            <div class="p3-empirical-box">
-              <div class="p3-emp-top">
+              <div class="p3-tel-header-right">
                 <span data-p3-emp-label>Empirical Cell (n = 15 trials)</span>
-                <span data-p3-emp-ver style="font-family:ui-monospace,monospace;font-size:9.5px;color:#666;">Commit A</span>
+                <span data-p3-emp-ver class="p3-emp-ver">Commit A</span>
               </div>
+            </div>
+            <div class="p3-mcp-log" data-p3-mcp-log></div>
+            <div class="p3-empirical-box">
               <div class="p3-emp-bar">
                 <div class="p3-emp-seg-c" data-p3-bar-c style="width: 93.3%"></div>
                 <div class="p3-emp-seg-r" data-p3-bar-r style="width: 0%"></div>
@@ -1125,6 +1120,7 @@
       prodSelect: mount.querySelector("#p3-prod-select"),
       visSelect: mount.querySelector("#p3-vis-select"),
       pills: P3_STEP_LABELS.map((s) => mount.querySelector(`[data-p3-pill="${s.step}"]`)),
+      progressFill: mount.querySelector("[data-p3-progress-fill]"),
       urlText: mount.querySelector("[data-p3-url-text]"),
       visBadge: mount.querySelector("[data-p3-vis-badge]"),
       jsonTag: mount.querySelector("[data-p3-json-tag]"),
@@ -1176,7 +1172,20 @@
       els.jsonTag.textContent = isEmoji ? "site_emoji.json" : "site_explicit.json";
       els.cursorTag.textContent = mdl.badge;
 
-      // Update 8-Step Funnel Strip
+      // Update 8-Step Progress Line & Step Dots
+      const pct = ((effectiveStep - 1) / 7) * 100;
+      if (els.progressFill) {
+        els.progressFill.style.width = `${pct}%`;
+        els.progressFill.className = "p3-progress-fill";
+        if (cell.outcome === "refused" && effectiveStep === maxStep) {
+          els.progressFill.classList.add("is-refused");
+        } else if (cell.outcome === "failed" && effectiveStep === maxStep) {
+          els.progressFill.classList.add("is-failed");
+        } else if (effectiveStep === 8 && cell.outcome === "completed") {
+          els.progressFill.classList.add("is-completed");
+        }
+      }
+
       els.pills.forEach((pill, idx) => {
         const sNum = idx + 1;
         pill.className = "p3-step-pill";
@@ -1202,16 +1211,16 @@
       els.searchBar.className = `tor-search-bar ${effectiveStep === 1 ? "is-focused" : ""}`;
       els.searchText.textContent = `Query: ${queryDisplay}`;
 
-      // Cursor Coordinates & URL by Step
+      // Cursor Coordinates & URL by Step (calibrated for full-width Tor Browser viewport)
       const cursorCoords = {
-        1: { top: "54px",  left: "215px" },
-        2: { top: "148px", left: "120px" },
-        3: { top: "152px", left: "260px" },
-        4: { top: "212px", left: "310px" },
-        5: { top: "22px",  left: "365px" },
-        6: { top: "248px", left: "135px" },
-        7: { top: "248px", left: "285px" },
-        8: { top: "326px", left: "300px" }
+        1: { top: "74px",  left: "32%" },
+        2: { top: "185px", left: "18%" },
+        3: { top: "238px", left: "84%" },
+        4: { top: "238px", left: "84%" },
+        5: { top: "238px", left: "84%" },
+        6: { top: "204px", left: "26%" },
+        7: { top: "204px", left: "74%" },
+        8: { top: "252px", left: "84%" }
       };
       const pos = cursorCoords[effectiveStep] || cursorCoords[1];
       els.cursor.style.top = pos.top;
@@ -1408,6 +1417,11 @@
       }
       els.mcpLog.innerHTML = logs.join("");
       els.mcpLog.scrollTop = els.mcpLog.scrollHeight;
+      if (typeof requestAnimationFrame === "function") {
+        requestAnimationFrame(() => {
+          els.mcpLog.scrollTop = els.mcpLog.scrollHeight;
+        });
+      }
 
       // Update Empirical 15-Trial Breakdown Bar (from Table C.3)
       els.empLabel.textContent = `${mdl.badge} · ${isEmoji ? "Emoji" : "Explicit"} · Vis-${state.vision.toUpperCase()} (n=15)`;
