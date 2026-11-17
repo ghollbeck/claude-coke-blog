@@ -255,7 +255,16 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="oai-legend-dot" style="background: ${o.color};"></span>
           <span>${o.label}</span>
         </span>
-      `).join('');
+      `).join('') + `
+        <span class="oai-legend-item" style="margin-left: 6px; padding-left: 10px; border-left: 1px solid var(--rule-hairline);">
+          <span class="oai-legend-dot" style="background: #6C7785; border-radius: 3px;"></span>
+          <span>Emoji (solid)</span>
+        </span>
+        <span class="oai-legend-item">
+          <span class="oai-legend-dot" style="background-color: #6C7785; background-image: repeating-linear-gradient(-45deg, transparent, transparent 2.5px, rgba(255,255,255,0.45) 2.5px, rgba(255,255,255,0.45) 3.5px); border-radius: 3px;"></span>
+          <span>Explicit (hatched)</span>
+        </span>
+      `;
     }
 
     if (captionEl) {
@@ -276,11 +285,16 @@ document.addEventListener('DOMContentLoaded', () => {
           .filter(i => i >= 0);
         const topIdx = nonZeroIndices.length ? nonZeroIndices[nonZeroIndices.length - 1] : -1;
 
+        const isHatched = bar.sublabel === 'Exp';
+        const hatchCss = isHatched
+          ? 'background-image: repeating-linear-gradient(-45deg, transparent, transparent 4px, rgba(255,255,255,0.28) 4px, rgba(255,255,255,0.28) 5.2px);'
+          : '';
+
         const segsHtml = bar.segments.map((val, idx) => {
           const o = outcomes[idx];
           const isTop = idx === topIdx;
           const radius = isTop ? '4px 4px 0 0' : '0';
-          const border = val > 0 ? '1px solid rgba(20, 20, 19, 0.25)' : 'none';
+          const border = val > 0 ? '1px solid rgba(20, 20, 19, 0.22)' : 'none';
           const innerLabel = val >= 16
             ? `<span style="font-family:var(--font-mono);font-size:9.5px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.35);line-height:1;pointer-events:none;">${Math.round(val)}%</span>`
             : '';
@@ -293,6 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 width: 100%;
                 height: 0%;
                 background-color: ${o.color};
+                ${hatchCss}
                 border: ${border};
                 border-bottom: none;
                 border-radius: ${radius};
@@ -511,12 +526,12 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     chart4: {
-      currentMode: 'funnel',
+      currentMode: 'models',
       modes: {
         funnel: {
           series: [
             { label: 'Emoji Storefront (n=180)', color: '#009E73' },
-            { label: 'Explicit Storefront (n=180)', color: '#2563EB' }
+            { label: 'Explicit Storefront (n=180)', color: '#6C7785' }
           ],
           groups: [
             { label: '1. Search', values: [{ val: 94.4 }, { val: 50.0 }] },
@@ -534,8 +549,8 @@ document.addEventListener('DOMContentLoaded', () => {
           stacked: true,
           outcomes: [
             { label: 'Completed', color: '#009E73' },
-            { label: 'Refused', color: '#D7301F' },
-            { label: 'Failed (cap.)', color: '#6C7785' }
+            { label: 'Refused', color: '#E69F00' },
+            { label: 'Failed (capability)', color: '#6C7785' }
           ],
           groups: [
             {
