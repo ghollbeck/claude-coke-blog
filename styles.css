@@ -28,6 +28,22 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* Provider Brand Palette & Typography */
+  --provider-openai-bar: #6B7280;
+  --provider-openai-bar-light: #9CA3AF;
+  --provider-openai-stroke: #4B5563;
+  --font-openai: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+  --provider-claude-bar: #D97757;
+  --provider-claude-bar-light: #E9A28A;
+  --provider-claude-stroke: #B85A3B;
+  --font-claude: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+  --provider-gemini-bar: #2563EB;
+  --provider-gemini-bar-light: #60A5FA;
+  --provider-gemini-stroke: #1D4ED8;
+  --font-gemini: 'Plus Jakarta Sans', 'Inter', sans-serif;
 }
 
 *, *::before, *::after {
@@ -315,9 +331,16 @@ body {
    4. Model Figure, Simulation & Chart Breakouts (820px - 920px Max-Width)
    ========================================================================== */
 .model-figure-block {
-  max-width: 820px;
-  margin: 1.25rem auto 3.5rem;
+  width: 100%;
+  margin: 1.75rem 0;
   padding: 0;
+}
+
+@media (min-width: 1220px) {
+  .hero-lead-prose .model-figure-block {
+    width: 740px;
+    margin: 1.75rem 0 1.75rem -50px;
+  }
 }
 
 .model-figure-block img {
@@ -454,12 +477,80 @@ body {
   gap: 0.42rem;
 }
 
+.oai-legend-item--provider {
+  gap: 0.36rem;
+}
+
 .oai-legend-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   border: 1px solid rgba(20, 20, 19, 0.35);
   flex-shrink: 0;
+}
+
+.oai-legend-dot.hatched {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.58),
+    rgba(255, 255, 255, 0.58) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+}
+
+/* Company Brand Typography & Logo Badges */
+.provider-font-openai {
+  font-family: var(--font-openai);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.provider-font-claude {
+  font-family: var(--font-claude);
+  font-weight: 500;
+  font-size: 1.07em;
+  letter-spacing: -0.005em;
+}
+
+.provider-font-gemini {
+  font-family: var(--font-gemini);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.provider-logo-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.oai-x-provider-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem;
+  font-size: 11.5px;
+  line-height: 1.2;
+  color: var(--ink-primary);
+  white-space: nowrap;
+}
+
+.oai-x-provider-badge .provider-logo-icon {
+  width: 12.5px;
+  height: 12.5px;
+}
+
+.oai-x-provider-sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  margin-top: 2px;
+  line-height: 1.1;
 }
 
 /* L-Axis Plot Stage (Thin Black Y & X Axes with Tick Marks) */
@@ -542,6 +633,28 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+  position: relative;
+}
+
+.oai-bar-provider-icon {
+  position: absolute;
+  bottom: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11px;
+  height: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.oai-bar-provider-icon img {
+  width: 11px;
+  height: 11px;
+  display: block;
+  object-fit: contain;
 }
 
 .oai-bar-val {
@@ -569,8 +682,8 @@ body {
 .oai-bar.hatched {
   background-image: repeating-linear-gradient(
     -45deg,
-    rgba(255, 255, 255, 0.14),
-    rgba(255, 255, 255, 0.14) 4px,
+    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0.26) 4px,
     transparent 4px,
     transparent 8px
   );
@@ -587,7 +700,7 @@ body {
   text-align: center;
   line-height: 1.25;
   width: 100%;
-  max-width: 138px;
+  max-width: 156px;
 }
 
 .oai-x-label::before {
@@ -600,11 +713,23 @@ body {
   background: var(--axis-stroke);
 }
 
+.oai-x-label--with-subicons {
+  top: calc(100% + 23px);
+}
+
+.oai-x-label--with-subicons::before {
+  display: none;
+}
+
 .oai-chart-note {
-  margin-top: 3.1rem;
+  margin-top: 3.35rem;
   font-size: 13.5px;
   line-height: 1.55;
   color: var(--ink-secondary);
+}
+
+.oai-plot-stage.has-sublabels + .oai-chart-note {
+  margin-top: 4.35rem;
 }
 
 /* ==========================================================================
@@ -712,5 +837,9 @@ body {
   }
   .oai-x-label {
     font-size: 9.5px;
+  }
+  .oai-x-provider-badge {
+    font-size: 9.5px;
+    white-space: normal;
   }
 }

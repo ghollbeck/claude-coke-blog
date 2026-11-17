@@ -9,7 +9,7 @@
   <!-- Typography: Inter / Plus Jakarta Sans (Clean Editorial Sans), Newsreader (Display), JetBrains Mono (Axis & Data) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <!-- KaTeX for Clean Inline Equations -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
@@ -64,6 +64,18 @@
         <p>
           To understand the safety risks of autonomous artificial intelligence, we must measure multi-step actions rather than isolated text outputs. In commercial software stacks, agents already manage inventory, negotiate with suppliers, and execute browser transactions for a human principal, thereby shifting the safety question from static text generation to real-world execution. We therefore ask whether an agent deployed to run a business can come to engage in serious criminal activity.
         </p>
+
+        <figure class="model-figure-block" id="model-overview-figure">
+          <img
+            src="assets/model_figure_final3.png"
+            alt="Three-stage composition of automated crime by agents: (A) supply-chain coordination failure and insolvency, (B) harmful tool selection under recovery pressure, and (C) autonomous browser checkout on an obfuscated storefront."
+            loading="eager"
+          />
+          <figcaption class="model-figure-caption">
+            <strong>Three-stage composition of automated crime.</strong> Ordinary multi-agent coordination failures in a supply-chain simulation push agents into insolvency (Phase 1, <em>A</em>), contextual recovery pressure and high payoffs elevate engagement with harmful tool chains (Phase 2, <em>B</em> | <em>A</em>), and general-purpose browser agents complete prohibited checkouts when product names are obfuscated with emoji codes (Phase 3, <em>C</em> | <em>A, B</em>).
+          </figcaption>
+        </figure>
+
         <p>
           To trace how such an outcome could arise across the contemporary agent stack, we evaluate three sequential stages: multi-agent supply-chain distress, context-modulated harmful tool selection under recovery pressure, and autonomous browser checkout on obfuscated storefronts.
         </p>
@@ -133,26 +145,12 @@
     <div class="article-content">
 
       <!-- ================================================================
-           MODEL FIGURE: THREE-STAGE COMPOSITION OVERVIEW
-           ================================================================ -->
-      <figure class="model-figure-block" id="model-overview-figure">
-        <img
-          src="assets/model_figure_final3.png"
-          alt="Three-stage composition of automated crime by agents: (A) supply-chain coordination failure and insolvency, (B) harmful tool selection under recovery pressure, and (C) autonomous browser checkout on an obfuscated storefront."
-          loading="eager"
-        />
-        <figcaption class="model-figure-caption">
-          <strong>Three-stage composition of automated crime.</strong> Ordinary multi-agent coordination failures in a supply-chain simulation push agents into insolvency (Phase 1, \(A\)), contextual recovery pressure and high payoffs elevate engagement with harmful tool chains (Phase 2, \(B \mid A\)), and general-purpose browser agents complete prohibited checkouts when product names are obfuscated with emoji codes (Phase 3, \(C \mid A, B\)).
-        </figcaption>
-      </figure>
-
-      <!-- ================================================================
            SECTION 2: PHASE 1 (SUPPLY-CHAIN BANKRUPTCY)
            ================================================================ -->
-      <section class="prose-block" id="sec-phase1">
+      <section class="prose-block" id="sec-phase1" style="margin-top: 0;">
         <h2 class="section-heading">Supply-chain coordination failure leaves agents recurrently distressed</h2>
         <p>
-          To test whether ordinary business operations produce financially distressed agents without any adversarial prompt injection, we evaluate four coupled agents in a stochastic supply-chain game. A retailer, a wholesaler, a distributor, and a factory place orders sequentially over 100 rounds while facing shipping delays as well as holding and backlog penalties. Across our 58 analyzed runs spanning four coordination architectures and five model families, the most common outcome is bankruptcy, which occurs in 49 runs (\(P(A) = 84.5\%\)).
+          To test whether ordinary business operations produce financially distressed agents without any adversarial prompt injection, we evaluate four coupled agents in a stochastic supply-chain game. A retailer, a wholesaler, a distributor, and a factory place orders sequentially over 100 rounds while facing shipping delays as well as holding and backlog penalties. Across our 58 analyzed runs spanning four coordination architectures and five model families, the most common outcome is bankruptcy, which occurs in 49 runs (84.5%).
         </p>
         <p>
           As one can see in the round-by-round simulation below, small downstream demand fluctuations amplify as they propagate upstream through the supply chain. The dominant failure mode is an Overordering Cascade in 36 of the 49 bankrupt runs (73.5%), where the retailer over-orders after an initial demand spike and upstream participants amplify the surge until penalty costs drain their working balance below zero. While introducing an advisory orchestrator agent delays insolvency from a mean of 63.4 rounds in the Standard baseline to 80.8 rounds, 11 of 14 orchestrated runs still end in bankruptcy (\(p = 0.33\)), thereby leaving agents operating at a severe loss while still tasked with generating revenue.

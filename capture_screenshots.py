@@ -112,6 +112,17 @@ def run():
             full_page=True,
         )
 
+        # 4b. 04b_chart3_framing.png (Chart 3: Pressure Framing view — exact chart user screenshotted)
+        page.locator("#chart-phase2").scroll_into_view_if_needed()
+        page.click('#chart3FilterGroup [data-mode="framing"]')
+        page.wait_for_timeout(1200)
+        page.locator("#chart-phase2").screenshot(path=f"{OUT_DIR}/04b_chart3_framing.png")
+
+        # 4c. 04c_chart3_transcript.png (Chart 3: E2 Distress Transcript Effect view)
+        page.click('#chart3FilterGroup [data-mode="transcript"]')
+        page.wait_for_timeout(1200)
+        page.locator("#chart-phase2").screenshot(path=f"{OUT_DIR}/04c_chart3_transcript.png")
+
         # 5. 05_phase3_tor_checkout_active.png (Phase 3 Tor Browser simulation at Step 7/8 Completed Order)
         page.locator("#phase3-sim-mount").scroll_into_view_if_needed()
         page.select_option("#p3-model-select", "sonnet")
@@ -144,6 +155,23 @@ def run():
             clip={"x": 0, "y": p3_top, "width": 1440, "height": p3_bot - p3_top},
             full_page=True,
         )
+
+        # 6b. 06b_chart4_models.png (Chart 4: Completion Rate by Model stacked view with provider logos & fonts)
+        page.locator("#chart-phase3").scroll_into_view_if_needed()
+        page.click('#chart4FilterGroup [data-mode="models"]')
+        page.wait_for_timeout(1200)
+        page.locator("#chart-phase3").screenshot(path=f"{OUT_DIR}/06b_chart4_models.png")
+
+        # 6c. 06c_chart4_vision.png (Chart 4: Vision Ablation Boost view)
+        page.click('#chart4FilterGroup [data-mode="vision"]')
+        page.wait_for_timeout(1200)
+        page.locator("#chart-phase3").screenshot(path=f"{OUT_DIR}/06c_chart4_vision.png")
+
+        # 7. 07_chart1_loop.png (Chart 1: Joint loop probability)
+        page.locator("#chart-loop").scroll_into_view_if_needed()
+        page.click('[data-replay="chart1"]')
+        page.wait_for_timeout(1200)
+        page.locator("#chart-loop").screenshot(path=f"{OUT_DIR}/07_chart1_loop.png")
 
         print("Console errors/warnings:", console_errors)
         print("Page errors:", page_errors)

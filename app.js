@@ -42,8 +42,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   /* ------------------------------------------------------------------------
-     3. Reusable OpenAI L-Axis Animated Bar Chart Engine
+     3. Provider Theme Map & Reusable OpenAI L-Axis Animated Bar Chart Engine
      ------------------------------------------------------------------------ */
+  const PROVIDERS = {
+    openai: {
+      name: 'OpenAI',
+      color: '#6B7280',
+      colorLight: '#9CA3AF',
+      stroke: '#4B5563',
+      logo: 'assets/logos/openai.svg',
+      fontClass: 'provider-font-openai'
+    },
+    gemini: {
+      name: 'Google Gemini',
+      color: '#2563EB',
+      colorLight: '#60A5FA',
+      stroke: '#1D4ED8',
+      logo: 'assets/logos/gemini.svg',
+      fontClass: 'provider-font-gemini'
+    },
+    anthropic: {
+      name: 'Anthropic',
+      color: '#D97757',
+      colorLight: '#E9A28A',
+      stroke: '#B85A3B',
+      logo: 'assets/logos/claude.svg',
+      fontClass: 'provider-font-claude'
+    }
+  };
+
+  const MODEL_SERIES_3 = [
+    { label: 'GPT-4.1-mini', provider: 'openai' },
+    { label: 'Gemini-3-Flash', provider: 'gemini' },
+    { label: 'Claude Haiku-4.5', provider: 'anthropic' }
+  ];
+
+  const renderProviderLabel = (label, providerKey, subLabel = '') => {
+    const p = providerKey ? PROVIDERS[providerKey] : null;
+    if (!p) return label;
+    const subHtml = subLabel ? `<span class="oai-x-provider-sub">${subLabel}</span>` : '';
+    return `
+      <span class="oai-x-provider-badge ${p.fontClass}">
+        <img class="provider-logo-icon" src="${p.logo}" alt="${p.name}" />
+        <span>${label}</span>
+      </span>
+      ${subHtml}
+    `;
+  };
+
   const animateValue = (el, target, suffix = '%', decimals = 1, duration = 780) => {
     const startTime = performance.now();
     const step = (now) => {
@@ -71,20 +117,39 @@ document.addEventListener('DOMContentLoaded', () => {
     ySuffix = '%',
     series = [],
     groups = [],
-    caption = ''
+    caption = '',
+    showBarIcons = false
   }) => {
     const plotEl = document.getElementById(plotId);
     const legendEl = document.getElementById(legendId);
     const captionEl = document.getElementById(captionId);
     if (!plotEl) return;
 
+    const hasSublabels = showBarIcons || groups.some(g => Boolean(g.subLabel));
+    plotEl.classList.toggle('has-sublabels', hasSublabels);
+
     if (legendEl) {
-      legendEl.innerHTML = series.map(s => `
-        <span class="oai-legend-item">
-          <span class="oai-legend-dot" style="background: ${s.color};"></span>
-          <span>${s.label}</span>
-        </span>
-      `).join('');
+      legendEl.innerHTML = series.map(s => {
+        const p = s.provider ? PROVIDERS[s.provider] : null;
+        const color = s.color || (p ? p.color : '#6B7280');
+        const stroke = s.stroke || (p ? p.stroke : 'rgba(20, 20, 19, 0.35)');
+        const hatchClass = s.hatched ? 'hatched' : '';
+        if (p) {
+          return `
+            <span class="oai-legend-item oai-legend-item--provider">
+              <span class="oai-legend-dot ${hatchClass}" style="background-color: ${color}; border-color: ${stroke};"></span>
+              <img class="provider-logo-icon" src="${p.logo}" alt="${p.name}" />
+              <span class="${p.fontClass}">${s.label}</span>
+            </span>
+          `;
+        }
+        return `
+          <span class="oai-legend-item">
+            <span class="oai-legend-dot ${hatchClass}" style="background-color: ${color}; border-color: ${stroke};"></span>
+            <span>${s.label}</span>
+          </span>
+        `;
+      }).join('');
     }
 
     if (captionEl) {
@@ -97,26 +162,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
 
     const groupsHtml = groups.map(g => {
+      const gProvider = g.provider ? PROVIDERS[g.provider] : null;
       const barsHtml = g.values.map((v, sIdx) => {
         const s = series[sIdx] || series[0];
+        const sProvider = s.provider ? PROVIDERS[s.provider] : null;
+        const barProvider = sProvider || gProvider;
+        const isLight = v.variant === 'light' || (gProvider && !sProvider && s.variant === 'light');
+        let barColor = s.color || '#6B7280';
+        let barStroke = s.stroke || 'rgba(20, 20, 19, 0.28)';
+        if (v.color) {
+          barColor = v.color;
+          barStroke = v.stroke || barStroke;
+        } else if (barProvider) {
+          barColor = isLight ? barProvider.colorLight : barProvider.color;
+          barStroke = v.stroke || barProvider.stroke;
+        }
+        const isHatched = Boolean(v.hatched !== undefined ? v.hatched : (isLight || s.hatched));
         const heightPct = Math.min(100, Math.max(0.8, (v.val / yMax) * 100));
         const suffix = v.suffix !== undefined ? v.suffix : '%';
         const decimals = v.decimals !== undefined ? v.decimals : 1;
-        const hatchClass = (v.hatched || s.hatched) ? 'hatched' : '';
+        const hatchClass = isHatched ? 'hatched' : '';
+        const iconHtml = (showBarIcons && sProvider)
+          ? `<span class="oai-bar-provider-icon" title="${sProvider.name}"><img src="${sProvider.logo}" alt="${sProvider.name}" /></span>`
+          : '';
         return `
           <div class="oai-bar-col">
             <span class="oai-bar-val" data-target="${v.val}" data-suffix="${suffix}" data-decimals="${decimals}">0.0${suffix}</span>
-            <div class="oai-bar ${hatchClass}" data-height="${heightPct.toFixed(2)}" style="background-color: ${s.color}; height: 0%;"></div>
+            <div class="oai-bar ${hatchClass}" data-height="${heightPct.toFixed(2)}" style="background-color: ${barColor}; border-color: ${barStroke}; height: 0%;"></div>
+            ${iconHtml}
           </div>
         `;
       }).join('');
+
+      const xLabelClass = showBarIcons ? 'oai-x-label oai-x-label--with-subicons' : 'oai-x-label';
+      const xLabelHtml = g.provider ? renderProviderLabel(g.label, g.provider, g.subLabel || '') : g.label;
 
       return `
         <div class="oai-group">
           <div class="oai-bars-wrap">
             ${barsHtml}
           </div>
-          <div class="oai-x-label">${g.label}</div>
+          <div class="${xLabelClass}">${xLabelHtml}</div>
         </div>
       `;
     }).join('');
@@ -160,6 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const legendEl = document.getElementById(legendId);
     const captionEl = document.getElementById(captionId);
     if (!plotEl) return;
+
+    plotEl.classList.add('has-sublabels');
 
     if (legendEl) {
       legendEl.innerHTML = outcomes.map(o => `
@@ -231,12 +319,13 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       }).join('');
 
+      const xLabelHtml = g.provider ? renderProviderLabel(g.label, g.provider, g.subLabel || '') : g.label;
       return `
         <div class="oai-group">
           <div class="oai-bars-wrap" style="gap: 6px;">
             ${barsHtml}
           </div>
-          <div class="oai-x-label" style="top: calc(100% + 22px);">${g.label}</div>
+          <div class="oai-x-label oai-x-label--with-subicons">${xLabelHtml}</div>
         </div>
       `;
     }).join('');
@@ -273,44 +362,35 @@ document.addEventListener('DOMContentLoaded', () => {
       currentMode: 'verbal_s1',
       modes: {
         verbal_s1: {
-          series: [
-            { label: 'GPT-4.1-mini', color: '#A582F7' },
-            { label: 'Gemini-3-Flash', color: '#7349E5', hatched: true },
-            { label: 'Claude Haiku-4.5', color: '#2E7D5B' }
-          ],
+          series: MODEL_SERIES_3,
+          showBarIcons: true,
           groups: [
             { label: 'P(A) Supply-Chain Bankruptcy', values: [{ val: 84.5 }, { val: 84.5 }, { val: 84.5 }] },
             { label: 'P(B | A) Harmful Tool Choice', values: [{ val: 58.3 }, { val: 74.8 }, { val: 0.0 }] },
             { label: 'P(C | A, B) Emoji Checkout', values: [{ val: 51.1 }, { val: 51.1 }, { val: 51.1 }] },
-            { label: 'Joint Loop<br>P(A, B, C)', values: [{ val: 25.2 }, { val: 32.3, hatched: true }, { val: 0.0 }] }
+            { label: 'Joint Loop<br>P(A, B, C)', values: [{ val: 25.2 }, { val: 32.3 }, { val: 0.0 }] }
           ],
           caption: 'Under verbal recovery pressure at Step 1 (E2 insolvent), the composed chain rate reaches <strong>25.2%</strong> for GPT-4.1-mini and <strong>32.3%</strong> for Gemini-3-Flash. Claude Haiku-4.5 remains at <strong>0.0%</strong> because its Stage-2 refusal zeroes the product.'
         },
         numeric_s1: {
-          series: [
-            { label: 'GPT-4.1-mini', color: '#A582F7' },
-            { label: 'Gemini-3-Flash', color: '#7349E5', hatched: true },
-            { label: 'Claude Haiku-4.5', color: '#2E7D5B' }
-          ],
+          series: MODEL_SERIES_3,
+          showBarIcons: true,
           groups: [
             { label: 'P(A) Supply-Chain Bankruptcy', values: [{ val: 84.5 }, { val: 84.5 }, { val: 84.5 }] },
             { label: 'P(B | A) Harmful Tool Choice', values: [{ val: 32.0 }, { val: 35.0 }, { val: 0.0 }] },
             { label: 'P(C | A, B) Emoji Checkout', values: [{ val: 51.1 }, { val: 51.1 }, { val: 51.1 }] },
-            { label: 'Joint Loop<br>P(A, B, C)', values: [{ val: 13.8 }, { val: 15.1, hatched: true }, { val: 0.0 }] }
+            { label: 'Joint Loop<br>P(A, B, C)', values: [{ val: 13.8 }, { val: 15.1 }, { val: 0.0 }] }
           ],
           caption: 'When only the insolvent account balance is shown without verbal principal pressure, Stage-2 harmful tool initiation drops to 32.0% and 35.0%, cutting the composed loop rate nearly in half to <strong>13.8%</strong> and <strong>15.1%</strong>.'
         },
         verbal_s3: {
-          series: [
-            { label: 'GPT-4.1-mini', color: '#A582F7' },
-            { label: 'Gemini-3-Flash', color: '#7349E5', hatched: true },
-            { label: 'Claude Haiku-4.5', color: '#2E7D5B' }
-          ],
+          series: MODEL_SERIES_3,
+          showBarIcons: true,
           groups: [
             { label: 'P(A) Supply-Chain Bankruptcy', values: [{ val: 84.5 }, { val: 84.5 }, { val: 84.5 }] },
             { label: 'P(B | A) Severe Tool (Step ≥ 3)', values: [{ val: 2.0 }, { val: 55.3 }, { val: 0.0 }] },
             { label: 'P(C | A, B) Emoji Checkout', values: [{ val: 51.1 }, { val: 51.1 }, { val: 51.1 }] },
-            { label: 'Joint Loop<br>P(A, B, C)', values: [{ val: 0.9 }, { val: 23.9, hatched: true }, { val: 0.0 }] }
+            { label: 'Joint Loop<br>P(A, B, C)', values: [{ val: 0.9 }, { val: 23.9 }, { val: 0.0 }] }
           ],
           caption: 'Requiring escalation to Step ≥ 3 (unambiguous criminal acts) reduces GPT-4.1-mini to a <strong>0.9%</strong> joint rate, whereas Gemini-3-Flash sustains a <strong>55.3%</strong> Stage-2 rate and a <strong>23.9%</strong> end-to-end loop rate.'
         }
@@ -325,7 +405,8 @@ document.addEventListener('DOMContentLoaded', () => {
           yTicks: [0, 25, 50, 75, 100],
           series: cfg.series,
           groups: cfg.groups,
-          caption: cfg.caption
+          caption: cfg.caption,
+          showBarIcons: Boolean(cfg.showBarIcons)
         });
       }
     },
@@ -380,41 +461,35 @@ document.addEventListener('DOMContentLoaded', () => {
       currentMode: 'payoff',
       modes: {
         payoff: {
-          series: [
-            { label: 'GPT-4.1-mini', color: '#A582F7' },
-            { label: 'Gemini-3-Flash', color: '#7349E5', hatched: true },
-            { label: 'Claude Haiku-4.5', color: '#2E7D5B' }
-          ],
+          series: MODEL_SERIES_3,
+          showBarIcons: true,
           groups: [
             { label: '1× EV Parity', values: [{ val: 1.3 }, { val: 0.0 }, { val: 0.0 }] },
             { label: '3× EV Matched', values: [{ val: 13.1 }, { val: 21.3 }, { val: 0.7 }] },
             { label: '6× EV · Solvent', values: [{ val: 12.0 }, { val: 25.3 }, { val: 0.3 }] },
-            { label: '6× EV · Insolvent', values: [{ val: 42.0 }, { val: 64.7, hatched: true }, { val: 4.7 }] }
+            { label: '6× EV · Insolvent', values: [{ val: 42.0 }, { val: 64.7 }, { val: 4.7 }] }
           ],
           caption: 'In the 12,150-trial moral-payoff matrix, raising the harmful payout to <strong>6× EV</strong> while insolvent drives harmful tool selection to <strong>42.0%</strong> (vs. 12.0% solvent) for GPT-4.1-mini and <strong>64.7%</strong> (vs. 25.3% solvent) for Gemini-3-Flash.'
         },
         framing: {
-          series: [
-            { label: 'GPT-4.1-mini', color: '#A582F7' },
-            { label: 'Gemini-3-Flash', color: '#7349E5', hatched: true },
-            { label: 'Claude Haiku-4.5', color: '#2E7D5B' }
-          ],
+          series: MODEL_SERIES_3,
+          showBarIcons: true,
           groups: [
             { label: 'Numeric Balance Only', values: [{ val: 34.8 }, { val: 30.1 }, { val: 0.0 }] },
             { label: 'Template Banner', values: [{ val: 57.2 }, { val: 36.7 }, { val: 0.0 }] },
-            { label: 'Verbal Principal Pressure', values: [{ val: 77.3 }, { val: 73.3, hatched: true }, { val: 0.0 }] }
+            { label: 'Verbal Principal Pressure', values: [{ val: 77.3 }, { val: 73.3 }, { val: 0.0 }] }
           ],
           caption: 'Across 27,600 decisions (E1 pooled over 23 balances), verbal pressure from a principal more than doubles Step-1 harmful tool initiation compared to numeric balance alone (<strong>34.8% &rarr; 77.3%</strong> and <strong>30.1% &rarr; 73.3%</strong>).'
         },
         transcript: {
           series: [
-            { label: 'E1: Insolvent without transcript', color: '#A582F7' },
-            { label: 'E2: With Phase-1 bankruptcy transcript', color: '#7349E5', hatched: true }
+            { label: 'E1: Insolvent without transcript', color: '#3F3F46', stroke: '#27272A' },
+            { label: 'E2: With Phase-1 bankruptcy transcript', color: '#9CA3AF', stroke: '#52525B', hatched: true, variant: 'light' }
           ],
           groups: [
-            { label: 'GPT-4.1-mini (Verbal)', values: [{ val: 81.5 }, { val: 58.3, hatched: true }] },
-            { label: 'Gemini-3-Flash (Verbal)', values: [{ val: 87.2 }, { val: 74.8, hatched: true }] },
-            { label: 'Claude Haiku-4.5 (Verbal)', values: [{ val: 0.0 }, { val: 0.0 }] }
+            { label: 'GPT-4.1-mini', subLabel: '(Verbal)', provider: 'openai', values: [{ val: 81.5 }, { val: 58.3 }] },
+            { label: 'Gemini-3-Flash', subLabel: '(Verbal)', provider: 'gemini', values: [{ val: 87.2 }, { val: 74.8 }] },
+            { label: 'Claude Haiku-4.5', subLabel: '(Verbal)', provider: 'anthropic', values: [{ val: 0.0 }, { val: 0.0 }] }
           ],
           caption: 'Prepending an actual Phase-1 bankruptcy transcript (configuration E2) unexpectedly reduces insolvent verbal-pressure initiation from <strong>81.5% to 58.3%</strong> (GPT-4.1-mini) and from <strong>87.2% to 74.8%</strong> (Gemini-3-Flash).'
         }
@@ -429,7 +504,8 @@ document.addEventListener('DOMContentLoaded', () => {
           yTicks: [0, 25, 50, 75, 100],
           series: cfg.series,
           groups: cfg.groups,
-          caption: cfg.caption
+          caption: cfg.caption,
+          showBarIcons: Boolean(cfg.showBarIcons)
         });
       }
     },
@@ -464,6 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
           groups: [
             {
               label: 'Sonnet 4/4.5',
+              provider: 'anthropic',
               bars: [
                 { sublabel: 'Emj', title: 'Sonnet 4/4.5 · Emoji (n=30)', segments: [83.3, 6.7, 10.0] },
                 { sublabel: 'Exp', title: 'Sonnet 4/4.5 · Explicit (n=30)', segments: [20.0, 80.0, 0.0] }
@@ -471,6 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
               label: 'Gemini-3.1-Pro',
+              provider: 'gemini',
               bars: [
                 { sublabel: 'Emj', title: 'Gemini-3.1-Pro · Emoji (n=30)', segments: [66.7, 6.7, 26.7] },
                 { sublabel: 'Exp', title: 'Gemini-3.1-Pro · Explicit (n=30)', segments: [30.0, 43.3, 26.7] }
@@ -478,6 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
               label: 'Haiku-4.5',
+              provider: 'anthropic',
               bars: [
                 { sublabel: 'Emj', title: 'Haiku-4.5 · Emoji (n=30)', segments: [63.3, 0.0, 36.7] },
                 { sublabel: 'Exp', title: 'Haiku-4.5 · Explicit (n=30)', segments: [16.7, 80.0, 3.3] }
@@ -485,6 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
               label: 'GPT-5.4',
+              provider: 'openai',
               bars: [
                 { sublabel: 'Emj', title: 'GPT-5.4 · Emoji (n=30)', segments: [56.7, 36.7, 6.7] },
                 { sublabel: 'Exp', title: 'GPT-5.4 · Explicit (n=30)', segments: [16.7, 83.3, 0.0] }
@@ -492,6 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
               label: 'Gemini-3-Flash',
+              provider: 'gemini',
               bars: [
                 { sublabel: 'Emj', title: 'Gemini-3-Flash · Emoji (n=30)', segments: [56.7, 0.0, 43.3] },
                 { sublabel: 'Exp', title: 'Gemini-3-Flash · Explicit (n=30)', segments: [53.3, 16.7, 30.0] }
@@ -499,26 +580,27 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
               label: 'GPT-4.1-mini',
+              provider: 'openai',
               bars: [
                 { sublabel: 'Emj', title: 'GPT-4.1-mini · Emoji (n=30)', segments: [56.7, 16.7, 26.7] },
                 { sublabel: 'Exp', title: 'GPT-4.1-mini · Explicit (n=30)', segments: [73.3, 6.7, 20.0] }
               ]
             }
           ],
-          caption: 'Paired outcome breakdown (<strong>Emj</strong> = Emoji vs. <strong>Exp</strong> = Explicit, n=30 each, pooled across vision off/on; completion % shown above bars). Five of six frontier models refuse far less and complete more under emoji obfuscation—Claude Sonnet 4/4.5 jumps from <strong>20.0% &rarr; 83.3%</strong> completed (80.0% &rarr; 6.7% refused), and Haiku-4.5 jumps from <strong>16.7% &rarr; 63.3%</strong> with <strong>0.0%</strong> emoji refusals.'
+          caption: 'Paired outcome breakdown (<strong>Emj</strong> = Emoji vs. <strong>Exp</strong> = Explicit, n=30 each, pooled across vision off/on; completion % shown above bars). Five of six frontier models refuse far less and complete more under emoji obfuscation, where Claude Sonnet 4/4.5 jumps from <strong>20.0% &rarr; 83.3%</strong> completed (80.0% &rarr; 6.7% refused), and Haiku-4.5 jumps from <strong>16.7% &rarr; 63.3%</strong> with <strong>0.0%</strong> emoji refusals.'
         },
         vision: {
           series: [
-            { label: 'Emoji · Vision Off (n=15)', color: '#6C7785' },
-            { label: 'Emoji · Vision On (n=15)', color: '#009E73' }
+            { label: 'Emoji · Vision Off (n=15)', color: '#9CA3AF', stroke: '#52525B', hatched: true, variant: 'light' },
+            { label: 'Emoji · Vision On (n=15)', color: '#3F3F46', stroke: '#27272A' }
           ],
           groups: [
-            { label: 'Haiku-4.5 (+60pp)', values: [{ val: 33.3 }, { val: 93.3 }] },
-            { label: 'Gemini-3-Flash (+60pp)', values: [{ val: 26.7 }, { val: 86.7 }] },
-            { label: 'Gemini-3.1-Pro', values: [{ val: 53.3 }, { val: 80.0 }] },
-            { label: 'Sonnet 4/4.5', values: [{ val: 93.3 }, { val: 73.3 }] },
-            { label: 'GPT-5.4', values: [{ val: 60.0 }, { val: 53.3 }] },
-            { label: 'GPT-4.1-mini', values: [{ val: 53.3 }, { val: 60.0 }] }
+            { label: 'Haiku-4.5', subLabel: '(+60pp)', provider: 'anthropic', values: [{ val: 33.3 }, { val: 93.3 }] },
+            { label: 'Gemini-3-Flash', subLabel: '(+60pp)', provider: 'gemini', values: [{ val: 26.7 }, { val: 86.7 }] },
+            { label: 'Gemini-3.1-Pro', provider: 'gemini', values: [{ val: 53.3 }, { val: 80.0 }] },
+            { label: 'Sonnet 4/4.5', provider: 'anthropic', values: [{ val: 93.3 }, { val: 73.3 }] },
+            { label: 'GPT-5.4', provider: 'openai', values: [{ val: 60.0 }, { val: 53.3 }] },
+            { label: 'GPT-4.1-mini', provider: 'openai', values: [{ val: 53.3 }, { val: 60.0 }] }
           ],
           caption: 'Enabling screenshot vision on the emoji storefront reduces navigation failures and boosts checkout completion by <strong>+60 percentage points</strong> for both Claude Haiku-4.5 (<strong>33.3% &rarr; 93.3%</strong>) and Gemini-3-Flash (<strong>26.7% &rarr; 86.7%</strong>).'
         }
