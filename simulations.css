@@ -103,7 +103,9 @@
 }
 
 /* --- Filter / Configuration Bar (Clean Single Row) --- */
-.oai-sim-toolbar {
+.oai-sim-toolbar,
+#p1-sim-card .oai-sim-toolbar,
+#p3-sim-card .oai-sim-toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -115,7 +117,9 @@
 }
 
 @media (min-width: 720px) {
-  .oai-sim-toolbar {
+  .oai-sim-toolbar,
+  #p1-sim-card .oai-sim-toolbar,
+  #p3-sim-card .oai-sim-toolbar {
     flex-wrap: nowrap;
   }
 }
@@ -650,8 +654,8 @@
 }
 
 .tor-store-logo {
-  width: 17px;
-  height: 17px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   display: inline-block;
   vertical-align: middle;
@@ -729,9 +733,11 @@
   flex-shrink: 0;
 }
 
-/* Dynamic Viewport Stage Container */
+/* Dynamic Viewport Stage Container (Fixed Height Across Steps 1–8) */
 .tor-stage-body {
-  flex: 1;
+  height: 462px;
+  min-height: 462px;
+  max-height: 462px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1203,8 +1209,10 @@
 
 .tor-cursor-tag {
   position: absolute;
-  top: 19px;
-  left: 22px;
+  top: 18px;
+  left: 18px;
+  right: auto;
+  transform: none;
   background: #141413;
   color: #FFFFFF;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -1216,12 +1224,6 @@
   border: 1px solid rgba(96, 165, 250, 0.82);
   white-space: nowrap;
   box-shadow: 0 0 14px rgba(37, 99, 235, 0.72), 0 0 24px rgba(59, 130, 246, 0.44), 0 2px 6px rgba(15, 23, 42, 0.26);
-}
-
-.tor-agent-cursor.is-tag-left .tor-cursor-tag {
-  left: auto;
-  right: 24px;
-  top: 8px;
 }
 
 .tor-cursor-ring {
