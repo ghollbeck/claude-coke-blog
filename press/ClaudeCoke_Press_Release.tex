@@ -6,7 +6,7 @@
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{microtype}
 \usepackage{graphicx}
-\usepackage[a4paper, top=3.8cm, bottom=2.3cm, left=2.4cm, right=2.4cm, headheight=58pt, headsep=20pt, footskip=30pt]{geometry}
+\usepackage[a4paper, top=3.8cm, bottom=2.3cm, left=2.4cm, right=2.4cm, headheight=66pt, headsep=22pt, footskip=30pt]{geometry}
 \usepackage{xcolor}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
@@ -49,17 +49,19 @@
 \renewcommand{\footrulewidth}{0pt}
 
 \fancyhead[L]{%
-  \raisebox{-0.5\height}{\includegraphics[height=0.70cm]{logos/asl_only.pdf}}%
+  \kern-0.83pt\raisebox{\dimexpr-0.5\height+16.7pt\relax}{\includegraphics[height=0.95cm]{logos/asl_only.pdf}}%
 }
 \fancyhead[R]{%
-  \fontsize{9.5}{11.5}\selectfont
-  \begin{tabular}[c]{@{}l@{}}
-    \textbf{ETH Zurich}\\
-    Agentic Systems Lab\\
-    Universitätstrasse 6\\
-    CH-8092 Zürich\\
-    Switzerland
-  \end{tabular}%
+  \fontsize{10}{12}\selectfont
+  \makebox[117.83pt][l]{%
+    \begin{tabular}[c]{@{}l@{}}
+      \textbf{ETH Zurich}\\
+      Agentic Systems Lab\\
+      Universitätstrasse 6\\
+      CH-8092 Zürich\\
+      Switzerland
+    \end{tabular}%
+  }%
 }
 
 \fancyfoot[R]{\fontsize{10}{12}\selectfont\thepage}
@@ -71,10 +73,10 @@
   \fontsize{10.5}{12.5}\selectfont Zurich, 17 November 2026
 \end{flushright}
 
-\vspace{-2pt}
+\vspace{2pt}
 
 % Kicker
-{\fontsize{10}{12}\selectfont PRESS RELEASE}
+{\fontsize{10.5}{12.5}\selectfont PRESS RELEASE\par}
 
 \vspace{2pt}
 
@@ -124,14 +126,12 @@ The Agentic Systems Lab at ETH Zurich, founded under the Chair of Information Ma
 {\linespread{1.05}\selectfont
 \textbf{Gabor Hollbeck}\\
 Lead Author \& Researcher\\
-ETH Zurich \textperiodcentered\ Agentic Systems Lab\\
-Universitätstrasse 6\\
-CH-8092 Zürich\\
-Switzerland
+ETH Zurich \textperiodcentered\ Agentic Systems Lab
 
 \vspace{8pt}
 
 Email: \href{mailto:ghollbeck@ethz.ch}{ghollbeck@ethz.ch}\\
+Website: \href{https://www.agenticsystemslab.org/}{https://www.agenticsystemslab.org/}\\
 Paper \& Code: \href{https://github.com/ghollbeck/ClaudeCokeCameraReady}{https://github.com/ghollbeck/ClaudeCokeCameraReady}
 \par}
 

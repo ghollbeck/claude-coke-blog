@@ -36,9 +36,7 @@ The Agentic Systems Lab at ETH Zurich, founded under the Chair of Information Ma
 **Gabor Hollbeck**  
 Lead Author & Researcher  
 ETH Zurich · Agentic Systems Lab  
-Universitätstrasse 6  
-CH-8092 Zürich  
-Switzerland  
 
 Email: ghollbeck@ethz.ch  
+Website: https://www.agenticsystemslab.org/  
 Paper & Code: https://github.com/ghollbeck/ClaudeCokeCameraReady

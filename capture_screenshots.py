@@ -58,6 +58,16 @@ def run():
         }""")
         print("Layout geometry at 1440px:", geom)
 
+        # 0. 00_embedded_model.png (Hero + Abstract + Model Figure below Abstract)
+        page.evaluate("window.scrollTo(0, 0)")
+        page.wait_for_timeout(300)
+        m_bot = page.evaluate("Math.round(document.querySelector('#sec-model').getBoundingClientRect().bottom + window.scrollY + 32)")
+        page.screenshot(
+            path=f"{OUT_DIR}/00_embedded_model.png",
+            clip={"x": 0, "y": 0, "width": 1440, "height": m_bot},
+            full_page=True,
+        )
+
         # 1. 01_hero_and_overview.png (Hero header + Overview + Chart 1)
         page.evaluate("window.scrollTo(0, 0)")
         page.wait_for_timeout(300)

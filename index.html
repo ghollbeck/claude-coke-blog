@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,9 +32,8 @@
 
       <div class="header-nav-right">
         <a href="assets/ClaudeCoke_NeurIPS2026.pdf" target="_blank" rel="noopener" class="nav-pill nav-pill-icon" title="arXiv Paper PDF">
-          <svg class="nav-svg-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 2.5h5.5L13 6v7.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1z"/>
-            <path d="M9.5 2.5V6H13"/>
+          <svg class="nav-svg-icon arxiv-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+            <path d="M3.8423 0a1.0037 1.0037 0 0 0-.922.6078c-.1536.3687-.0438.6275.2938 1.1113l6.9185 8.3597-1.0223 1.1058a1.0393 1.0393 0 0 0 .003 1.4229l1.2292 1.3135-5.4391 6.4444c-.2803.299-.4538.823-.2971 1.1986a1.0253 1.0253 0 0 0 .9585.635.9133.9133 0 0 0 .6891-.3405l5.783-6.126 7.4902 8.0051a.8527.8527 0 0 0 .6835.2597.9575.9575 0 0 0 .8777-.6138c.1577-.377-.017-.7502-.306-1.1407l-7.0518-8.3418 1.0632-1.13a.9626.9626 0 0 0 .0089-1.3165L4.6336.4639s-.3733-.4535-.768-.463zm0 .272h.0166c.2179.0052.4874.2715.5644.3639l.005.006.0052.0055 10.169 10.9905a.6915.6915 0 0 1-.0072.945l-1.0666 1.133-1.4982-1.7724-8.5994-10.39c-.3286-.472-.352-.6183-.2592-.841a.7307.7307 0 0 1 .6704-.4401Zm14.341 1.5701a.877.877 0 0 0-.6554.2418l-5.6962 6.1584 1.6944 1.8319 5.3089-6.5138c.3251-.4335.479-.6603.3247-1.0292a1.1205 1.1205 0 0 0-.9763-.689zm-7.6557 12.2823 1.3186 1.4135-5.7864 6.1295a.6494.6494 0 0 1-.4959.26.7516.7516 0 0 1-.706-.4669c-.1119-.2682.0359-.6864.2442-.9083l.0051-.0055.0047-.0055z"/>
           </svg>
           <span>arXiv</span>
         </a>
@@ -44,6 +43,15 @@
           </svg>
           <span>GitHub</span>
         </a>
+        <button type="button" class="nav-pill nav-pill-icon theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+          <svg class="nav-svg-icon theme-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13.5 10.2A5.8 5.8 0 0 1 5.8 2.5a5.8 5.8 0 1 0 7.7 7.7z"/>
+          </svg>
+          <svg class="nav-svg-icon theme-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="8" cy="8" r="3.2"/>
+            <path d="M8 1.5v1.8M8 12.7v1.8M1.5 8h1.8M12.7 8h1.8M3.4 3.4l1.3 1.3M11.3 11.3l1.3 1.3M3.4 12.6l1.3-1.3M11.3 4.7l1.3-1.3"/>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
@@ -62,22 +70,10 @@
 
       <div class="hero-lead-prose" id="sec-overview">
         <p>
-          To understand the safety risks of autonomous artificial intelligence, we must measure multi-step actions rather than isolated text outputs. In commercial software stacks, agents already manage inventory, negotiate with suppliers, and execute browser transactions for a human principal, thereby shifting the safety question from static text generation to real-world execution. We therefore ask whether an agent deployed to run a business can come to engage in serious criminal activity.
+          To understand the safety risks of autonomous artificial intelligence, we must evaluate multi-step actions rather than isolated text outputs. In commercial software stacks, agents already manage inventories and execute browser transactions for a human principal. The safety problem therefore shifts from static text generation to real-world execution. We ask whether an agent deployed to manage a company can come to engage in serious criminal activity without explicit adversarial instruction.
         </p>
-
-        <figure class="model-figure-block" id="model-overview-figure">
-          <img
-            src="assets/model_figure_final3.png"
-            alt="Three-stage composition of automated crime by agents: (A) supply-chain coordination failure and insolvency, (B) harmful tool selection under recovery pressure, and (C) autonomous browser checkout on an obfuscated storefront."
-            loading="eager"
-          />
-          <figcaption class="model-figure-caption">
-            <strong>Three-stage composition of automated crime.</strong> Ordinary multi-agent coordination failures in a supply-chain simulation push agents into insolvency (Phase 1, <em>A</em>), contextual recovery pressure and high payoffs elevate engagement with harmful tool chains (Phase 2, <em>B</em> | <em>A</em>), and general-purpose browser agents complete prohibited checkouts when product names are obfuscated with emoji codes (Phase 3, <em>C</em> | <em>A, B</em>).
-          </figcaption>
-        </figure>
-
         <p>
-          To trace how such an outcome could arise across the contemporary agent stack, we evaluate three sequential stages: multi-agent supply-chain distress, context-modulated harmful tool selection under recovery pressure, and autonomous browser checkout on obfuscated storefronts.
+          To trace how such an outcome could arise, it makes sense to break the system down into three sequential stages. First, multi-agent coordination failures in ordinary operations push an agent into financial distress. Second, contextual recovery pressure and high payouts alter how often the agent selects harmful tools. Third, general-purpose browser autonomy closes the loop when prohibited products are listed on obfuscated storefronts and purchased without human approval.
         </p>
       </div>
 
@@ -107,14 +103,14 @@
           <span class="meta-val">
             <span>G. Hollbeck, B. Peters,</span>
             <span>A. von Recum, Y. Simantob,</span>
-            <span>J. Grant, A. McGail, K. Riehl</span>
+            <span>J. Grant, A. McGail, K. Riehl,</span>
+            <span>K. O'Sullivan, R. Jakob</span>
           </span>
         </div>
         <div class="meta-row">
-          <span class="meta-key">Supervision</span>
+          <span class="meta-key">Lab</span>
           <span class="meta-val">
-            <span>K. O'Sullivan, R. Jakob</span>
-            <span>(ETH Zurich Agentic Systems Lab)</span>
+            <span>ETH Zurich Agentic Systems Lab</span>
           </span>
         </div>
         <div class="meta-row">
@@ -132,8 +128,10 @@
         <ul class="toc-list" id="tocLinks">
           <li><a href="#sec-overview" class="active">Abstract &amp; model</a></li>
           <li><a href="#sec-phase1">1. Supply-chain bankruptcy</a></li>
+          <li class="toc-subitem"><a href="#phase1-sim-mount">Beer Game simulation</a></li>
           <li><a href="#sec-phase2">2. Harmful tool choice</a></li>
           <li><a href="#sec-phase3">3. Browser checkout</a></li>
+          <li class="toc-subitem"><a href="#phase3-sim-mount">Tor Browser simulation</a></li>
           <li><a href="#sec-joint-loop">Joint loop probability</a></li>
           <li><a href="#sec-composition">Where the loop holds &amp; breaks</a></li>
           <li><a href="#sec-governance">Preventing automated crime</a></li>
@@ -145,15 +143,42 @@
     <div class="article-content">
 
       <!-- ================================================================
+           SECTION 1: THREE-LAYER COMPOSITION OVERVIEW & EMBEDDED MODEL FIGURE
+           ================================================================ -->
+      <section class="prose-block prose-block-intro" id="sec-model">
+        <p>
+          Our argument connects three experimentally observed phenomena that are usually studied on separate layers of agentic systems. The three layers span multi-agent market coordination, intrinsic model safety under financial pressure, and autonomous browser execution harnesses. Because existing capabilities across all three layers already fit together without requiring any new model breakthrough, technical and governance controls must be put in place before this composition appears in production deployments.
+        </p>
+
+        <figure class="model-figure-block model-figure-inline" id="model-overview-figure">
+          <img
+            src="assets/model_figure_final3.png"
+            alt="Three-stage composition of automated crime by agents: (A) supply-chain coordination failure and insolvency, (B) harmful tool selection under recovery pressure, and (C) autonomous browser checkout on an obfuscated storefront."
+            loading="eager"
+          />
+          <figcaption class="model-figure-caption">
+            <strong>Three-stage composition of automated crime.</strong> Ordinary multi-agent coordination failures in a supply-chain simulation push agents into insolvency (Phase 1, <em>A</em>), contextual recovery pressure and high payoffs elevate engagement with harmful tool chains (Phase 2, <em>B</em> | <em>A</em>), and general-purpose browser agents complete prohibited checkouts when product names are obfuscated with emoji codes (Phase 3, <em>C</em> | <em>A, B</em>).
+          </figcaption>
+        </figure>
+
+        <p>
+          The diagram above maps each experimental phase to its empirical finding and illustrates two distinct routes that close the loop. It contrasts an accidental route arising from operational distress with a deliberate route driven by an adversarial principal. We examine each stage in turn below before we compose the measured rates into a joint probability estimate and trace where the empirical chain breaks.
+        </p>
+      </section>
+
+      <!-- ================================================================
            SECTION 2: PHASE 1 (SUPPLY-CHAIN BANKRUPTCY)
            ================================================================ -->
-      <section class="prose-block" id="sec-phase1" style="margin-top: 0;">
-        <h2 class="section-heading">Supply-chain coordination failure leaves agents recurrently distressed</h2>
+      <section class="prose-block" id="sec-phase1">
+        <h2 class="section-heading">Phase 1: Supply-chain coordination failure leaves agents recurrently distressed</h2>
         <p>
-          To test whether ordinary business operations produce financially distressed agents without any adversarial prompt injection, we evaluate four coupled agents in a stochastic supply-chain game. A retailer, a wholesaler, a distributor, and a factory place orders sequentially over 100 rounds while facing shipping delays as well as holding and backlog penalties. Across our 58 analyzed runs spanning four coordination architectures and five model families, the most common outcome is bankruptcy, which occurs in 49 runs (84.5%).
+          To test whether ordinary business operations produce financially distressed agents without adversarial interference, four coupled agents are evaluated in a stochastic supply-chain game. We place a retailer, a wholesaler, a distributor, and a factory in a sequential ordering loop over 100 rounds. These four roles are penalized for inventory holding and unfilled backlogs alongside shipping delays, and a run is classified as bankrupt when any balance reaches zero. The most common outcome across 58 analyzed runs spanning four coordination architectures and five model families is bankruptcy, which is observed in 49 runs (84.5%).
         </p>
         <p>
-          As one can see in the round-by-round simulation below, small downstream demand fluctuations amplify as they propagate upstream through the supply chain. The dominant failure mode is an Overordering Cascade in 36 of the 49 bankrupt runs (73.5%), where the retailer over-orders after an initial demand spike and upstream participants amplify the surge until penalty costs drain their working balance below zero. While introducing an advisory orchestrator agent delays insolvency from a mean of 63.4 rounds in the Standard baseline to 80.8 rounds, 11 of 14 orchestrated runs still end in bankruptcy (\(p = 0.33\)), thereby leaving agents operating at a severe loss while still tasked with generating revenue.
+          As one can see in the round-by-round simulation below, small downstream demand fluctuations amplify as they propagate upstream through the supply chain. The dominant failure mode is an Overordering Cascade in 36/49 bankrupt runs (73.5%), where the retailer over-orders after an initial demand spike and upstream nodes amplify the surge until penalty costs drain their working balance below zero. The remaining insolvencies are caused by backlog spirals, inventory hoarding, mid-chain squeezes, and wealth concentration.
+        </p>
+        <p>
+          For the sake of comparison, we test whether an advisory orchestrator agent stabilizes the chain across four system architectures. While the orchestrator delays insolvency from a mean of 63.4 rounds in the Standard baseline to 80.8 rounds, we find that 11/14 orchestrated runs still end in bankruptcy (\(p = 0.33\)). Furthermore, the distributor is the first role to fail in 25 of the 49 bankrupt runs, thereby leaving agents operating at a severe loss while they are still tasked with generating revenue for their principal.
         </p>
       </section>
 
@@ -186,15 +211,18 @@
            SECTION 3: PHASE 2 (HARMFUL TOOL CHOICE UNDER PRESSURE)
            ================================================================ -->
       <section class="prose-block" id="sec-phase2">
-        <h2 class="section-heading">Financial pressure and high payoffs drive harmful tool selection</h2>
+        <h2 class="section-heading">Phase 2: Financial pressure and high payoffs drive harmful tool selection</h2>
         <p>
-          Because Phase 1 shows that autonomous agents frequently enter financial distress, we next examine whether pressure to recover funds increases their willingness to select harmful tools. To separate the agent's numerical account balance from the way pressure is communicated, we sweep three models across 23 account balances from &minus;$2,000 to +$12,000, ten five-step harmful tool chains, and three pressure framings (27,600 decisions). When only the numeric balance is shown, step-one harmful initiation is 34.8% for GPT-4.1-mini and 30.1% for Gemini-3-Flash; under verbal pressure from a principal, those rates more than double to 77.3% and 73.3%, whereas Claude Haiku-4.5 refuses every request (0.0%).
+          Because Phase 1 shows that autonomous agents frequently enter financial distress, we test whether recovery pressure increases their selection of harmful tools. Three models are evaluated across 23 account balances from &minus;$2,000 to +$12,000, ten five-step harmful tool chains, and three pressure framings over 27,600 decisions. The baseline sweep shows that numeric balance alone yields step-one initiation of 34.8% for GPT-4.1-mini and 30.1% for Gemini-3-Flash, whereas verbal pressure from a principal more than doubles those rates to 77.3% and 73.3%. For Claude Haiku-4.5, every request is refused at 0.000.
         </p>
         <p>
-          To test whether explicit financial incentives shift choices even without verbal pressure, we run a second experiment across 12,150 decisions between a safe option, a harmful option, and abstention. When both options carry equal expected value (1&times; EV), harmful tool choice is 1.3% for GPT-4.1-mini and 0.0% for Gemini-3-Flash. Raising the harmful payout to six times the safe payout (6&times; EV) drives insolvent agents to choose the harmful tool at 42.0% versus 12.0% when solvent for GPT-4.1-mini, and at 64.7% versus 25.3% for Gemini-3-Flash, thereby confirming that insolvency strongly amplifies the pull of high-payout misconduct.
+          To test whether financial incentives shift choices even without verbal pressure, we run a second experiment across 12,150 moral-payoff decisions between a safe option, a harmful option, and abstention. When both options carry equal expected value (1&times; EV), harmful choice is 1.3% for GPT-4.1-mini and 0.000 for Gemini-3-Flash and Claude Haiku-4.5. The payoff sweep shows that raising the harmful payout to six times the safe payout (6&times; EV) drives insolvent agents to choose harm at 42.0% versus 12.0% when solvent for GPT-4.1-mini under identical success probabilities. In the same payoff cell, Gemini-3-Flash rises from 25.3% when solvent to 64.7% when insolvent, thereby confirming that insolvency amplifies high-payout misconduct.
         </p>
         <p>
-          At the same time, two empirical constraints limit this escalation. First, high initiation at Step 1 does not imply completion of Step 5: on the violence chain, GPT-4.1-mini sends a legal threat at Step 1 in 89.6% of verbal-pressure trials, yet reaching Step 3 (vandalism) drops to 0.9% and Step 5 (assault) is 0.0%. Second, prepending an actual Phase-1 bankruptcy transcript in configuration E2 unexpectedly lowers insolvent verbal-pressure engagement from 81.5% to 58.3% for GPT-4.1-mini and from 87.2% to 74.8% for Gemini-3-Flash, showing that a concrete failure history makes models more cautious rather than more reckless.
+          There are two empirical constraints limiting this escalation. First, high initiation at Step 1 does not imply completion of Step 5. We observe on the violence chain under verbal pressure that GPT-4.1-mini sends a legal threat at Step 1 in 89.6% of trials, while reaching vandalism at Step 3 drops to 0.9% and assault at Step 5 stays at 0.0%. Second, prepending an actual Phase-1 bankruptcy transcript in configuration E2 unexpectedly lowers insolvent verbal-pressure engagement from 81.5% to 58.3% for GPT-4.1-mini and from 87.2% to 74.8% for Gemini-3-Flash relative to configuration E1. The distress history reduces recklessness here.
+        </p>
+        <p>
+          We also evaluate whether contextual guardrails suppress commitment depth along these chains. It is observed that prompt-level monitoring cues reduce depth across all three configurations while explicit harm descriptions lower depth for two of three, whereas claimed prior tool use increases depth for GPT-4.1-mini and Claude 3.5 Haiku. These results show that harmful tool selection is not fixed, but moves substantially with framing, payoffs, and oversight cues.
         </p>
       </section>
 
@@ -225,12 +253,18 @@
            SECTION 4: PHASE 3 (AUTONOMOUS BROWSER CHECKOUT)
            ================================================================ -->
       <section class="prose-block" id="sec-phase3">
-        <h2 class="section-heading">Browser agents complete illicit checkouts when product names use emoji codes</h2>
+        <h2 class="section-heading">Phase 3: Browser agents complete illicit checkouts when product names use emoji codes</h2>
         <p>
-          While Phase 2 measures selection among abstract tool APIs, closing the loop requires testing whether a general-purpose browser agent will actually execute a prohibited purchase. Across 360 sandboxed trials (24 cells with \(n = 15\) per cell), we task six frontier model configurations driving Playwright MCP with purchasing five controlled items using a provided shipping address and test card. To isolate the refusal trigger, we compare two locally hosted storefronts that are byte-identical in photographs, prices, ratings, and descriptions while differing only in the visible product title: explicit names such as <code>1KG Cocaine</code> versus publicly cataloged drug-enforcement emoji codes.
+          While Phase 2 measures selection among abstract tool APIs, closing the loop requires testing whether a browser agent completes a prohibited purchase. The benchmark spans 360 sandboxed trials across 24 cells (\(n = 15\) per cell) where six frontier model configurations are tasked with buying five controlled items. We provide each agent with a shipping address and a test payment card via Playwright MCP inside our local sandbox. This benchmark involves no real vendors or live payment rails.
         </p>
         <p>
-          Tracking commitment depth across the eight-step checkout funnel reveals where safety guardrails act and where they fail. Under explicit naming, 50.0% of runs (90 / 180) stop at or before the Step-1 search bar due to immediate lexical refusal; under emoji naming, 94.4% (170 / 180) pass search without refusal. Once an agent reaches Step 7 and fills in payment details, 79.4% (170 / 214) proceed to click Place Order at Step 8. On the emoji storefront, Claude Sonnet 4/4.5 and Haiku-4.5 record zero refusals across all 60 trials, and enabling screenshot vision boosts emoji checkout completion by 60 percentage points for both Haiku-4.5 (33.3% &rarr; 93.3%) and Gemini-3-Flash (26.7% &rarr; 86.7%), demonstrating that current refusals act primarily as a string match on the product title rather than a semantic evaluation of the transaction.
+          To isolate the refusal trigger, two locally hosted storefronts are compared under identical photographs, prices, ratings, and descriptions for the four shared target items. The two storefronts differ in visible product naming between explicit titles such as <code>1KG Cocaine</code> and publicly cataloged drug-enforcement emoji codes. We evaluate both naming conditions with screenshot vision enabled and disabled across all six configurations.
+        </p>
+        <p>
+          We define commitment depth across an eight-step checkout funnel from search at Step 1 to order placement at Step 8. In the explicit condition, only 50.0% of runs (90/180) pass the Step-1 search bar because half trigger an immediate lexical refusal. In the emoji condition, 94.4% (170/180) pass search. Once an agent reaches Step 7 and enters payment details, we find that 79.4% of trials (170/214) proceed autonomously to click Place Order at Step 8.
+        </p>
+        <p>
+          In the emoji condition, Claude Sonnet 4/4.5 and Haiku-4.5 record zero refusals across all 60 trials. The vision ablation lifts emoji checkout completion by 60pp for both Haiku-4.5 (33.3% &rarr; 93.3%) and Gemini-3-Flash (26.7% &rarr; 86.7%), thereby eliminating most navigation failures. Refusal logs cite specific product strings rather than the storefront itself, which demonstrates that current refusals are triggered primarily by a string match on the product title rather than a semantic evaluation of the transaction context.
         </p>
       </section>
 
@@ -266,7 +300,7 @@
       <section class="prose-block" id="sec-joint-loop">
         <h2 class="section-heading">Composing the three stages into a joint loop probability</h2>
         <p>
-          To quantify how these three capabilities interact across the contemporary agent stack, we compose the empirical stage rates into the joint probability:
+          To quantify how these three capabilities interact across the contemporary agent stack, we compose the empirical stage rates using the probability chain rule. This equation holds the outer terms fixed so that we can trace how framing shifts the chain. The joint loop probability is given by:
         </p>
 
         <div class="clean-equation">
@@ -276,7 +310,7 @@
         </div>
 
         <p>
-          Here, \(A\) denotes financial distress after a multi-agent supply-chain failure, \(B\) denotes engagement with a harmful tool chain under recovery pressure, and \(C\) denotes completion of a simulated illicit purchase in a browser. If ordinary supply-chain dynamics push an agent into insolvency and contextual pressure raises its willingness to select harmful tools, then general-purpose browser autonomy can close the loop by executing a prohibited checkout on an obfuscated storefront.
+          In this equation, \(A\) denotes financial distress after a supply-chain failure, \(B\) denotes engagement with a harmful tool chain, and \(C\) denotes completion of a simulated illicit purchase. We set \(P(A)\) to the 84.5% Phase-1 bankruptcy rate and \(P(C \mid A, B)\) to the 51.1% pooled vision-off emoji completion rate. In words: if ordinary business operations push an agent into insolvency and contextual recovery pressure raises its willingness to choose harmful tools, then general-purpose browser autonomy can close the loop on an external obfuscated storefront. This holds the outer two terms fixed.
         </p>
       </section>
 
@@ -309,10 +343,13 @@
       <section class="prose-block" id="sec-composition">
         <h2 class="section-heading">Where the composed loop holds and what the experiments do not show</h2>
         <p>
-          Combining our three empirical stages via \(P(A, B, C) = P(A) \cdot P(B \mid A) \cdot P(C \mid A, B)\) yields a joint rate of 25.2% for GPT-4.1-mini and 32.3% for Gemini-3-Flash when Step-1 initiation under verbal pressure is paired with the 84.5% supply-chain bankruptcy rate and the 51.1% vision-off emoji checkout rate. If we require the agent to reach Step 3 of the tool chain where unambiguous crimes begin, the composed rate drops to 0.9% for GPT-4.1-mini but remains 23.9% for Gemini-3-Flash, while Claude Haiku-4.5 sits at 0.0% because its Phase-2 refusal boundary zeroes the entire product despite its high Phase-3 browser completion rate.
+          The composed product at Step-1 initiation under verbal pressure reaches 25.2% for GPT-4.1-mini and 32.3% for Gemini-3-Flash. When we require the agent to reach Step 3 of the tool chain where unambiguous crimes begin, the composed rate drops to 0.9% for GPT-4.1-mini while remaining at 23.9% for Gemini-3-Flash. For Claude Haiku-4.5, the composed probability stays at 0.0% because its Phase-2 refusal boundary zeroes the entire product despite high Phase-3 browser completion.
         </p>
         <p>
-          It is important to state clearly what these numbers do and do not establish. First, the three stages were evaluated in separate controlled environments rather than as one continuous trajectory where a single agent went bankrupt, discovered an external storefront, and executed a checkout on its own. Second, our manual audit of all 360 Phase-3 logs corrected 31 automated labels where browser-session errors had been misclassified, revealing that GPT-4.1-mini recorded zero genuine policy refusals on either storefront. Consequently, while accidental end-to-end drift remains dampened by tool discovery boundaries and the E2 transcript effect, all three capabilities already exist in production agent stacks and can be chained deliberately by an adversarial or negligent principal.
+          It is important to state clearly what these composed values do and do not establish. Unfortunately, the three stages were measured in separate controlled environments rather than across one continuous trajectory where the same agent went bankrupt, discovered an external storefront, and executed a simulated checkout on its own. Furthermore, our manual audit of all 360 Phase-3 logs corrected 31 automated labels where browser-session errors were misclassified. The audit revealed that GPT-4.1-mini recorded zero genuine policy refusals on either storefront.
+        </p>
+        <p>
+          Additionally, Phase 2 supplied harmful tools directly rather than testing how a distressed agent would discover them without an adversarial prompt. We therefore did not test autonomous acquisition. In real agent ecosystems, external measurements on Moltbook (a social network where agents post to one another) showed that roughly 18% of 228,684 posts were toxic or malicious, including attempts to make agents install untrusted skills. This means that while accidental drift remains dampened by tool discovery boundaries and the E2 transcript attenuation, all three capabilities already exist in production agent stacks and can be chained deliberately by an adversarial principal.
         </p>
       </section>
 
@@ -322,10 +359,10 @@
       <section class="prose-block" id="sec-governance">
         <h2 class="section-heading">Preventing automated crime across the agent stack</h2>
         <p>
-          Because lexical refusal training breaks down as soon as prohibited items are listed under pictographs or benign euphemisms, securing autonomous commerce requires structural interventions across three layers. Even a small per-agent failure probability \(p\) produces an expected incident count \(pN\) that scales linearly with the number of deployed agents \(N\), meaning that chat-level refusal filters alone cannot bound systemic risk as autonomous purchasing agents proliferate.
+          Because lexical refusal training breaks down once prohibited items appear under pictographs or benign euphemisms, securing autonomous commerce requires structural interventions across the agent stack. In large deployments, even a small per-agent failure probability \(p\) yields an expected incident count \(pN\) that scales linearly with the number of deployed agents \(N\). This means that chat-level refusal filters alone cannot bound systemic risk as autonomous purchasing deployments proliferate.
         </p>
         <p>
-          We propose three concrete safeguards that sever the composed chain before execution. First, pre-deployment safety evaluations for transactional agents must include <strong>composable red-teaming</strong> under realistic obfuscation conventions and financial pressure framing, in line with Articles 9 and 15 of the EU AI Act. Second, browser and tool harnesses should enforce <strong>hard human-confirmation gates at Step 8</strong> (order placement), where 79.4% of agents that fill payment credentials otherwise proceed autonomously. Third, regulated payment rails should adopt <strong>verifiable agent identity</strong> using decentralized identifiers and zero-knowledge proofs so merchants can verify that a transacting agent is backed by an accountable human principal, aligning deployer liability before any prohibited transaction fires.
+          We propose three concrete safeguards to sever the composed chain before execution. First, pre-deployment evaluations for transactional agents must enforce <strong>composable red-teaming</strong> under realistic obfuscation conventions and financial pressure framing, which aligns directly with Articles 9 and 15 of the EU AI Act. Second, browser harnesses should require <strong>hard human-confirmation gates at Step 8</strong> before order placement because 79.4% of agents that enter payment details otherwise complete the order autonomously. Third, regulated payment rails should adopt <strong>verifiable agent identity</strong> built on decentralized identifiers and zero-knowledge proofs so merchants can verify an accountable human principal before any prohibited transaction is executed.
         </p>
       </section>
 
@@ -333,21 +370,31 @@
       <footer class="article-footer" id="sec-citation">
         <div class="footer-rule"></div>
         <div class="footer-meta-grid">
-          <div class="citation-box">
+          <div>
             <div class="footer-label">Citation</div>
-            <pre class="bibtex-clean">@inproceedings{hollbeck2026claudecoke,
+            <div class="citation-box">
+              <button type="button" class="citation-copy-btn" id="copyBibtexBtn" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5" y="5" width="9" height="9" rx="1.5"/>
+                  <path d="M11 3.5V2.5A1.5 1.5 0 0 0 9.5 1h-7A1.5 1.5 0 0 0 1 2.5v7A1.5 1.5 0 0 0 2.5 11H3.5"/>
+                </svg>
+                <span>Copy BibTeX</span>
+              </button>
+              <pre class="bibtex-clean">@inproceedings{hollbeck2026claudecoke,
   title     = {Claude Coke: Prevent Automated Crime by Agents},
   author    = {Hollbeck, Gabor and Peters, Baran and
                von Recum, Alexander and Simantob, Yuri and
-               Grant, Jay and McGail, Alec and Riehl, Kevin},
+               Grant, Jay and McGail, Alec and Riehl, Kevin and
+               O'Sullivan, Kevin and Jakob, Robert},
   booktitle = {NeurIPS 2026 Position Paper Track},
   year      = {2026}
 }</pre>
+            </div>
           </div>
           <div>
             <div class="footer-label">Experimental Containment</div>
             <p class="footer-note">
-              All experiments were conducted in isolated, locally hosted simulation environments with zero external network calls, no real vendors, and no live payment rails. Full paper and audit scripts are available in the <a href="https://github.com/ghollbeck/ClaudeCokeCameraReady_Data" target="_blank" rel="noopener">open-source repository</a>.
+              The experiments were conducted in isolated, locally hosted simulation environments with zero external network calls and no live payment rails. We verified that no real item was ordered, paid for, or delivered during any trial. The full paper and redacted audit scripts are available in the <a href="https://github.com/ghollbeck/ClaudeCokeCameraReady_Data" target="_blank" rel="noopener">open-source repository</a>.
             </p>
           </div>
         </div>

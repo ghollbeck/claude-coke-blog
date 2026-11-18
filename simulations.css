@@ -6,15 +6,15 @@
 .oai-sim-card {
   background: #FFFFFF;
   border: 1px solid #E5E5E5;
-  border-radius: 6px;
-  padding: 26px 28px 24px;
+  border-radius: 10px;
+  padding: 24px 26px 22px;
   margin: 28px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
   color: #111111;
   box-sizing: border-box;
-  box-shadow: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .oai-sim-card *,
@@ -29,16 +29,16 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
-  padding-bottom: 18px;
+  padding-bottom: 16px;
 }
 
 .oai-sim-title-block {
-  max-width: 680px;
+  max-width: 100%;
 }
 
 .oai-sim-title {
   margin: 0 0 6px 0;
-  font-size: 18.5px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.25;
@@ -56,22 +56,22 @@
 .oai-sim-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   flex-shrink: 0;
 }
 
 .oai-sim-btn {
   appearance: none;
   background: #FFFFFF;
-  border: 1px solid #111111;
-  border-radius: 3px;
-  color: #111111;
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 11px;
+  border: 1px solid #141413;
+  border-radius: 6px;
+  color: #141413;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: 11.5px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 7px 12px;
+  letter-spacing: 0.02em;
+  padding: 6.5px 12px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -82,87 +82,213 @@
 }
 
 .oai-sim-btn:hover {
-  background: #111111;
+  background: #141413;
   color: #FFFFFF;
 }
 
 .oai-sim-btn.is-active {
-  background: #111111;
+  background: #141413;
   color: #FFFFFF;
 }
 
 .oai-sim-btn.is-secondary {
-  border-color: #CCCCCC;
+  border-color: #DCDCDC;
   color: #333333;
 }
 
 .oai-sim-btn.is-secondary:hover {
-  border-color: #111111;
+  border-color: #141413;
   background: #F5F5F5;
-  color: #111111;
+  color: #141413;
 }
 
-/* --- Filter / Configuration Bar --- */
+/* --- Filter / Configuration Bar (Clean Single Row) --- */
 .oai-sim-toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px 22px;
-  padding: 13px 0;
+  gap: 7px 10px;
+  padding: 10px 0;
   border-top: 1px solid #EFEFEF;
   border-bottom: 1px solid #EFEFEF;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
+}
+
+@media (min-width: 720px) {
+  .oai-sim-toolbar {
+    flex-wrap: nowrap;
+  }
 }
 
 .oai-sim-control {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
+  flex-shrink: 0;
 }
 
 .oai-sim-control label {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
-  color: #444444;
+  color: #6B7280;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.oai-sim-select.is-native-hidden {
+  display: none !important;
+}
+
+/* Custom OpenAI-Style Dropdown Component */
+.oai-custom-dropdown {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+}
+
+.oai-custom-trigger {
+  appearance: none;
+  background: #FFFFFF;
+  border: 1px solid #E2E2E5;
+  border-radius: 6px;
+  padding: 4.5px 8px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #141413;
+  cursor: pointer;
+  line-height: 1.3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  white-space: nowrap;
+  transition: border-color 0.14s ease, background-color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.oai-custom-trigger:hover {
+  border-color: #B4B4BB;
+  background: #FAFAFB;
+}
+
+.oai-custom-dropdown.is-open .oai-custom-trigger {
+  border-color: #141413;
+  box-shadow: 0 0 0 2px rgba(20, 20, 19, 0.06);
+  background: #FFFFFF;
+}
+
+.oai-custom-trigger-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.oai-sim-select {
-  appearance: none;
-  background-color: #FFFFFF;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23333333' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 9px center;
-  border: 1px solid #DCDCDC;
-  border-radius: 4px;
-  padding: 5px 26px 5px 10px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #111111;
-  font-family: inherit;
-  cursor: pointer;
-  line-height: 1.3;
-  transition: border-color 0.12s ease;
+.oai-custom-trigger-chevron {
+  width: 9px;
+  height: 6px;
+  color: #6B7280;
+  flex-shrink: 0;
+  transition: transform 0.16s ease, color 0.16s ease;
 }
 
-.oai-sim-select:hover,
-.oai-sim-select:focus {
-  border-color: #888888;
-  outline: none;
+.oai-custom-dropdown.is-open .oai-custom-trigger-chevron {
+  transform: rotate(180deg);
+  color: #141413;
+}
+
+.oai-custom-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  max-width: 280px;
+  background: #FFFFFF;
+  border: 1px solid #E4E4E7;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09), 0 2px 6px rgba(0, 0, 0, 0.04);
+  z-index: 90;
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.oai-custom-dropdown.is-open .oai-custom-menu {
+  display: flex;
+  animation: oaiMenuFadeIn 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes oaiMenuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.oai-custom-option {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 9px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 450;
+  color: #27272A;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  white-space: nowrap;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.oai-custom-option:hover {
+  background: #F4F4F5;
+  color: #141413;
+}
+
+.oai-custom-option.is-selected {
+  font-weight: 600;
+  color: #141413;
+  background: #F8F8FA;
+}
+
+.oai-custom-option-check {
+  width: 12px;
+  height: 12px;
+  color: #141413;
+  opacity: 0;
+  flex-shrink: 0;
+}
+
+.oai-custom-option.is-selected .oai-custom-option-check {
+  opacity: 1;
 }
 
 .oai-sim-status-pill {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  gap: 6px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
-  color: #444444;
+  font-weight: 500;
+  color: #3F3F46;
   background: #FAFAFA;
-  border: 1px solid #EAEAEA;
-  border-radius: 4px;
-  padding: 4px 10px;
+  border: 1px solid #E5E5E5;
+  border-radius: 6px;
+  padding: 4.5px 9px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .oai-sim-status-dot {
@@ -187,35 +313,10 @@
    ============================================================================ */
 
 .p1-stage-box {
-  border: 1px solid #EAEAEA;
-  border-radius: 4px;
-  background: #FCFCFC;
-  padding: 14px 16px 12px;
-  margin-bottom: 14px;
-}
-
-.p1-stage-toprow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.p1-stage-caption {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: #222222;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.p1-stage-sub {
-  font-size: 11px;
-  color: #666666;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  border: none;
+  background: transparent;
+  padding: 4px 0 2px;
+  margin-bottom: 10px;
 }
 
 .p1-svg-wrap {
@@ -229,93 +330,14 @@
   display: block;
 }
 
-@keyframes p1OrderGlide {
-  0% { transform: translateX(-18px) translateY(6px); opacity: 0.55; }
-  50% { transform: translateX(0px) translateY(-4px); opacity: 1; }
-  100% { transform: translateX(18px) translateY(6px); opacity: 0.75; }
+@keyframes p1PacketPulse {
+  0%, 100% { opacity: 0.88; }
+  50% { opacity: 1; }
 }
 
-@keyframes p1ShipGlide {
-  0% { transform: translateX(18px) translateY(-4px); opacity: 0.55; }
-  50% { transform: translateX(0px) translateY(3px); opacity: 1; }
-  100% { transform: translateX(-18px) translateY(-4px); opacity: 0.75; }
-}
-
-.p1-packet-order {
-  animation: p1OrderGlide 1.1s ease-in-out infinite;
-}
-
+.p1-packet-order,
 .p1-packet-ship {
-  animation: p1ShipGlide 1.1s ease-in-out infinite;
-}
-
-/* Live Agent Comms & Orchestrator Log Strip */
-.p1-comms-strip {
-  margin-top: 12px;
-  padding: 10px 14px;
-  background: #FFFFFF;
-  border: 1px solid #EAEAEA;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 12.5px;
-  line-height: 1.45;
-}
-
-.p1-comms-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-  flex: 1;
-}
-
-.p1-comms-badge {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: #F4F4F5;
-  color: #3F3F46;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.p1-comms-badge.is-orch {
-  background: #EEF2FF;
-  color: #4338CA;
-}
-
-.p1-comms-badge.is-comm {
-  background: #ECFDF5;
-  color: #047857;
-}
-
-.p1-comms-badge.is-alert {
-  background: #FEF2F2;
-  color: #B91C1C;
-}
-
-.p1-comms-text {
-  color: #3F3F46;
-}
-
-.p1-comms-metrics {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-shrink: 0;
-  color: #71717A;
-  font-size: 12px;
-}
-
-.p1-comms-metrics strong {
-  color: #111111;
-  font-weight: 600;
+  animation: p1PacketPulse 1.4s ease-in-out infinite;
 }
 
 /* Bottom Chart Section (OpenAI style) */
@@ -433,6 +455,15 @@
   text-align: right;
 }
 
+.oai-sim-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 12px;
+  margin-top: 10px;
+  border-top: 1px solid #EFEFEF;
+}
+
 /* ============================================================================
    MODULE 2: PHASE 3 TOR BROWSER FOR AGENTS & 8-STEP CHECKOUT SIMULATION
    Clean OpenAI / macOS Light Styling · Inter Typography · Real Storefront Assets
@@ -458,154 +489,12 @@
   padding: 7px 13px;
 }
 
-/* 8-Step Commitment Depth Progress Line (Minimalist, No Cards) */
-.p3-funnel-strip {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  align-items: start;
-  gap: 4px;
-  margin: 4px 0 18px;
-  padding: 0 4px;
-}
-
-.p3-progress-track {
-  position: absolute;
-  top: 10px;
-  left: 6.25%;
-  right: 6.25%;
-  height: 2px;
-  background: #E5E7EB;
-  border-radius: 1px;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.p3-progress-fill {
-  height: 100%;
-  width: 0%;
-  background: #4F46E5;
-  transition: width 0.25s ease, background-color 0.2s ease;
-}
-
-.p3-progress-fill.is-completed {
-  background: #10B981;
-}
-
-.p3-progress-fill.is-refused {
-  background: #EF4444;
-}
-
-.p3-progress-fill.is-failed {
-  background: #6B7280;
-}
-
-.p3-step-pill {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  text-align: center;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-
-.p3-step-dot {
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  border: 1.5px solid #D1D5DB;
-  color: #6B7280;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-variant-numeric: tabular-nums;
-  font-size: 10.5px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.18s ease;
-}
-
-.p3-step-name {
-  display: block;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: #6B7280;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  transition: color 0.18s ease;
-}
-
-.p3-step-pill.is-reached .p3-step-dot {
-  background: #10B981;
-  border-color: #10B981;
-  color: #FFFFFF;
-}
-
-.p3-step-pill.is-reached .p3-step-name {
-  color: #141413;
-  font-weight: 600;
-}
-
-.p3-step-pill.is-current .p3-step-dot {
-  background: #4F46E5;
-  border-color: #4F46E5;
-  color: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-}
-
-.p3-step-pill.is-current .p3-step-name {
-  color: #141413;
-  font-weight: 600;
-}
-
-.p3-step-pill.is-refused .p3-step-dot {
-  background: #EF4444;
-  border-color: #EF4444;
-  color: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-}
-
-.p3-step-pill.is-refused .p3-step-name {
-  color: #991B1B;
-  font-weight: 600;
-}
-
-.p3-step-pill.is-failed .p3-step-dot {
-  background: #6B7280;
-  border-color: #6B7280;
-  color: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.15);
-}
-
-.p3-step-pill.is-failed .p3-step-name {
-  color: #374151;
-  font-weight: 600;
-}
-
 /* Main Vertical Stack: Full-Width Tor Browser (Top) + Auto-Scrolling MCP Trace (Bottom) */
 .p3-workspace-grid {
   display: flex;
   flex-direction: column;
   gap: 14px;
   width: 100%;
-}
-
-@media (max-width: 720px) {
-  .p3-funnel-strip {
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 10px;
-  }
-  .p3-progress-track {
-    display: none;
-  }
 }
 
 /* Light macOS / OpenAI Browser Window */
@@ -625,11 +514,11 @@
 .tor-chrome-top {
   background: #F7F7F8;
   color: #141413;
-  padding: 9px 14px;
+  padding: 8px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 11px;
   border-bottom: 1px solid #E5E5E5;
 }
 
@@ -658,58 +547,6 @@
 .tor-dot.is-red { background: #FF5F56; }
 .tor-dot.is-amber { background: #FFBD2E; }
 .tor-dot.is-green { background: #27C93F; }
-
-.tor-brand-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: #141413;
-  white-space: nowrap;
-}
-
-.tor-onion-icon {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-  display: block;
-  flex-shrink: 0;
-}
-
-.tor-circuit-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: #5C5B57;
-  background: #FFFFFF;
-  border: 1px solid #E5E5E5;
-  padding: 3px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.tor-circuit-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10B981;
-  display: inline-block;
-}
-
-.tor-url-bar-row {
-  background: #FAFAFA;
-  padding: 7px 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #EBEBEB;
-}
 
 .tor-nav-arrows {
   display: inline-flex;
@@ -762,7 +599,7 @@
   font-weight: 500;
   padding: 4px 10px;
   border-radius: 999px;
-  background: #F4F4F5;
+  background: #FFFFFF;
   border: 1px solid #E4E4E7;
   color: #52525B;
   white-space: nowrap;
@@ -780,7 +617,7 @@
   flex: 1;
   background: #FFFFFF;
   position: relative;
-  padding: 15px 20px 14px;
+  padding: 18px 28px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -794,74 +631,59 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 10px;
+  gap: 14px;
+  padding-bottom: 12px;
   border-bottom: 1px solid #EFEFEF;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .tor-store-brand {
   font-size: 13.5px;
   font-weight: 600;
+  line-height: 1;
   color: #141413;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tor-store-logo {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   object-fit: contain;
-  display: block;
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(-1.5px);
+  flex-shrink: 0;
 }
 
 .tor-store-tag {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 11px;
   font-weight: 500;
+  line-height: 1.2;
   color: #5C5B57;
   background: #F4F4F5;
   border: 1px solid #E5E5E5;
-  padding: 2px 8px;
+  padding: 3px 9px;
   border-radius: 999px;
   white-space: nowrap;
 }
 
-.tor-store-cart {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 11.5px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  color: #27272A;
-  background: #FFFFFF;
-  border: 1px solid #E5E5E5;
-  padding: 4px 11px;
-  border-radius: 999px;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: all 0.15s ease;
-}
-
-.tor-store-cart.has-item {
-  background: #EEF2FF;
-  border-color: #818CF8;
-  color: #312E81;
-}
-
-/* Search Bar inside Storefront */
+/* Search Bar inside Storefront (Single-Line Full Pill) */
 .tor-search-bar {
+  flex: 1;
+  min-width: 180px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
   background: #FFFFFF;
   border: 1px solid #E5E5E5;
-  border-radius: 8px;
-  padding: 5px 5px 5px 12px;
+  border-radius: 999px;
+  padding: 4px 5px 4px 14px;
   font-size: 12.5px;
   color: #141413;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -901,8 +723,8 @@
   font-weight: 600;
   color: #FFFFFF;
   background: #141413;
-  padding: 5px 13px;
-  border-radius: 6px;
+  padding: 5px 15px;
+  border-radius: 999px;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -1360,95 +1182,57 @@
   border-color: #D1D5DB;
 }
 
-/* Status Banner Overlays (Progress / Completed / Refused / Failed) */
-.tor-outcome-banner {
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-variant-numeric: tabular-nums;
-  font-size: 11.5px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.tor-outcome-banner.is-progress {
-  background: #F7F7F8;
-  border: 1px solid #E5E5E5;
-  color: #3F3F46;
-}
-
-.tor-outcome-banner.is-completed {
-  background: #ECFDF5;
-  border: 1px solid #A7F3D0;
-  color: #065F46;
-  font-weight: 600;
-}
-
-.tor-outcome-banner.is-refused {
-  background: #FEF2F2;
-  border: 1px solid #FCA5A5;
-  color: #991B1B;
-  font-weight: 600;
-}
-
-.tor-outcome-banner.is-failed {
-  background: #F4F4F5;
-  border: 1px solid #D4D4D8;
-  color: #3F3F46;
-  font-weight: 600;
-}
-
 /* Autonomous Agent Floating Cursor inside Tor Browser */
 .tor-agent-cursor {
   position: absolute;
   top: 74px;
   left: 32%;
-  width: 16px;
-  height: 16px;
+  width: 29px;
+  height: 29px;
   z-index: 30;
   pointer-events: none;
-  transition: top 0.38s cubic-bezier(0.22, 1, 0.36, 1), left 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  transition: top 0.65s cubic-bezier(0.22, 1, 0.36, 1), left 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
 }
 
 .tor-cursor-arrow {
-  width: 16px;
-  height: 16px;
+  width: 29px;
+  height: 29px;
   display: block;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.88)) drop-shadow(0 0 18px rgba(59, 130, 246, 0.68)) drop-shadow(0 2px 4px rgba(15, 23, 42, 0.3));
 }
 
 .tor-cursor-tag {
   position: absolute;
-  top: 12px;
-  left: 15px;
+  top: 19px;
+  left: 22px;
   background: #141413;
   color: #FFFFFF;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 10.5px;
-  font-weight: 600;
-  padding: 2px 8px;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 1.5px 7px;
   border-radius: 999px;
+  border: 1px solid rgba(96, 165, 250, 0.82);
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.72), 0 0 24px rgba(59, 130, 246, 0.44), 0 2px 6px rgba(15, 23, 42, 0.26);
 }
 
 .tor-agent-cursor.is-tag-left .tor-cursor-tag {
   left: auto;
-  right: 16px;
-  top: 6px;
+  right: 24px;
+  top: 8px;
 }
 
 .tor-cursor-ring {
   position: absolute;
-  top: -6px;
-  left: -6px;
-  width: 24px;
-  height: 24px;
+  top: -4px;
+  left: -4px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  border: 2px solid #4F46E5;
+  border: 2px solid rgba(59, 130, 246, 0.85);
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.62);
   opacity: 0;
   transform: scale(0.4);
 }
@@ -1622,3 +1406,200 @@
   color: #141413;
   font-weight: 600;
 }
+
+/* ============================================================================
+   DARK MODE ADAPTATION ([data-theme="dark"] — openwhisper.io dark greyscale)
+   ============================================================================ */
+
+html[data-theme="dark"] .oai-sim-card {
+  background: hsl(0 0% 15.5%);
+  border-color: hsl(0 0% 24%);
+  color: hsl(0 0% 94%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="dark"] .oai-sim-title,
+html[data-theme="dark"] .p1-chart-title,
+html[data-theme="dark"] .oai-scrubber-readout,
+html[data-theme="dark"] .p3-tel-title,
+html[data-theme="dark"] .p3-tel-header-right,
+html[data-theme="dark"] .p3-emp-counts span strong {
+  color: hsl(0 0% 95%);
+}
+
+html[data-theme="dark"] .oai-sim-subtitle,
+html[data-theme="dark"] .oai-sim-control label,
+html[data-theme="dark"] .p1-chart-legend,
+html[data-theme="dark"] .oai-scrubber-label,
+html[data-theme="dark"] .p3-tel-sub,
+html[data-theme="dark"] .p3-emp-counts {
+  color: hsl(0 0% 68%);
+}
+
+html[data-theme="dark"] .oai-sim-toolbar,
+html[data-theme="dark"] .oai-sim-footer-actions,
+html[data-theme="dark"] .p1-chart-section,
+html[data-theme="dark"] .p3-tel-header {
+  border-color: hsl(0 0% 23%);
+}
+
+html[data-theme="dark"] .oai-sim-btn {
+  background: hsl(0 0% 19%);
+  border-color: hsl(0 0% 34%);
+  color: hsl(0 0% 92%);
+}
+
+html[data-theme="dark"] .oai-sim-btn:hover,
+html[data-theme="dark"] .oai-sim-btn.is-active {
+  background: hsl(0 0% 93%);
+  border-color: hsl(0 0% 93%);
+  color: hsl(0 0% 12%);
+}
+
+html[data-theme="dark"] .oai-custom-trigger {
+  background: hsl(0 0% 18.5%);
+  border-color: hsl(0 0% 27%);
+  color: hsl(0 0% 94%);
+}
+
+html[data-theme="dark"] .oai-custom-trigger:hover {
+  border-color: hsl(0 0% 40%);
+  background: hsl(0 0% 20.5%);
+}
+
+html[data-theme="dark"] .oai-custom-dropdown.is-open .oai-custom-trigger {
+  border-color: hsl(0 0% 72%);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .oai-custom-menu {
+  background: hsl(0 0% 18%);
+  border-color: hsl(0 0% 28%);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="dark"] .oai-custom-option {
+  color: hsl(0 0% 86%);
+}
+
+html[data-theme="dark"] .oai-custom-option:hover {
+  background: hsl(0 0% 24%);
+  color: hsl(0 0% 98%);
+}
+
+html[data-theme="dark"] .oai-custom-option.is-selected {
+  background: hsl(0 0% 22%);
+  color: hsl(0 0% 98%);
+}
+
+html[data-theme="dark"] .oai-custom-option-check {
+  color: hsl(0 0% 96%);
+}
+
+html[data-theme="dark"] .oai-sim-status-pill {
+  background: hsl(0 0% 18.5%);
+  border-color: hsl(0 0% 26%);
+  color: hsl(0 0% 86%);
+}
+
+html[data-theme="dark"] .oai-scrubber-slider {
+  background: hsl(0 0% 26%);
+}
+
+html[data-theme="dark"] .oai-scrubber-slider::-webkit-slider-thumb {
+  background: hsl(0 0% 94%);
+  border-color: hsl(0 0% 16%);
+  box-shadow: 0 0 0 1px hsl(0 0% 94%);
+}
+
+/* Phase 3 Dark Mode */
+html[data-theme="dark"] .tor-browser-window {
+  background: hsl(0 0% 16%);
+  border-color: hsl(0 0% 25%);
+}
+
+html[data-theme="dark"] .tor-chrome-top {
+  background: hsl(0 0% 13.5%);
+  border-color: hsl(0 0% 23%);
+  color: hsl(0 0% 92%);
+}
+
+html[data-theme="dark"] .tor-brand-badge,
+html[data-theme="dark"] .tor-store-brand,
+html[data-theme="dark"] .tor-item-title,
+html[data-theme="dark"] .tor-item-price,
+html[data-theme="dark"] .tor-detail-name,
+html[data-theme="dark"] .tor-detail-price-big,
+html[data-theme="dark"] .tor-field-val,
+html[data-theme="dark"] .tor-search-query,
+html[data-theme="dark"] .tor-stage-meta-row strong {
+  color: hsl(0 0% 94%);
+}
+
+html[data-theme="dark"] .tor-circuit-pill,
+html[data-theme="dark"] .tor-url-input,
+html[data-theme="dark"] .tor-store-tag,
+html[data-theme="dark"] .tor-store-cart,
+html[data-theme="dark"] .tor-search-bar {
+  background: hsl(0 0% 19%);
+  border-color: hsl(0 0% 27%);
+  color: hsl(0 0% 84%);
+}
+
+html[data-theme="dark"] .tor-url-bar-row {
+  background: hsl(0 0% 15%);
+  border-color: hsl(0 0% 23%);
+}
+
+html[data-theme="dark"] .tor-viewport {
+  background: hsl(0 0% 16.5%);
+}
+
+html[data-theme="dark"] .tor-store-navbar {
+  border-color: hsl(0 0% 23%);
+}
+
+html[data-theme="dark"] .tor-item-card,
+html[data-theme="dark"] .tor-product-detail-card,
+html[data-theme="dark"] .tor-detail-panel {
+  background: hsl(0 0% 19%);
+  border-color: hsl(0 0% 26%);
+}
+
+html[data-theme="dark"] .tor-item-card.is-selected {
+  background: rgba(79, 70, 229, 0.14);
+  border-color: #6366F1;
+}
+
+html[data-theme="dark"] .tor-detail-panel.is-done-card {
+  background: rgba(6, 95, 70, 0.16);
+  border-color: rgba(52, 211, 153, 0.45);
+}
+
+html[data-theme="dark"] .tor-detail-panel.is-refused-card {
+  background: rgba(153, 27, 27, 0.16);
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+html[data-theme="dark"] .tor-form-field {
+  background: hsl(0 0% 16%) !important;
+  border-color: hsl(0 0% 26%) !important;
+}
+
+html[data-theme="dark"] .p3-telemetry-panel {
+  background: hsl(0 0% 14.5%);
+  border-color: hsl(0 0% 24%);
+}
+
+html[data-theme="dark"] .p3-mcp-log,
+html[data-theme="dark"] .p3-empirical-box,
+html[data-theme="dark"] .p3-emp-ver {
+  background: hsl(0 0% 18%);
+  border-color: hsl(0 0% 26%);
+  color: hsl(0 0% 86%);
+}
+
+html[data-theme="dark"] .p3-log-entry {
+  border-color: hsl(0 0% 23%);
+}
+
