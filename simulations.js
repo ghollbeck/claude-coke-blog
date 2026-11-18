@@ -1577,8 +1577,16 @@
       // Position cursor cleanly on the rendered target element
       positionCursor(effectiveStep, cell);
       els.cursor.classList.remove("is-clicking");
-      void els.cursor.offsetWidth;
-      els.cursor.classList.add("is-clicking");
+      if (state.clickTimer) {
+        clearTimeout(state.clickTimer);
+        state.clickTimer = null;
+      }
+      state.clickTimer = setTimeout(() => {
+        if (!els.cursor) return;
+        els.cursor.classList.remove("is-clicking");
+        void els.cursor.offsetWidth;
+        els.cursor.classList.add("is-clicking");
+      }, 1220);
       if (typeof requestAnimationFrame === "function") {
         requestAnimationFrame(() => positionCursor(effectiveStep, cell));
       }
@@ -1668,7 +1676,7 @@
           state.playing = false;
           updatePhase3Timer();
         }
-      }, 1550);
+      }, 3000);
     }
 
     function restartPhase3Run() {

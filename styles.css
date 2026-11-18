@@ -4,7 +4,7 @@
    ========================================================================== */
 
 :root {
-  --bg-page: #FCFCFA;
+  --bg-page: #FAF9F5;
   --bg-surface: #FFFFFF;
   --bg-pill: #F3F2EE;
   --bg-pill-hover: #E9E8E2;
@@ -267,14 +267,25 @@ body {
 
 .coke-word-wrap {
   position: relative;
-  display: inline-flex;
-  align-items: baseline;
+  display: inline-block;
+  line-height: 1;
+  padding-right: 0.56em;
   white-space: nowrap;
+}
+
+.coke-wordmark-svg {
+  display: inline-block;
+  height: 1.18em;
+  width: auto;
+  vertical-align: -0.18em;
+  overflow: visible;
+  pointer-events: none;
 }
 
 .coke-char {
   position: relative;
   display: inline-block;
+  line-height: 1;
 }
 
 .coke-snow-cap {
@@ -286,25 +297,25 @@ body {
 }
 
 .coke-snow-c {
-  width: 0.58em !important;
-  height: 0.26em !important;
-  top: 0.02em !important;
-  left: 0.06em !important;
+  width: 0.58em;
+  height: 0.26em;
+  top: 0.02em;
+  left: 0.06em;
 }
 
 .coke-snow-e {
-  width: 0.46em !important;
-  height: 0.21em !important;
-  top: 0.225em !important;
-  left: 0.05em !important;
+  width: 0.46em;
+  height: 0.21em;
+  top: 0.225em;
+  left: 0.05em;
 }
 
 .coke-snow-pile-base {
-  display: inline-block;
-  width: 0.62em !important;
-  height: 0.31em !important;
-  right: 0.005em !important;
-  bottom: 0.11em !important;
+  position: absolute;
+  width: 0.62em;
+  height: 0.31em;
+  right: 0.005em;
+  bottom: 0.11em;
   overflow: visible;
   pointer-events: none;
   filter: drop-shadow(0 1px 2px rgba(20, 20, 19, 0.16));

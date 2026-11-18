@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 296 112" width="296" height="112" role="img" aria-label="Coke">
+  <defs>
+    <filter id="cw-shadow" x="-18%" y="-25%" width="140%" height="155%">
+      <feDropShadow dx="0" dy="1.1" stdDeviation="1.5" flood-color="#0F172A" flood-opacity="0.27"/>
+    </filter>
+    <filter id="cw-spark-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.4" flood-color="#60A5FA" flood-opacity="0.85"/>
+    </filter>
+    <linearGradient id="cw-snow-grad" x1="25%" y1="0%" x2="75%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="76%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E6EEF8"/>
+    </linearGradient>
+    <linearGradient id="cw-pile-grad" x1="20%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="72%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E4EDF7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Wordmark text matching hero typography -->
+  <text x="2" y="90" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="100" letter-spacing="-0.03em" fill="currentColor">Coke</text>
+
+  <!-- Sculpted wet-snow cap draping over capital C -->
+  <g filter="url(#cw-shadow)">
+    <path d="M 14 23.5 C 15.5 17.5, 23 14, 29.5 12.8 C 34 8.2, 43.5 7.8, 48.5 12.2 C 56 12.6, 64 15.2, 67.5 19.8 C 68.5 21.2, 66.8 23.0, 64.2 22.4 C 60.5 21.6, 56.8 22.0, 54.6 24.4 C 53.0 26.2, 52.8 29.5, 50.0 29.5 C 47.4 29.5, 47.5 25.0, 44.5 23.4 C 40.5 21.4, 34.0 21.8, 29.2 23.2 C 26.6 24.0, 25.4 26.0, 23.5 25.8 C 21.5 25.6, 21.0 23.2, 18.2 23.8 C 16.0 24.2, 13.6 24.8, 14 23.5 Z" fill="url(#cw-snow-grad)" stroke="#CBD5E1" stroke-width="0.75" stroke-linejoin="round"/>
+    <path d="M 19 21.5 C 24 19.6, 33 19.2, 43 20.0 C 48 20.4, 51 23.8, 50.2 27.6 C 48.8 25.2, 46.8 22.4, 41.5 21.6 C 34 20.6, 25 21.4, 19 21.5 Z" fill="#D4E2F1" opacity="0.52"/>
+    <path d="M 28.5 14.5 C 33.5 10.6, 41.5 10.2, 46.2 13.2 C 42.0 12.2, 35.0 12.6, 28.5 14.5 Z" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Sculpted wet-snow cap draping over lowercase e (clear of k arm) -->
+  <g filter="url(#cw-shadow)">
+    <path d="M 190.2 40.2 C 191.5 35.5, 196.5 32.8, 201.5 31.8 C 205.5 27.4, 214.2 27.2, 218.5 31.5 C 224.2 32.2, 229.8 35.2, 231.5 39.2 C 232.0 40.4, 230.2 41.8, 228.4 41.0 C 226.4 40.2, 224.8 41.8, 223.8 44.6 C 222.8 47.0, 220.0 47.0, 219.4 44.2 C 218.8 41.4, 215.8 39.6, 210.8 39.4 C 205.2 39.2, 201.4 40.2, 199.2 41.6 C 197.6 42.6, 195.8 42.4, 195.0 41.0 C 194.2 39.7, 192.0 40.9, 190.2 40.2 Z" fill="url(#cw-snow-grad)" stroke="#CBD5E1" stroke-width="0.75" stroke-linejoin="round"/>
+    <path d="M 194.5 38.6 C 199.8 37.0, 209.5 36.8, 217.5 38.2 C 220.8 38.8, 222.2 42.0, 221.4 45.2 C 220.4 42.8, 218.8 39.8, 213.5 38.8 C 206.8 37.6, 199.2 38.4, 194.5 38.6 Z" fill="#D4E2F1" opacity="0.52"/>
+    <path d="M 201.0 33.2 C 205.4 29.6, 212.5 29.4, 216.5 32.4 C 212.5 31.2, 206.0 31.5, 201.0 33.2 Z" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Sculpted pure-white pooled powder mound on baseline next to e -->
+  <g filter="url(#cw-shadow)">
+    <path d="M 233.5 90.4 C 237.5 89.2, 241.5 85.0, 246.2 78.2 C 250.2 72.4, 253.8 64.8, 257.6 64.5 C 261.2 64.2, 265.2 71.8, 270.4 76.5 C 273.5 74.2, 276.8 74.2, 280.2 78.8 C 283.6 83.4, 287.2 88.8, 291.5 90.2 C 287.0 91.2, 275.0 91.3, 261.5 91.2 C 248.5 91.1, 237.5 91.2, 233.5 90.4 Z" fill="url(#cw-pile-grad)" stroke="#CBD5E1" stroke-width="0.75" stroke-linejoin="round"/>
+    <path d="M 257.8 65.2 C 259.6 71.0, 262.8 80.5, 268.2 89.8 C 276.0 90.0, 284.5 90.2, 289.2 89.8 C 285.6 87.8, 282.4 83.0, 279.6 79.4 C 276.6 75.6, 273.8 75.6, 270.6 77.6 C 265.4 73.2, 261.2 66.2, 257.8 65.2 Z" fill="#DCE7F5" opacity="0.58"/>
+    <path d="M 244.8 83.5 C 248.8 77.5, 253.2 68.5, 256.8 66.5 C 255.2 71.5, 252.0 78.8, 248.2 84.8 C 246.8 85.4, 245.5 84.8, 244.8 83.5 Z" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Crisp 4-point crystalline star sparkles (zero circles) -->
+  <g filter="url(#cw-spark-glow)">
+    <path d="M 252.5 54.0 Q 253.3 60.4 259.7 61.2 Q 253.3 62.0 252.5 68.4 Q 251.7 62.0 245.3 61.2 Q 251.7 60.4 252.5 54.0 Z" fill="#FFFFFF" stroke="#94A3B8" stroke-width="0.45" stroke-linejoin="round"/>
+    <path d="M 43.0 3.0 Q 43.6 7.3 47.9 7.9 Q 43.6 8.5 43.0 12.8 Q 42.4 8.5 38.1 7.9 Q 42.4 7.3 43.0 3.0 Z" fill="#FFFFFF" stroke="#94A3B8" stroke-width="0.4" stroke-linejoin="round"/>
+  </g>
+</svg>
