@@ -29,7 +29,7 @@ Because browser capability friction erodes as models improve, safety cannot rely
 
 ### *About the ETH Zurich Agentic Systems Lab*
 
-The Agentic Systems Lab at ETH Zurich, founded under the Chair of Information Management by Dr. Robert Jakob and Dr. Kevin O'Sullivan, develops and evaluates applied agentic and multimodal AI systems that reason, plan, and act reliably in real-world workflows across science, healthcare, and industry. The NeurIPS 2026 position paper *Claude Coke: Prevent Automated Crime by Agents* was conducted in collaboration with researchers from Stanford University and Harvard University, with all browser-checkout trials executed exclusively in isolated synthetic sandboxes.
+The Agentic Systems Lab at ETH Zurich, part of the Chair of Information Management in the Department of Management, Technology, and Economics (D-MTEC) and founded by Dr. Robert Jakob, develops and evaluates applied agentic and multimodal AI systems that reason, plan, and act reliably in real-world workflows across science, healthcare, and industry. The NeurIPS 2026 position paper *Claude Coke: Prevent Automated Crime by Agents* was conducted in collaboration with researchers from Stanford University and Harvard University, with all browser-checkout trials executed exclusively in isolated synthetic sandboxes.
 
 ### *Press Contact*
 
