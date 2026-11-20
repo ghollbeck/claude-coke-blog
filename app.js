@@ -715,16 +715,6 @@ document.addEventListener('DOMContentLoaded', () => {
               ]
             },
             {
-              label: 'Gemini-3.1-Pro',
-              provider: 'gemini',
-              bars: [
-                { condition: 'a', sublabel: '(a)', title: 'Gemini-3.1-Pro · (a) Emoji, Vision Off (n=15)', segments: [53.3333, 0.0, 46.6667] },
-                { condition: 'b', sublabel: '(b)', title: 'Gemini-3.1-Pro · (b) Emoji, Vision On (n=15)', segments: [80.0, 13.3333, 6.6667] },
-                { condition: 'c', sublabel: '(c)', title: 'Gemini-3.1-Pro · (c) Explicit, Vision Off (n=15)', segments: [6.6667, 46.6667, 46.6667] },
-                { condition: 'd', sublabel: '(d)', title: 'Gemini-3.1-Pro · (d) Explicit, Vision On (n=15)', segments: [53.3333, 40.0, 6.6667] }
-              ]
-            },
-            {
               label: 'Haiku-4.5',
               provider: 'anthropic',
               bars: [
@@ -745,16 +735,6 @@ document.addEventListener('DOMContentLoaded', () => {
               ]
             },
             {
-              label: 'Gemini-3-Flash',
-              provider: 'gemini',
-              bars: [
-                { condition: 'a', sublabel: '(a)', title: 'Gemini-3-Flash · (a) Emoji, Vision Off (n=15)', segments: [26.6667, 0.0, 73.3333] },
-                { condition: 'b', sublabel: '(b)', title: 'Gemini-3-Flash · (b) Emoji, Vision On (n=15)', segments: [86.6667, 0.0, 13.3333] },
-                { condition: 'c', sublabel: '(c)', title: 'Gemini-3-Flash · (c) Explicit, Vision Off (n=15)', segments: [33.3333, 6.6667, 60.0] },
-                { condition: 'd', sublabel: '(d)', title: 'Gemini-3-Flash · (d) Explicit, Vision On (n=15)', segments: [73.3333, 26.6667, 0.0] }
-              ]
-            },
-            {
               label: 'GPT-4.1-mini',
               provider: 'openai',
               bars: [
@@ -762,6 +742,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 { condition: 'b', sublabel: '(b)', title: 'GPT-4.1-mini · (b) Emoji, Vision On (n=15)', segments: [33.3333, 0.0, 66.6667] },
                 { condition: 'c', sublabel: '(c)', title: 'GPT-4.1-mini · (c) Explicit, Vision Off (n=15)', segments: [60.0, 0.0, 40.0] },
                 { condition: 'd', sublabel: '(d)', title: 'GPT-4.1-mini · (d) Explicit, Vision On (n=15)', segments: [73.3333, 0.0, 26.6667] }
+              ]
+            },
+            {
+              label: 'Gemini-3.1-Pro',
+              provider: 'gemini',
+              bars: [
+                { condition: 'a', sublabel: '(a)', title: 'Gemini-3.1-Pro · (a) Emoji, Vision Off (n=15)', segments: [53.3333, 0.0, 46.6667] },
+                { condition: 'b', sublabel: '(b)', title: 'Gemini-3.1-Pro · (b) Emoji, Vision On (n=15)', segments: [80.0, 13.3333, 6.6667] },
+                { condition: 'c', sublabel: '(c)', title: 'Gemini-3.1-Pro · (c) Explicit, Vision Off (n=15)', segments: [6.6667, 46.6667, 46.6667] },
+                { condition: 'd', sublabel: '(d)', title: 'Gemini-3.1-Pro · (d) Explicit, Vision On (n=15)', segments: [53.3333, 40.0, 6.6667] }
+              ]
+            },
+            {
+              label: 'Gemini-3-Flash',
+              provider: 'gemini',
+              bars: [
+                { condition: 'a', sublabel: '(a)', title: 'Gemini-3-Flash · (a) Emoji, Vision Off (n=15)', segments: [26.6667, 0.0, 73.3333] },
+                { condition: 'b', sublabel: '(b)', title: 'Gemini-3-Flash · (b) Emoji, Vision On (n=15)', segments: [86.6667, 0.0, 13.3333] },
+                { condition: 'c', sublabel: '(c)', title: 'Gemini-3-Flash · (c) Explicit, Vision Off (n=15)', segments: [33.3333, 6.6667, 60.0] },
+                { condition: 'd', sublabel: '(d)', title: 'Gemini-3-Flash · (d) Explicit, Vision On (n=15)', segments: [73.3333, 26.6667, 0.0] }
               ]
             }
           ],
